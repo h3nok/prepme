@@ -1,64 +1,94 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowRight, Brain, Target, Zap, Building2, Users, Globe } from 'lucide-react';
+import { ArrowRight, Brain, Target, Zap, Building2, Users, Globe, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import Card from '../components/Card';
-import Math from '../components/Math';
+// Glassmorphic Container Base
+const GlassContainer = styled(motion.div)`
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+`;
 
-const Hero = styled(motion.section)`
+// Hero Section with Glassmorphic Design
+const Hero = styled(GlassContainer)`
   text-align: center;
-  padding: ${props => props.theme.spacing.xxl} 0;
-  background: linear-gradient(135deg, ${props => props.theme.colors.background} 0%, ${props => props.theme.colors.surface} 100%);
-  border-radius: ${props => props.theme.radii.xl};
-  margin-bottom: ${props => props.theme.spacing.xl};
-  border: 1px solid ${props => props.theme.colors.border};
+  padding: 4rem 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) rotate(180deg); }
+  }
 `;
 
-const HeroTitle = styled.h1`
-  font-size: 3rem;
+const HeroContent = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const HeroTitle = styled(motion.h1)`
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  color: ${props => props.theme.colors.text};
-  margin-bottom: ${props => props.theme.spacing.md};
-  
-  span {
-    color: ${props => props.theme.colors.primary};
-  }
-
-  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    font-size: 2rem;
-  }
+  background: linear-gradient(135deg, #f8fafc 0%, #ff6b35 50%, #f8fafc 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
 `;
 
-const HeroSubtitle = styled.p`
+const HeroSubtitle = styled(motion.p)`
   font-size: 1.25rem;
-  color: ${props => props.theme.colors.textSecondary};
-  margin-bottom: ${props => props.theme.spacing.xl};
-  max-width: 600px;
+  color: rgba(248, 250, 252, 0.8);
+  margin-bottom: 2rem;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
 `;
 
-const CTAButton = styled(Link)`
+const CTAButton = styled(motion(Link))`
   display: inline-flex;
   align-items: center;
-  gap: ${props => props.theme.spacing.sm};
-  padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.xl};
-  background: ${props => props.theme.colors.primary};
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
   color: white;
-  border-radius: ${props => props.theme.radii.md};
+  border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
+  box-shadow: 
+    0 8px 32px rgba(255, 107, 53, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  box-shadow: ${props => props.theme.shadows.md};
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
   &:hover {
-    background: ${props => props.theme.colors.accent};
-    transform: translateY(-2px);
-    box-shadow: ${props => props.theme.shadows.lg};
+    transform: translateY(-4px);
+    box-shadow: 
+      0 12px 40px rgba(255, 107, 53, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.3);
     color: white;
   }
 
@@ -71,107 +101,237 @@ const CTAButton = styled(Link)`
   }
 `;
 
+// Stats Grid with Glassmorphic Cards
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
-  margin: ${props => props.theme.spacing.xl} 0;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
 `;
 
-const StatCard = styled(motion.div)`
+const StatCard = styled(GlassContainer)`
   text-align: center;
-  padding: ${props => props.theme.spacing.lg};
-  background: ${props => props.theme.colors.surface};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.radii.lg};
-  transition: all 0.3s ease;
+  padding: 2rem 1.5rem;
+  transition: all 0.4s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: ${props => props.theme.shadows.lg};
-    border-color: ${props => props.theme.colors.primary};
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 `;
 
 const StatIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: ${props => props.theme.colors.primary}20;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 107, 53, 0.1) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto ${props => props.theme.spacing.md};
+  margin: 0 auto 1rem;
+  border: 1px solid rgba(255, 107, 53, 0.3);
 
   svg {
-    width: 28px;
-    height: 28px;
-    color: ${props => props.theme.colors.primary};
+    width: 32px;
+    height: 32px;
+    color: #ff6b35;
   }
 `;
 
 const StatNumber = styled.h3`
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: ${props => props.theme.colors.primary};
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin: 0;
 `;
 
 const StatLabel = styled.p`
-  color: ${props => props.theme.colors.textSecondary};
+  color: rgba(248, 250, 252, 0.7);
   margin: 0;
   font-weight: 500;
+  font-size: 1rem;
 `;
 
-const FeaturesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
-  margin: ${props => props.theme.spacing.xl} 0;
-`;
-
-const FeatureCard = styled(Card)`
+// Companies Section
+const CompaniesSection = styled.section`
+  margin: 4rem 0;
   text-align: center;
-  
-  h4 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: ${props => props.theme.spacing.sm};
-    margin-bottom: ${props => props.theme.spacing.md};
+`;
+
+const SectionTitle = styled(motion.h2)`
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f8fafc 0%, #ff6b35 50%, #f8fafc 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+`;
+
+const SectionSubtitle = styled(motion.p)`
+  color: rgba(248, 250, 252, 0.7);
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+`;
+
+const CompaniesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+`;
+
+const CompanyCard = styled(GlassContainer)<{ accentColor?: string }>`
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, ${props => props.accentColor || '#ff6b35'} 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
     
-    svg {
-      color: ${props => props.theme.colors.primary};
+    &::before {
+      opacity: 1;
     }
   }
 `;
 
-const QuickStart = styled.section`
-  margin: ${props => props.theme.spacing.xl} 0;
+const CompanyLogo = styled.div<{ accentColor?: string }>`
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, ${props => props.accentColor || '#ff6b35'}20 0%, ${props => props.accentColor || '#ff6b35'}10 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: ${props => props.accentColor || '#ff6b35'};
+  border: 2px solid ${props => props.accentColor || '#ff6b35'}40;
+  box-shadow: 0 8px 32px ${props => props.accentColor || '#ff6b35'}20;
 `;
 
-const SectionTitle = styled.h2`
-  color: ${props => props.theme.colors.text};
-  margin-bottom: ${props => props.theme.spacing.lg};
-  text-align: center;
-  font-size: 2rem;
+const CompanyName = styled.h3`
+  font-size: 1.5rem;
   font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 1rem;
 `;
 
-const TopicsGrid = styled.div`
+const CompanyFocus = styled.p`
+  color: rgba(248, 250, 252, 0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+`;
+
+const CompanyTopics = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+`;
+
+const TopicTag = styled.span<{ accentColor?: string }>`
+  background: ${props => props.accentColor || '#ff6b35'}20;
+  color: ${props => props.accentColor || '#ff6b35'};
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid ${props => props.accentColor || '#ff6b35'}30;
+  backdrop-filter: blur(10px);
+`;
+
+// Features Section
+const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
 `;
 
-const TopicCard = styled(Link)`
+const FeatureCard = styled(GlassContainer)`
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #f8fafc;
+    
+    svg {
+      color: #ff6b35;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  p {
+    color: rgba(248, 250, 252, 0.8);
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+`;
+
+// Quick Start Section
+const QuickStartGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+`;
+
+const QuickStartCard = styled(motion(Link))`
   display: block;
-  padding: ${props => props.theme.spacing.lg};
-  background: ${props => props.theme.colors.surface};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.radii.lg};
+  padding: 2rem;
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
 
@@ -182,16 +342,16 @@ const TopicCard = styled(Link)`
     left: 0;
     right: 0;
     height: 3px;
-    background: ${props => props.theme.colors.primary};
+    background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 100%);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
   }
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: ${props => props.theme.shadows.lg};
-    border-color: ${props => props.theme.colors.primary};
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 107, 53, 0.3);
 
     &::before {
       transform: scaleX(1);
@@ -199,109 +359,17 @@ const TopicCard = styled(Link)`
   }
 
   h3 {
-    color: ${props => props.theme.colors.primary};
-    margin: 0 0 ${props => props.theme.spacing.sm} 0;
+    color: #ff6b35;
+    margin: 0 0 1rem 0;
     font-weight: 600;
+    font-size: 1.3rem;
   }
 
   p {
-    color: ${props => props.theme.colors.textSecondary};
+    color: rgba(248, 250, 252, 0.8);
     margin: 0;
     line-height: 1.6;
   }
-`;
-
-const FormulaShowcase = styled.div`
-  background: ${props => props.theme.colors.surface};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.radii.lg};
-  padding: ${props => props.theme.spacing.xl};
-  margin: ${props => props.theme.spacing.xl} 0;
-  text-align: center;
-`;
-
-const CompaniesSection = styled.section`
-  margin: ${props => props.theme.spacing.xl} 0;
-  text-align: center;
-`;
-
-const CompaniesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
-  margin: ${props => props.theme.spacing.xl} 0;
-`;
-
-const CompanyCard = styled(motion.div)`
-  background: ${props => props.theme.colors.surface};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.radii.lg};
-  padding: ${props => props.theme.spacing.xl};
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: ${props => props.theme.shadows.lg};
-    border-color: ${props => props.theme.colors.primary};
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: ${props => props.color || props.theme.colors.primary};
-  }
-`;
-
-const CompanyLogo = styled.div`
-  width: 80px;
-  height: 80px;
-  margin: 0 auto ${props => props.theme.spacing.md};
-  background: ${props => props.color}20;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: ${props => props.color};
-`;
-
-const CompanyName = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${props => props.theme.colors.text};
-  margin: 0 0 ${props => props.theme.spacing.sm};
-`;
-
-const CompanyFocus = styled.p`
-  color: ${props => props.theme.colors.textSecondary};
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 0 0 ${props => props.theme.spacing.md};
-`;
-
-const CompanyTopics = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${props => props.theme.spacing.xs};
-  justify-content: center;
-`;
-
-const TopicTag = styled.span`
-  background: ${props => props.color}20;
-  color: ${props => props.color};
-  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
-  border-radius: ${props => props.theme.radii.md};
-  font-size: 0.8rem;
-  font-weight: 500;
 `;
 
 const HomePage: React.FC = () => {
@@ -309,163 +377,53 @@ const HomePage: React.FC = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.8 }}
+      style={{ 
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+        padding: '2rem 1rem'
+      }}
     >
       <Hero
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <HeroTitle>
-          Master <span>AI Interviews</span> at Top Companies
-        </HeroTitle>
-        <HeroSubtitle>
-          Enterprise-ready preparation platform for Senior AI Scientists & ML Engineers. 
-          Comprehensive coverage tailored for Google, Meta, OpenAI, Anthropic, Amazon, and other leading AI companies.
-        </HeroSubtitle>
-        <CTAButton to="/transformers">
-          Start Learning
-          <ArrowRight />
-        </CTAButton>
+        <HeroContent>
+          <HeroTitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Master AI Interviews at Top Companies
+          </HeroTitle>
+          <HeroSubtitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            Enterprise-ready preparation platform for Senior AI Scientists & ML Engineers. 
+            Comprehensive coverage tailored for Google, Meta, OpenAI, Anthropic, Amazon, and other leading AI companies.
+          </HeroSubtitle>
+          <CTAButton
+            to="/transformers"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Start Learning
+            <ArrowRight />
+          </CTAButton>
+        </HeroContent>
       </Hero>
-
-      <CompaniesSection>
-        <SectionTitle>
-          <Building2 style={{ marginRight: '0.5rem', color: '#ff6b35' }} />
-          Interview Prep for Top AI Companies
-        </SectionTitle>
-        <p style={{ color: '#cbd5e1', maxWidth: '800px', margin: '0 auto 2rem', fontSize: '1.1rem' }}>
-          Tailored preparation for the specific focus areas and interview styles of leading AI companies
-        </p>
-        
-        <CompaniesGrid>
-          <CompanyCard
-            color="#4285f4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <CompanyLogo color="#4285f4">G</CompanyLogo>
-            <CompanyName>Google / DeepMind</CompanyName>
-            <CompanyFocus>
-              Research excellence, scalable systems, and foundational AI research. 
-              Strong focus on theoretical understanding and practical implementation.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#4285f4">Transformers</TopicTag>
-              <TopicTag color="#4285f4">Search/Ranking</TopicTag>
-              <TopicTag color="#4285f4">Distributed ML</TopicTag>
-              <TopicTag color="#4285f4">Reinforcement Learning</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-
-          <CompanyCard
-            color="#ff6b35"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <CompanyLogo color="#ff6b35">A</CompanyLogo>
-            <CompanyName>Amazon</CompanyName>
-            <CompanyFocus>
-              Customer-obsessed AI solutions, cloud-scale deployment, and practical business impact. 
-              Emphasis on system design and operational excellence.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#ff6b35">MLOps</TopicTag>
-              <TopicTag color="#ff6b35">Recommendation</TopicTag>
-              <TopicTag color="#ff6b35">Alexa/NLP</TopicTag>
-              <TopicTag color="#ff6b35">AWS Services</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-
-          <CompanyCard
-            color="#1877f2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <CompanyLogo color="#1877f2">M</CompanyLogo>
-            <CompanyName>Meta</CompanyName>
-            <CompanyFocus>
-              Social-scale AI, computer vision, and immersive experiences. 
-              Focus on real-time systems and billion-user applications.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#1877f2">Computer Vision</TopicTag>
-              <TopicTag color="#1877f2">Feed Ranking</TopicTag>
-              <TopicTag color="#1877f2">Multimodal</TopicTag>
-              <TopicTag color="#1877f2">AR/VR AI</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-
-          <CompanyCard
-            color="#00d4aa"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <CompanyLogo color="#00d4aa">O</CompanyLogo>
-            <CompanyName>OpenAI</CompanyName>
-            <CompanyFocus>
-              AGI research, large language models, and safety alignment. 
-              Cutting-edge research with focus on capabilities and alignment.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#00d4aa">LLMs</TopicTag>
-              <TopicTag color="#00d4aa">RLHF</TopicTag>
-              <TopicTag color="#00d4aa">Safety</TopicTag>
-              <TopicTag color="#00d4aa">Scaling Laws</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-
-          <CompanyCard
-            color="#9b59b6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <CompanyLogo color="#9b59b6">A</CompanyLogo>
-            <CompanyName>Anthropic</CompanyName>
-            <CompanyFocus>
-              AI safety, constitutional AI, and responsible scaling. 
-              Deep focus on alignment, interpretability, and safe AI development.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#9b59b6">Constitutional AI</TopicTag>
-              <TopicTag color="#9b59b6">Safety Research</TopicTag>
-              <TopicTag color="#9b59b6">Interpretability</TopicTag>
-              <TopicTag color="#9b59b6">Alignment</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-
-          <CompanyCard
-            color="#1db954"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <CompanyLogo color="#1db954">More</CompanyLogo>
-            <CompanyName>Leading AI Companies</CompanyName>
-            <CompanyFocus>
-              Microsoft, Apple, NVIDIA, Tesla, ByteDance, Stability AI, and emerging AI startups. 
-              Diverse opportunities across industries and applications.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#1db954">Autonomous Systems</TopicTag>
-              <TopicTag color="#1db954">Edge AI</TopicTag>
-              <TopicTag color="#1db954">Generative AI</TopicTag>
-              <TopicTag color="#1db954">Robotics</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-        </CompaniesGrid>
-      </CompaniesSection>
 
       <StatsGrid>
         <StatCard
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <StatIcon><Building2 /></StatIcon>
           <StatNumber>20+</StatNumber>
@@ -473,9 +431,9 @@ const HomePage: React.FC = () => {
         </StatCard>
         
         <StatCard
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <StatIcon><Brain /></StatIcon>
           <StatNumber>500+</StatNumber>
@@ -483,9 +441,9 @@ const HomePage: React.FC = () => {
         </StatCard>
         
         <StatCard
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
           <StatIcon><Users /></StatIcon>
           <StatNumber>10K+</StatNumber>
@@ -493,9 +451,9 @@ const HomePage: React.FC = () => {
         </StatCard>
         
         <StatCard
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           <StatIcon><Globe /></StatIcon>
           <StatNumber>24/7</StatNumber>
@@ -503,22 +461,160 @@ const HomePage: React.FC = () => {
         </StatCard>
       </StatsGrid>
 
-      <FormulaShowcase>
-        <h3 style={{ marginBottom: '1rem', color: '#ff6b35' }}>Mathematical Foundation</h3>
-        <p style={{ marginBottom: '1.5rem', color: '#cbd5e1' }}>
-          Master the mathematical concepts behind modern AI systems
-        </p>
-        <Math block>
-          {`\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V`}
-        </Math>
-        <Math block>
-          {`L_{\\text{LM}} = -\\sum_{t=1}^{T} \\log P(x_t | x_{<t}; \\theta)`}
-        </Math>
-      </FormulaShowcase>
+      <CompaniesSection>
+        <SectionTitle
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <Building2 />
+          Interview Prep for Top AI Companies
+        </SectionTitle>
+        <SectionSubtitle
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
+          Tailored preparation for the specific focus areas and interview styles of leading AI companies
+        </SectionSubtitle>
+        
+        <CompaniesGrid>
+          <CompanyCard
+            accentColor="#4285f4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <CompanyLogo accentColor="#4285f4">G</CompanyLogo>
+            <CompanyName>Google / DeepMind</CompanyName>
+            <CompanyFocus>
+              Research excellence, scalable systems, and foundational AI research. 
+              Strong focus on theoretical understanding and practical implementation.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#4285f4">Transformers</TopicTag>
+              <TopicTag accentColor="#4285f4">Search/Ranking</TopicTag>
+              <TopicTag accentColor="#4285f4">Distributed ML</TopicTag>
+              <TopicTag accentColor="#4285f4">Reinforcement Learning</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
 
-      <SectionTitle>Why Choose PrepMe?</SectionTitle>
+          <CompanyCard
+            accentColor="#ff6b35"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
+            <CompanyLogo accentColor="#ff6b35">A</CompanyLogo>
+            <CompanyName>Amazon</CompanyName>
+            <CompanyFocus>
+              Customer-obsessed AI solutions, cloud-scale deployment, and practical business impact. 
+              Emphasis on system design and operational excellence.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#ff6b35">MLOps</TopicTag>
+              <TopicTag accentColor="#ff6b35">Recommendation</TopicTag>
+              <TopicTag accentColor="#ff6b35">Alexa/NLP</TopicTag>
+              <TopicTag accentColor="#ff6b35">AWS Services</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            accentColor="#1877f2"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+          >
+            <CompanyLogo accentColor="#1877f2">M</CompanyLogo>
+            <CompanyName>Meta</CompanyName>
+            <CompanyFocus>
+              Social-scale AI, computer vision, and immersive experiences. 
+              Focus on real-time systems and billion-user applications.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#1877f2">Computer Vision</TopicTag>
+              <TopicTag accentColor="#1877f2">Feed Ranking</TopicTag>
+              <TopicTag accentColor="#1877f2">Multimodal</TopicTag>
+              <TopicTag accentColor="#1877f2">AR/VR AI</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            accentColor="#00d4aa"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+          >
+            <CompanyLogo accentColor="#00d4aa">O</CompanyLogo>
+            <CompanyName>OpenAI</CompanyName>
+            <CompanyFocus>
+              AGI research, large language models, and safety alignment. 
+              Cutting-edge research with focus on capabilities and alignment.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#00d4aa">LLMs</TopicTag>
+              <TopicTag accentColor="#00d4aa">RLHF</TopicTag>
+              <TopicTag accentColor="#00d4aa">Safety</TopicTag>
+              <TopicTag accentColor="#00d4aa">Scaling Laws</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            accentColor="#9b59b6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
+            <CompanyLogo accentColor="#9b59b6">A</CompanyLogo>
+            <CompanyName>Anthropic</CompanyName>
+            <CompanyFocus>
+              AI safety, constitutional AI, and responsible scaling. 
+              Deep focus on alignment, interpretability, and safe AI development.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#9b59b6">Constitutional AI</TopicTag>
+              <TopicTag accentColor="#9b59b6">Safety Research</TopicTag>
+              <TopicTag accentColor="#9b59b6">Interpretability</TopicTag>
+              <TopicTag accentColor="#9b59b6">Alignment</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            accentColor="#1db954"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.3 }}
+          >
+            <CompanyLogo accentColor="#1db954">+</CompanyLogo>
+            <CompanyName>Leading AI Companies</CompanyName>
+            <CompanyFocus>
+              Microsoft, Apple, NVIDIA, Tesla, ByteDance, Stability AI, and emerging AI startups. 
+              Diverse opportunities across industries and applications.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag accentColor="#1db954">Autonomous Systems</TopicTag>
+              <TopicTag accentColor="#1db954">Edge AI</TopicTag>
+              <TopicTag accentColor="#1db954">Generative AI</TopicTag>
+              <TopicTag accentColor="#1db954">Robotics</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+        </CompaniesGrid>
+      </CompaniesSection>
+
+      <SectionTitle
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+      >
+        Why Choose PrepMe?
+      </SectionTitle>
+      
       <FeaturesGrid>
-        <FeatureCard variant="accent">
+        <FeatureCard
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.5 }}
+        >
           <h4><Brain />Research-Grade Content</h4>
           <p>
             Deep dive into cutting-edge AI research including transformers, LLMs, diffusion models, 
@@ -526,7 +622,11 @@ const HomePage: React.FC = () => {
           </p>
         </FeatureCard>
         
-        <FeatureCard variant="purple">
+        <FeatureCard
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.6 }}
+        >
           <h4><Target />Enterprise Assessment</h4>
           <p>
             Advanced quizzes and simulations designed for Senior Scientist roles. 
@@ -534,7 +634,11 @@ const HomePage: React.FC = () => {
           </p>
         </FeatureCard>
         
-        <FeatureCard variant="success">
+        <FeatureCard
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.7 }}
+        >
           <h4><Zap />Multi-Company Focus</h4>
           <p>
             Content tailored for specific companies' interview styles and focus areas. 
@@ -543,142 +647,95 @@ const HomePage: React.FC = () => {
         </FeatureCard>
       </FeaturesGrid>
 
-      <QuickStart>
-        <SectionTitle>Start Your Journey</SectionTitle>
-        <TopicsGrid>
-          <TopicCard to="/transformers">
+      <CompaniesSection>
+        <SectionTitle
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
+        >
+          <Star />
+          Start Your Journey
+        </SectionTitle>
+        
+        <QuickStartGrid>
+          <QuickStartCard
+            to="/transformers"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.9 }}
+          >
             <h3>🏗️ Transformer Architecture</h3>
             <p>
               Master attention mechanisms, positional encoding, and multi-head attention. 
               Understand the foundation of modern AI.
             </p>
-          </TopicCard>
+          </QuickStartCard>
           
-          <TopicCard to="/llms">
+          <QuickStartCard
+            to="/llms"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.0 }}
+          >
             <h3>🤖 Large Language Models</h3>
             <p>
               Scaling laws, training techniques, RLHF, and emergent abilities. 
               Deep dive into GPT, BERT, and beyond.
             </p>
-          </TopicCard>
+          </QuickStartCard>
           
-          <TopicCard to="/diffusion">
+          <QuickStartCard
+            to="/diffusion"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.1 }}
+          >
             <h3>🎨 Diffusion Models</h3>
             <p>
               From DDPM to Stable Diffusion. Mathematical foundations, 
               sampling methods, and conditioning techniques.
             </p>
-          </TopicCard>
+          </QuickStartCard>
           
-          <TopicCard to="/multimodal">
+          <QuickStartCard
+            to="/multimodal"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.2 }}
+          >
             <h3>👁️ Multimodal AI</h3>
             <p>
               Vision-language models, cross-modal attention, and fusion strategies. 
               CLIP, DALL-E, and modern approaches.
             </p>
-          </TopicCard>
+          </QuickStartCard>
           
-          <TopicCard to="/aws">
+          <QuickStartCard
+            to="/aws"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.3 }}
+          >
             <h3>☁️ Production & MLOps</h3>
             <p>
               Cloud deployment, scaling strategies, and MLOps best practices. 
               From AWS to GCP, deploy AI systems at enterprise scale.
             </p>
-          </TopicCard>
+          </QuickStartCard>
           
-          <TopicCard to="/quiz">
+          <QuickStartCard
+            to="/quiz"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.4 }}
+          >
             <h3>🎯 Practice Quizzes</h3>
             <p>
               Test your knowledge with interactive quizzes across all topics. 
               Track progress and identify areas for improvement.
             </p>
-          </TopicCard>
-        </TopicsGrid>
-      </QuickStart>
-
-      <CompaniesSection>
-        <SectionTitle>Companies Using AI</SectionTitle>
-        <CompaniesGrid>
-          <CompanyCard
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            color="#4285F4"
-          >
-            <CompanyLogo color="#4285F4">
-              <img src="/logos/google.svg" alt="Google" />
-            </CompanyLogo>
-            <CompanyName>Google</CompanyName>
-            <CompanyFocus>
-              Search, Ads, Cloud, and YouTube. Pioneering AI-first approach.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#4285F4">ML</TopicTag>
-              <TopicTag color="#4285F4">AI Ethics</TopicTag>
-              <TopicTag color="#4285F4">Cloud AI</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-          
-          <CompanyCard
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            color="#EA4335"
-          >
-            <CompanyLogo color="#EA4335">
-              <img src="/logos/anthropic.svg" alt="Anthropic" />
-            </CompanyLogo>
-            <CompanyName>Anthropic</CompanyName>
-            <CompanyFocus>
-              AI safety and research. Focus on alignment and robustness.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#EA4335">AI Safety</TopicTag>
-              <TopicTag color="#EA4335">Alignment</TopicTag>
-              <TopicTag color="#EA4335">Robustness</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-          
-          <CompanyCard
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            color="#1A73E8"
-          >
-            <CompanyLogo color="#1A73E8">
-              <img src="/logos/openai.svg" alt="OpenAI" />
-            </CompanyLogo>
-            <CompanyName>OpenAI</CompanyName>
-            <CompanyFocus>
-              Research and deployment of AI technologies. Creator of ChatGPT.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#1A73E8">NLP</TopicTag>
-              <TopicTag color="#1A73E8">Reinforcement Learning</TopicTag>
-              <TopicTag color="#1A73E8">AI Alignment</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-          
-          <CompanyCard
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            color="#FF6F20"
-          >
-            <CompanyLogo color="#FF6F20">
-              <img src="/logos/meta.svg" alt="Meta" />
-            </CompanyLogo>
-            <CompanyName>Meta</CompanyName>
-            <CompanyFocus>
-              Social media, virtual reality, and AI research. Building the metaverse.
-            </CompanyFocus>
-            <CompanyTopics>
-              <TopicTag color="#FF6F20">Social AI</TopicTag>
-              <TopicTag color="#FF6F20">VR/AR</TopicTag>
-              <TopicTag color="#FF6F20">AI Research</TopicTag>
-            </CompanyTopics>
-          </CompanyCard>
-        </CompaniesGrid>
+          </QuickStartCard>
+        </QuickStartGrid>
       </CompaniesSection>
     </motion.div>
   );
