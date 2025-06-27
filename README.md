@@ -1,13 +1,17 @@
-# 🌐 Interactive Interview Preparation Website
+# PrepMe - Professional AI Interview Preparation Platform
 
-A beautiful, interactive slideshow-based study platform for your AWS Senior Applied Scientist interview preparation.
+## 🚀 Live React Application
+**Visit: https://h3nok.github.io/Interviews**
 
-## 🎯 Features
+A modern, enterprise-ready React platform for advanced AI scientist interview preparation.
 
-### 📊 Interactive Slideshows
-- **Main Overview**: Complete study plan and core concepts
-- **Diffusion & Multimodal**: Deep dive into advanced AI topics
-- **Navigation Portal**: Easy access to all resources
+## 🎯 Current Features
+
+### � React Application (Main Platform)
+- **Interactive Learning**: Comprehensive AI topics with quizzes
+- **Enterprise Ready**: Professional UI for senior roles
+- **Responsive Design**: Collapsible sidebar, mobile-friendly
+- **Advanced Topics**: Transformers, LLMs, Diffusion, Multimodal AI
 
 ### 🎨 Professional Design
 - **Responsive design** works on all devices
@@ -149,3 +153,13 @@ Potential additions:
 **Ready to ace your interview!** 🎯
 
 Start studying: [Launch Navigation Portal](navigation.html)
+
+### 📚 Legacy HTML Files (Preserved)
+- **legacy-index.html**: Original interview prep slideshow
+- **diffusion-multimodal.html**: Advanced AI topics slideshow  
+- **navigation.html**: Navigation portal
+
+## 📂 Repository Structure
+- `/prep/` - React application source code
+- `gh-pages` branch - Deployed React application
+- Legacy HTML files preserved for reference
