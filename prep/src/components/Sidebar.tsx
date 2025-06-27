@@ -13,7 +13,6 @@ import {
   Target,
   Menu,
   X,
-  ChevronLeft,
   Users,
   BarChart
 } from 'lucide-react';
@@ -26,33 +25,63 @@ const SidebarContainer = styled(motion.aside)<{ $isCollapsed: boolean; $isMobile
   top: 0;
   width: ${props => props.$isCollapsed ? '80px' : '280px'};
   height: 100vh;
-  background: ${props => props.theme.colors.surface};
-  border-right: 1px solid ${props => props.theme.colors.border};
+  background: ${props => props.theme.colors.background === '#ffffff' 
+    ? 'rgba(255, 255, 255, 0.95)' 
+    : 'rgba(15, 23, 42, 0.95)'};
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid ${props => props.theme.colors.background === '#ffffff' 
+    ? 'rgba(0, 0, 0, 0.1)' 
+    : 'rgba(255, 255, 255, 0.1)'};
   padding: ${props => props.theme.spacing.lg};
   overflow-y: auto;
   z-index: 50;
   transition: width 0.3s ease;
+  box-shadow: ${props => props.theme.colors.background === '#ffffff' 
+    ? '4px 0 20px rgba(0, 0, 0, 0.1)' 
+    : '4px 0 20px rgba(0, 0, 0, 0.3)'};
 
   @media (max-width: ${props => props.theme.breakpoints.desktop}) {
     width: 280px;
     transform: translateX(${props => props.$isMobileOpen ? '0' : '-100%'});
     transition: transform 0.3s ease;
   }
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 107, 53, 0.3);
+    border-radius: 3px;
+    
+    &:hover {
+      background: rgba(255, 107, 53, 0.5);
+    }
+  }
 `;
 
 const SidebarHeader = styled.div<{ $isCollapsed: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: ${props => props.$isCollapsed ? 'center' : 'space-between'};
+  justify-content: center;
   margin-bottom: ${props => props.theme.spacing.xl};
   padding-bottom: ${props => props.theme.spacing.md};
   border-bottom: 1px solid ${props => props.theme.colors.border};
+  min-height: 60px;
+  position: relative;
 `;
 
 const Logo = styled.div<{ $isCollapsed: boolean }>`
   display: flex;
   align-items: center;
   gap: ${props => props.theme.spacing.sm};
+  flex: 1;
   
   .logo-icon {
     width: 32px;
@@ -65,6 +94,7 @@ const Logo = styled.div<{ $isCollapsed: boolean }>`
     color: white;
     font-weight: 800;
     font-size: 1.2rem;
+    flex-shrink: 0;
   }
   
   .logo-text {
@@ -72,6 +102,8 @@ const Logo = styled.div<{ $isCollapsed: boolean }>`
     font-weight: 800;
     color: ${props => props.theme.colors.text};
     display: ${props => props.$isCollapsed ? 'none' : 'block'};
+    white-space: nowrap;
+    overflow: hidden;
     
     span {
       color: ${props => props.theme.colors.primary};
@@ -80,21 +112,32 @@ const Logo = styled.div<{ $isCollapsed: boolean }>`
 `;
 
 const CollapseButton = styled.button<{ $isCollapsed: boolean }>`
-  background: transparent;
-  border: 1px solid ${props => props.theme.colors.border};
-  color: ${props => props.theme.colors.textSecondary};
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: ${props => props.theme.colors.text};
   width: 32px;
   height: 32px;
-  border-radius: ${props => props.theme.radii.sm};
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
   
   &:hover {
-    background: ${props => props.theme.colors.surfaceLight};
-    color: ${props => props.theme.colors.text};
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
   }
   
   @media (max-width: ${props => props.theme.breakpoints.desktop}) {
@@ -110,14 +153,25 @@ const MobileMenuButton = styled.button`
   background: ${props => props.theme.colors.primary};
   color: white;
   border: none;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: ${props => props.theme.radii.md};
   display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: ${props => props.theme.shadows.lg};
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: ${props => props.theme.colors.primary}dd;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
   
   @media (max-width: ${props => props.theme.breakpoints.desktop}) {
     display: flex;
@@ -144,13 +198,27 @@ const SidebarSection = styled.div`
 `;
 
 const SectionTitle = styled.h3<{ $isCollapsed: boolean }>`
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  color: ${props => props.theme.colors.textSecondary};
+  color: rgba(255, 107, 53, 0.8);
   margin-bottom: ${props => props.theme.spacing.md};
-  letter-spacing: 0.5px;
+  margin-top: ${props => props.theme.spacing.lg};
+  letter-spacing: 1px;
   display: ${props => props.$isCollapsed ? 'none' : 'block'};
+  position: relative;
+  padding-bottom: ${props => props.theme.spacing.xs};
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: linear-gradient(90deg, #ff6b35, #ff8c42);
+    border-radius: 1px;
+  }
 `;
 
 const NavList = styled.ul`
@@ -160,7 +228,7 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li<{ $isActive?: boolean }>`
-  margin-bottom: ${props => props.theme.spacing.xs};
+  margin-bottom: ${props => props.theme.spacing.sm};
 `;
 
 const NavLink = styled(Link)<{ $isActive?: boolean; $isCollapsed?: boolean }>`
@@ -169,20 +237,28 @@ const NavLink = styled(Link)<{ $isActive?: boolean; $isCollapsed?: boolean }>`
   gap: ${props => props.theme.spacing.sm};
   padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.radii.md};
-  color: ${props => props.$isActive ? props.theme.colors.primary : props.theme.colors.text};
-  background: ${props => props.$isActive ? `${props.theme.colors.primary}15` : 'transparent'};
+  color: ${props => props.$isActive ? '#fff' : props.theme.colors.text};
+  background: ${props => props.$isActive 
+    ? 'linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(255, 140, 66, 0.6))'
+    : 'transparent'};
   text-decoration: none;
-  font-weight: ${props => props.$isActive ? '600' : '400'};
-  transition: all 0.2s ease;
+  font-weight: ${props => props.$isActive ? '600' : '500'};
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   justify-content: ${props => props.$isCollapsed ? 'center' : 'flex-start'};
-  min-height: 40px;
+  min-height: 44px;
+  border: 1px solid ${props => props.$isActive ? 'rgba(255, 107, 53, 0.3)' : 'transparent'};
+  box-shadow: ${props => props.$isActive ? '0 4px 15px rgba(255, 107, 53, 0.2)' : 'none'};
 
   &:hover {
-    background: ${props => props.$isActive ? `${props.theme.colors.primary}20` : props.theme.colors.surfaceLight};
-    color: ${props => props.theme.colors.primary};
-    transform: translateX(${props => props.$isCollapsed ? '0' : '4px'});
+    background: ${props => props.$isActive 
+      ? 'linear-gradient(135deg, rgba(255, 107, 53, 0.9), rgba(255, 140, 66, 0.7))'
+      : 'rgba(255, 107, 53, 0.1)'};
+    color: ${props => props.$isActive ? '#fff' : props.theme.colors.primary};
+    transform: translateX(${props => props.$isCollapsed ? '0' : '6px'});
+    border-color: rgba(255, 107, 53, 0.2);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.15);
   }
 
   &::before {
@@ -191,23 +267,40 @@ const NavLink = styled(Link)<{ $isActive?: boolean; $isCollapsed?: boolean }>`
     left: 0;
     top: 0;
     height: 100%;
-    width: 3px;
-    background: ${props => props.theme.colors.primary};
+    width: 4px;
+    background: linear-gradient(180deg, #ff6b35, #ff8c42);
     transform: scaleY(${props => props.$isActive ? 1 : 0});
     transform-origin: top;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+    opacity: ${props => props.$isActive ? 0.5 : 0};
+    transition: opacity 0.3s ease;
   }
 
   svg {
     width: 18px;
     height: 18px;
-    opacity: ${props => props.$isActive ? 1 : 0.7};
+    opacity: ${props => props.$isActive ? 1 : 0.8};
     flex-shrink: 0;
+    z-index: 2;
+    position: relative;
   }
   
   .nav-text {
     display: ${props => props.$isCollapsed ? 'none' : 'block'};
     white-space: nowrap;
+    z-index: 2;
+    position: relative;
   }
 `;
 
@@ -247,7 +340,8 @@ const ProgressText = styled.p`
 `;
 
 const navigationItems = [
-  { path: '/', label: 'Dashboard', icon: Home },
+  { path: '/', label: 'Home', icon: Home },
+  { path: '/learning', label: 'Interactive Learning', icon: Brain },
   { path: '/transformers', label: 'Transformer Architecture', icon: Layers },
   { path: '/llms', label: 'Large Language Models', icon: Brain },
   { path: '/diffusion', label: 'Diffusion Models', icon: Wand2 },
@@ -302,8 +396,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
           <CollapseButton 
             $isCollapsed={isCollapsed}
             onClick={() => setIsCollapsed(!isCollapsed)}
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
-            <ChevronLeft style={{ transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+            <Menu size={16} />
           </CollapseButton>
         </SidebarHeader>
 

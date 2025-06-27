@@ -6,11 +6,14 @@ import 'katex/dist/katex.min.css';
 
 // Context
 import { SidebarProvider, useSidebar } from './context/SidebarContext';
+import { ThemeProvider as CustomThemeProvider, useTheme } from './context/ThemeContext';
 
 // Components
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
+import LearningDashboard from './pages/LearningDashboard';
+import LearningInterface from './components/LearningInterface';
 import TransformersPage from './pages/TransformersPage';
 import LLMsPage from './pages/LLMsPage';
 import DiffusionPage from './pages/DiffusionPage';
@@ -20,7 +23,7 @@ import QuizPage from './pages/QuizPage';
 import Footer from './components/Footer';
 
 // Theme
-const theme = {
+const darkTheme = {
   colors: {
     primary: '#ff6b35',
     secondary: '#1e3a8a',
@@ -69,6 +72,31 @@ const theme = {
   },
 };
 
+const lightTheme = {
+  ...darkTheme,
+  colors: {
+    primary: '#ff6b35',
+    secondary: '#1e3a8a',
+    accent: '#059669',
+    purple: '#7c3aed',
+    background: '#ffffff',
+    surface: '#f8fafc',
+    surfaceLight: '#f1f5f9',
+    text: '#1e293b',
+    textSecondary: '#475569',
+    border: '#e2e8f0',
+    success: '#10b981',
+    warning: '#f59e0b',
+    error: '#ef4444',
+  },
+  shadows: {
+    sm: '0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.08)',
+    md: '0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1)',
+    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.08)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.1)',
+  },
+};
+
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
   
@@ -80,29 +108,40 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     scroll-behavior: smooth;
+    font-size: 16px; /* Ensure base font size */
   }
 
   body {
     font-family: ${props => props.theme.fonts.main};
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};
-    line-height: 1.6;
+    line-height: 1.75; /* Increased for better readability */
+    font-size: 1.1rem; /* Larger base font for better readability */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   code {
     font-family: ${props => props.theme.fonts.mono};
+    font-size: 0.95rem;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     line-height: 1.3;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6em; /* Slightly more spacing */
   }
 
+  h1 { font-size: 2.75rem; } /* Larger headings */
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.9rem; }
+  h4 { font-size: 1.6rem; }
+  h5 { font-size: 1.35rem; }
+  h6 { font-size: 1.2rem; }
+
   p {
-    margin-bottom: 1em;
+    margin-bottom: 1.3em; /* Increased spacing */
+    font-size: 1.1rem; /* Larger paragraphs for better readability */
   }
 
   a {
@@ -230,55 +269,62 @@ const MainContent = styled(motion.main)<{ $isCollapsed: boolean }>`
 const ContentArea = styled.div`
   flex: 1;
   padding: ${props => props.theme.spacing.xl};
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px; /* Smaller content width for better readability */
   width: 100%;
+  margin: 0 auto; /* Center the content */
 
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
     padding: ${props => props.theme.spacing.md};
+    max-width: 100%;
   }
 `;
 
 const AppContent: React.FC = () => {
   const { isCollapsed } = useSidebar();
+  const { isDark } = useTheme();
+  const currentTheme = isDark ? darkTheme : lightTheme;
 
   return (
-    <AppContainer>
-      <Sidebar />
-      <MainContent
-        $isCollapsed={isCollapsed}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Header />
-        <ContentArea>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/transformers" element={<TransformersPage />} />
-            <Route path="/llms" element={<LLMsPage />} />
-            <Route path="/diffusion" element={<DiffusionPage />} />
-            <Route path="/multimodal" element={<MultimodalPage />} />
-            <Route path="/aws" element={<AWSPage />} />
-            <Route path="/quiz" element={<QuizPage />} />
-          </Routes>
-        </ContentArea>
-        <Footer />
-      </MainContent>
-    </AppContainer>
+    <ThemeProvider theme={currentTheme}>
+      <GlobalStyle />
+      <AppContainer>
+        <Sidebar />
+        <MainContent
+          $isCollapsed={isCollapsed}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Header />
+          <ContentArea>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/learning" element={<LearningDashboard />} />
+              <Route path="/learning/:moduleId" element={<LearningInterface />} />
+              <Route path="/transformers" element={<TransformersPage />} />
+              <Route path="/llms" element={<LLMsPage />} />
+              <Route path="/diffusion" element={<DiffusionPage />} />
+              <Route path="/multimodal" element={<MultimodalPage />} />
+              <Route path="/aws" element={<AWSPage />} />
+              <Route path="/quiz" element={<QuizPage />} />
+            </Routes>
+          </ContentArea>
+          <Footer />
+        </MainContent>
+      </AppContainer>
+    </ThemeProvider>
   );
 };
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
+    <CustomThemeProvider>
       <SidebarProvider>
         <Router>
           <AppContent />
         </Router>
       </SidebarProvider>
-    </ThemeProvider>
+    </CustomThemeProvider>
   );
 }
 

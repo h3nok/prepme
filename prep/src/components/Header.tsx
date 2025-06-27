@@ -1,39 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Search, Menu, ExternalLink, Code, BookOpen, Users, Zap } from 'lucide-react';
+import { Search, Menu, ExternalLink, Code, BookOpen, Users, Zap, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const HeaderContainer = styled(motion.header)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: ${props => props.theme.spacing.lg} ${props => props.theme.spacing.xl};
-  background: rgba(30, 41, 59, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
     padding: ${props => props.theme.spacing.md};
-  }
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${props => props.theme.spacing.sm};
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${props => props.theme.colors.primary};
-  cursor: pointer;
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: scale(1.05);
   }
 `;
 
@@ -42,7 +28,7 @@ const NavSection = styled.div`
   align-items: center;
   gap: ${props => props.theme.spacing.lg};
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (max-width: ${props => props.theme.breakpoints.desktop}) {
     display: none;
@@ -247,8 +233,36 @@ const MenuButton = styled.button`
   }
 `;
 
+const ThemeToggle = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: ${props => props.theme.colors.text};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
 const Header: React.FC = () => {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const { toggleTheme, isDark } = useTheme();
 
   const codingPlatforms = [
     { name: 'LeetCode', url: 'https://leetcode.com', icon: Code },
@@ -268,11 +282,6 @@ const Header: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Logo>
-        <Brain size={28} />
-        <span>PrepMe</span>
-      </Logo>
-      
       <NavSection>
         <SearchContainer>
           <SearchIcon />
@@ -352,6 +361,10 @@ const Header: React.FC = () => {
           </AnimatePresence>
         </ResourcesDropdown>
       </ExternalLinks>
+
+      <ThemeToggle onClick={toggleTheme} title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
+        {isDark ? <Sun /> : <Moon />}
+      </ThemeToggle>
 
       <MenuButton>
         <Menu />
