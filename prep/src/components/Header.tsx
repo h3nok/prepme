@@ -102,7 +102,7 @@ const Header: React.FC = () => {
     >
       <Logo>
         <Brain size={28} />
-        <span>Prep</span>
+        <span>PrepMe</span>
       </Logo>
       
       <SearchContainer>

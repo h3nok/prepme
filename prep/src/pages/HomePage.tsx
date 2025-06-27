@@ -516,7 +516,7 @@ const HomePage: React.FC = () => {
         </Math>
       </FormulaShowcase>
 
-      <SectionTitle>Why Choose Prep?</SectionTitle>
+      <SectionTitle>Why Choose PrepMe?</SectionTitle>
       <FeaturesGrid>
         <FeatureCard variant="accent">
           <h4><Brain />Research-Grade Content</h4>
