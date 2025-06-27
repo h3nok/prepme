@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowRight, Brain, Target, Zap, BookOpen, Award, TrendingUp } from 'lucide-react';
+import { ArrowRight, Brain, Target, Zap, Building2, Users, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import Card from '../components/Card';
@@ -220,6 +220,90 @@ const FormulaShowcase = styled.div`
   text-align: center;
 `;
 
+const CompaniesSection = styled.section`
+  margin: ${props => props.theme.spacing.xl} 0;
+  text-align: center;
+`;
+
+const CompaniesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: ${props => props.theme.spacing.lg};
+  margin: ${props => props.theme.spacing.xl} 0;
+`;
+
+const CompanyCard = styled(motion.div)`
+  background: ${props => props.theme.colors.surface};
+  border: 1px solid ${props => props.theme.colors.border};
+  border-radius: ${props => props.theme.radii.lg};
+  padding: ${props => props.theme.spacing.xl};
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: ${props => props.theme.shadows.lg};
+    border-color: ${props => props.theme.colors.primary};
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${props => props.color || props.theme.colors.primary};
+  }
+`;
+
+const CompanyLogo = styled.div`
+  width: 80px;
+  height: 80px;
+  margin: 0 auto ${props => props.theme.spacing.md};
+  background: ${props => props.color}20;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: ${props => props.color};
+`;
+
+const CompanyName = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: ${props => props.theme.colors.text};
+  margin: 0 0 ${props => props.theme.spacing.sm};
+`;
+
+const CompanyFocus = styled.p`
+  color: ${props => props.theme.colors.textSecondary};
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 ${props => props.theme.spacing.md};
+`;
+
+const CompanyTopics = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${props => props.theme.spacing.xs};
+  justify-content: center;
+`;
+
+const TopicTag = styled.span`
+  background: ${props => props.color}20;
+  color: ${props => props.color};
+  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
+  border-radius: ${props => props.theme.radii.md};
+  font-size: 0.8rem;
+  font-weight: 500;
+`;
+
 const HomePage: React.FC = () => {
   return (
     <motion.div
@@ -233,12 +317,11 @@ const HomePage: React.FC = () => {
         transition={{ duration: 0.6 }}
       >
         <HeroTitle>
-          Master <span>AI</span> Interviews
+          Master <span>AI Interviews</span> at Top Companies
         </HeroTitle>
         <HeroSubtitle>
-          Professional preparation platform for Senior AI Scientists & ML Engineers. 
-          Comprehensive coverage of advanced concepts, technical depth, and real interview scenarios 
-          for companies like Google, OpenAI, Anthropic, Meta, and more.
+          Enterprise-ready preparation platform for Senior AI Scientists & ML Engineers. 
+          Comprehensive coverage tailored for Google, Meta, OpenAI, Anthropic, Amazon, and other leading AI companies.
         </HeroSubtitle>
         <CTAButton to="/transformers">
           Start Learning
@@ -246,15 +329,147 @@ const HomePage: React.FC = () => {
         </CTAButton>
       </Hero>
 
+      <CompaniesSection>
+        <SectionTitle>
+          <Building2 style={{ marginRight: '0.5rem', color: '#ff6b35' }} />
+          Interview Prep for Top AI Companies
+        </SectionTitle>
+        <p style={{ color: '#cbd5e1', maxWidth: '800px', margin: '0 auto 2rem', fontSize: '1.1rem' }}>
+          Tailored preparation for the specific focus areas and interview styles of leading AI companies
+        </p>
+        
+        <CompaniesGrid>
+          <CompanyCard
+            color="#4285f4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <CompanyLogo color="#4285f4">G</CompanyLogo>
+            <CompanyName>Google / DeepMind</CompanyName>
+            <CompanyFocus>
+              Research excellence, scalable systems, and foundational AI research. 
+              Strong focus on theoretical understanding and practical implementation.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#4285f4">Transformers</TopicTag>
+              <TopicTag color="#4285f4">Search/Ranking</TopicTag>
+              <TopicTag color="#4285f4">Distributed ML</TopicTag>
+              <TopicTag color="#4285f4">Reinforcement Learning</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            color="#ff6b35"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <CompanyLogo color="#ff6b35">A</CompanyLogo>
+            <CompanyName>Amazon</CompanyName>
+            <CompanyFocus>
+              Customer-obsessed AI solutions, cloud-scale deployment, and practical business impact. 
+              Emphasis on system design and operational excellence.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#ff6b35">MLOps</TopicTag>
+              <TopicTag color="#ff6b35">Recommendation</TopicTag>
+              <TopicTag color="#ff6b35">Alexa/NLP</TopicTag>
+              <TopicTag color="#ff6b35">AWS Services</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            color="#1877f2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <CompanyLogo color="#1877f2">M</CompanyLogo>
+            <CompanyName>Meta</CompanyName>
+            <CompanyFocus>
+              Social-scale AI, computer vision, and immersive experiences. 
+              Focus on real-time systems and billion-user applications.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#1877f2">Computer Vision</TopicTag>
+              <TopicTag color="#1877f2">Feed Ranking</TopicTag>
+              <TopicTag color="#1877f2">Multimodal</TopicTag>
+              <TopicTag color="#1877f2">AR/VR AI</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            color="#00d4aa"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <CompanyLogo color="#00d4aa">O</CompanyLogo>
+            <CompanyName>OpenAI</CompanyName>
+            <CompanyFocus>
+              AGI research, large language models, and safety alignment. 
+              Cutting-edge research with focus on capabilities and alignment.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#00d4aa">LLMs</TopicTag>
+              <TopicTag color="#00d4aa">RLHF</TopicTag>
+              <TopicTag color="#00d4aa">Safety</TopicTag>
+              <TopicTag color="#00d4aa">Scaling Laws</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            color="#9b59b6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <CompanyLogo color="#9b59b6">A</CompanyLogo>
+            <CompanyName>Anthropic</CompanyName>
+            <CompanyFocus>
+              AI safety, constitutional AI, and responsible scaling. 
+              Deep focus on alignment, interpretability, and safe AI development.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#9b59b6">Constitutional AI</TopicTag>
+              <TopicTag color="#9b59b6">Safety Research</TopicTag>
+              <TopicTag color="#9b59b6">Interpretability</TopicTag>
+              <TopicTag color="#9b59b6">Alignment</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+
+          <CompanyCard
+            color="#1db954"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <CompanyLogo color="#1db954">More</CompanyLogo>
+            <CompanyName>Leading AI Companies</CompanyName>
+            <CompanyFocus>
+              Microsoft, Apple, NVIDIA, Tesla, ByteDance, Stability AI, and emerging AI startups. 
+              Diverse opportunities across industries and applications.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#1db954">Autonomous Systems</TopicTag>
+              <TopicTag color="#1db954">Edge AI</TopicTag>
+              <TopicTag color="#1db954">Generative AI</TopicTag>
+              <TopicTag color="#1db954">Robotics</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+        </CompaniesGrid>
+      </CompaniesSection>
+
       <StatsGrid>
         <StatCard
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <StatIcon><BookOpen /></StatIcon>
-          <StatNumber>6</StatNumber>
-          <StatLabel>Core Topics</StatLabel>
+          <StatIcon><Building2 /></StatIcon>
+          <StatNumber>20+</StatNumber>
+          <StatLabel>AI Companies</StatLabel>
         </StatCard>
         
         <StatCard
@@ -262,9 +477,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <StatIcon><Target /></StatIcon>
-          <StatNumber>100+</StatNumber>
-          <StatLabel>Practice Questions</StatLabel>
+          <StatIcon><Brain /></StatIcon>
+          <StatNumber>500+</StatNumber>
+          <StatLabel>Interview Questions</StatLabel>
         </StatCard>
         
         <StatCard
@@ -272,9 +487,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <StatIcon><Award /></StatIcon>
-          <StatNumber>95%</StatNumber>
-          <StatLabel>Success Rate</StatLabel>
+          <StatIcon><Users /></StatIcon>
+          <StatNumber>10K+</StatNumber>
+          <StatLabel>Engineers Prepared</StatLabel>
         </StatCard>
         
         <StatCard
@@ -282,9 +497,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <StatIcon><TrendingUp /></StatIcon>
+          <StatIcon><Globe /></StatIcon>
           <StatNumber>24/7</StatNumber>
-          <StatLabel>Available</StatLabel>
+          <StatLabel>Global Access</StatLabel>
         </StatCard>
       </StatsGrid>
 
@@ -320,10 +535,10 @@ const HomePage: React.FC = () => {
         </FeatureCard>
         
         <FeatureCard variant="success">
-          <h4><Zap />Industry Relevance</h4>
+          <h4><Zap />Multi-Company Focus</h4>
           <p>
-            Content specifically curated for roles at leading AI companies. 
-            Interview questions and scenarios from Google, OpenAI, Meta, Anthropic, and more.
+            Content tailored for specific companies' interview styles and focus areas. 
+            From Google's theoretical depth to Meta's scale challenges to OpenAI's cutting-edge research.
           </p>
         </FeatureCard>
       </FeaturesGrid>
@@ -380,6 +595,91 @@ const HomePage: React.FC = () => {
           </TopicCard>
         </TopicsGrid>
       </QuickStart>
+
+      <CompaniesSection>
+        <SectionTitle>Companies Using AI</SectionTitle>
+        <CompaniesGrid>
+          <CompanyCard
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            color="#4285F4"
+          >
+            <CompanyLogo color="#4285F4">
+              <img src="/logos/google.svg" alt="Google" />
+            </CompanyLogo>
+            <CompanyName>Google</CompanyName>
+            <CompanyFocus>
+              Search, Ads, Cloud, and YouTube. Pioneering AI-first approach.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#4285F4">ML</TopicTag>
+              <TopicTag color="#4285F4">AI Ethics</TopicTag>
+              <TopicTag color="#4285F4">Cloud AI</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+          
+          <CompanyCard
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            color="#EA4335"
+          >
+            <CompanyLogo color="#EA4335">
+              <img src="/logos/anthropic.svg" alt="Anthropic" />
+            </CompanyLogo>
+            <CompanyName>Anthropic</CompanyName>
+            <CompanyFocus>
+              AI safety and research. Focus on alignment and robustness.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#EA4335">AI Safety</TopicTag>
+              <TopicTag color="#EA4335">Alignment</TopicTag>
+              <TopicTag color="#EA4335">Robustness</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+          
+          <CompanyCard
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            color="#1A73E8"
+          >
+            <CompanyLogo color="#1A73E8">
+              <img src="/logos/openai.svg" alt="OpenAI" />
+            </CompanyLogo>
+            <CompanyName>OpenAI</CompanyName>
+            <CompanyFocus>
+              Research and deployment of AI technologies. Creator of ChatGPT.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#1A73E8">NLP</TopicTag>
+              <TopicTag color="#1A73E8">Reinforcement Learning</TopicTag>
+              <TopicTag color="#1A73E8">AI Alignment</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+          
+          <CompanyCard
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            color="#FF6F20"
+          >
+            <CompanyLogo color="#FF6F20">
+              <img src="/logos/meta.svg" alt="Meta" />
+            </CompanyLogo>
+            <CompanyName>Meta</CompanyName>
+            <CompanyFocus>
+              Social media, virtual reality, and AI research. Building the metaverse.
+            </CompanyFocus>
+            <CompanyTopics>
+              <TopicTag color="#FF6F20">Social AI</TopicTag>
+              <TopicTag color="#FF6F20">VR/AR</TopicTag>
+              <TopicTag color="#FF6F20">AI Research</TopicTag>
+            </CompanyTopics>
+          </CompanyCard>
+        </CompaniesGrid>
+      </CompaniesSection>
     </motion.div>
   );
 };
