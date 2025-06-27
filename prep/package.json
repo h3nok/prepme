@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "node deploy.js",
-    "deploy:simple": "npm run build && npx gh-pages -d build && echo '\n🎉 Deployed to: https://h3nok.github.io/Interviews'"
+    "deploy:simple": "npm run build && npx gh-pages -d build && echo '\n🎉 Deployed to: https://h3nok.github.io/prepme'"
   },
   "eslintConfig": {
     "extends": [
