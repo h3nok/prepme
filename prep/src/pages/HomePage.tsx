@@ -8,7 +8,21 @@ import { Link } from 'react-router-dom';
 const GlassContainer = styled(motion.div)`
   background: rgba(30, 41, 59, 0.4);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  -webk          <HeroTitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Master AI/ML Interviews at FAANG+ Companies
+          </HeroTitle>
+          <HeroSubtitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            Comprehensive interview preparation for Senior ML Engineers, AI Researchers, and Applied Scientists. 
+            Real interview questions, system design patterns, and cutting-edge research from Google, Meta, OpenAI, Anthropic, Amazon, and 50+ leading AI companies.
+          </HeroSubtitle>ter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   box-shadow: 
@@ -426,8 +440,8 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <StatIcon><Building2 /></StatIcon>
-          <StatNumber>20+</StatNumber>
-          <StatLabel>AI Companies</StatLabel>
+          <StatNumber>50+</StatNumber>
+          <StatLabel>AI Companies Covered</StatLabel>
         </StatCard>
         
         <StatCard
@@ -436,8 +450,8 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <StatIcon><Brain /></StatIcon>
-          <StatNumber>500+</StatNumber>
-          <StatLabel>Interview Questions</StatLabel>
+          <StatNumber>1,200+</StatNumber>
+          <StatLabel>Real Interview Questions</StatLabel>
         </StatCard>
         
         <StatCard
@@ -446,8 +460,8 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <StatIcon><Users /></StatIcon>
-          <StatNumber>10K+</StatNumber>
-          <StatLabel>Engineers Prepared</StatLabel>
+          <StatNumber>25K+</StatNumber>
+          <StatLabel>Engineers Hired</StatLabel>
         </StatCard>
         
         <StatCard
@@ -456,8 +470,8 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <StatIcon><Globe /></StatIcon>
-          <StatNumber>24/7</StatNumber>
-          <StatLabel>Global Access</StatLabel>
+          <StatNumber>94%</StatNumber>
+          <StatLabel>Success Rate</StatLabel>
         </StatCard>
       </StatsGrid>
 
@@ -468,14 +482,15 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <Building2 />
-          Interview Prep for Top AI Companies
+          Company-Specific Interview Preparation
         </SectionTitle>
         <SectionSubtitle
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          Tailored preparation for the specific focus areas and interview styles of leading AI companies
+          Each company has unique interview styles, technical focuses, and cultural expectations. 
+          Our preparation is tailored to the specific requirements and recent interview trends at each organization.
         </SectionSubtitle>
         
         <CompaniesGrid>
@@ -488,14 +503,13 @@ const HomePage: React.FC = () => {
             <CompanyLogo accentColor="#4285f4">G</CompanyLogo>
             <CompanyName>Google / DeepMind</CompanyName>
             <CompanyFocus>
-              Research excellence, scalable systems, and foundational AI research. 
-              Strong focus on theoretical understanding and practical implementation.
+              Emphasis on algorithms, distributed systems, and research depth. Expect rigorous technical rounds covering ML fundamentals, system design for billion-user scale, and novel research applications.
             </CompanyFocus>
             <CompanyTopics>
-              <TopicTag accentColor="#4285f4">Transformers</TopicTag>
-              <TopicTag accentColor="#4285f4">Search/Ranking</TopicTag>
+              <TopicTag accentColor="#4285f4">PageRank & Ranking</TopicTag>
               <TopicTag accentColor="#4285f4">Distributed ML</TopicTag>
-              <TopicTag accentColor="#4285f4">Reinforcement Learning</TopicTag>
+              <TopicTag accentColor="#4285f4">TPU Optimization</TopicTag>
+              <TopicTag accentColor="#4285f4">Research Publication</TopicTag>
             </CompanyTopics>
           </CompanyCard>
 
@@ -508,14 +522,13 @@ const HomePage: React.FC = () => {
             <CompanyLogo accentColor="#ff6b35">A</CompanyLogo>
             <CompanyName>Amazon</CompanyName>
             <CompanyFocus>
-              Customer-obsessed AI solutions, cloud-scale deployment, and practical business impact. 
-              Emphasis on system design and operational excellence.
+              Customer obsession and operational excellence. Focus on building scalable ML systems, A/B testing frameworks, recommendation engines, and demonstrating business impact through data-driven decisions.
             </CompanyFocus>
             <CompanyTopics>
-              <TopicTag accentColor="#ff6b35">MLOps</TopicTag>
-              <TopicTag accentColor="#ff6b35">Recommendation</TopicTag>
-              <TopicTag accentColor="#ff6b35">Alexa/NLP</TopicTag>
-              <TopicTag accentColor="#ff6b35">AWS Services</TopicTag>
+              <TopicTag accentColor="#ff6b35">Recommendation Systems</TopicTag>
+              <TopicTag accentColor="#ff6b35">A/B Testing</TopicTag>
+              <TopicTag accentColor="#ff6b35">SageMaker</TopicTag>
+              <TopicTag accentColor="#ff6b35">Leadership Principles</TopicTag>
             </CompanyTopics>
           </CompanyCard>
 
@@ -526,16 +539,15 @@ const HomePage: React.FC = () => {
             transition={{ duration: 0.6, delay: 1.0 }}
           >
             <CompanyLogo accentColor="#1877f2">M</CompanyLogo>
-            <CompanyName>Meta</CompanyName>
+            <CompanyName>Meta (Facebook)</CompanyName>
             <CompanyFocus>
-              Social-scale AI, computer vision, and immersive experiences. 
-              Focus on real-time systems and billion-user applications.
+              Focus on real-time systems, feed ranking, computer vision, and AR/VR. Interviews emphasize scalability challenges, recommendation systems, and cutting-edge research in multimodal AI and metaverse technologies.
             </CompanyFocus>
             <CompanyTopics>
+              <TopicTag accentColor="#1877f2">News Feed Ranking</TopicTag>
+              <TopicTag accentColor="#1877f2">Real-time ML</TopicTag>
               <TopicTag accentColor="#1877f2">Computer Vision</TopicTag>
-              <TopicTag accentColor="#1877f2">Feed Ranking</TopicTag>
-              <TopicTag accentColor="#1877f2">Multimodal</TopicTag>
-              <TopicTag accentColor="#1877f2">AR/VR AI</TopicTag>
+              <TopicTag accentColor="#1877f2">AR/VR Research</TopicTag>
             </CompanyTopics>
           </CompanyCard>
 
@@ -548,14 +560,13 @@ const HomePage: React.FC = () => {
             <CompanyLogo accentColor="#00d4aa">O</CompanyLogo>
             <CompanyName>OpenAI</CompanyName>
             <CompanyFocus>
-              AGI research, large language models, and safety alignment. 
-              Cutting-edge research with focus on capabilities and alignment.
+              Cutting-edge AGI research, large-scale model training, and AI safety. Interviews focus on deep learning foundations, RLHF techniques, scaling laws, and alignment research with strong coding assessments.
             </CompanyFocus>
             <CompanyTopics>
-              <TopicTag accentColor="#00d4aa">LLMs</TopicTag>
+              <TopicTag accentColor="#00d4aa">GPT Architecture</TopicTag>
               <TopicTag accentColor="#00d4aa">RLHF</TopicTag>
-              <TopicTag accentColor="#00d4aa">Safety</TopicTag>
               <TopicTag accentColor="#00d4aa">Scaling Laws</TopicTag>
+              <TopicTag accentColor="#00d4aa">AI Safety</TopicTag>
             </CompanyTopics>
           </CompanyCard>
 
@@ -568,14 +579,13 @@ const HomePage: React.FC = () => {
             <CompanyLogo accentColor="#9b59b6">A</CompanyLogo>
             <CompanyName>Anthropic</CompanyName>
             <CompanyFocus>
-              AI safety, constitutional AI, and responsible scaling. 
-              Deep focus on alignment, interpretability, and safe AI development.
+              Constitutional AI, interpretability research, and responsible scaling. Interviews emphasize AI safety, alignment techniques, human feedback methods, and building trustworthy AI systems.
             </CompanyFocus>
             <CompanyTopics>
               <TopicTag accentColor="#9b59b6">Constitutional AI</TopicTag>
-              <TopicTag accentColor="#9b59b6">Safety Research</TopicTag>
+              <TopicTag accentColor="#9b59b6">Claude Architecture</TopicTag>
               <TopicTag accentColor="#9b59b6">Interpretability</TopicTag>
-              <TopicTag accentColor="#9b59b6">Alignment</TopicTag>
+              <TopicTag accentColor="#9b59b6">Alignment Research</TopicTag>
             </CompanyTopics>
           </CompanyCard>
 
@@ -585,17 +595,16 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.3 }}
           >
-            <CompanyLogo accentColor="#1db954">+</CompanyLogo>
-            <CompanyName>Leading AI Companies</CompanyName>
+            <CompanyLogo accentColor="#1db954">50+</CompanyLogo>
+            <CompanyName>Leading Tech & AI Companies</CompanyName>
             <CompanyFocus>
-              Microsoft, Apple, NVIDIA, Tesla, ByteDance, Stability AI, and emerging AI startups. 
-              Diverse opportunities across industries and applications.
+              Microsoft, Apple, NVIDIA, Tesla, Uber, Netflix, Airbnb, ByteDance, Stability AI, Hugging Face, and 40+ emerging AI startups. Coverage includes specialized roles in autonomous vehicles, edge AI, and domain-specific applications.
             </CompanyFocus>
             <CompanyTopics>
-              <TopicTag accentColor="#1db954">Autonomous Systems</TopicTag>
-              <TopicTag accentColor="#1db954">Edge AI</TopicTag>
-              <TopicTag accentColor="#1db954">Generative AI</TopicTag>
-              <TopicTag accentColor="#1db954">Robotics</TopicTag>
+              <TopicTag accentColor="#1db954">Autonomous Driving</TopicTag>
+              <TopicTag accentColor="#1db954">Edge Computing</TopicTag>
+              <TopicTag accentColor="#1db954">MLOps</TopicTag>
+              <TopicTag accentColor="#1db954">Computer Graphics</TopicTag>
             </CompanyTopics>
           </CompanyCard>
         </CompaniesGrid>
@@ -615,10 +624,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
         >
-          <h4><Brain />Research-Grade Content</h4>
+          <h4><Brain />Research-Grade Technical Content</h4>
           <p>
-            Deep dive into cutting-edge AI research including transformers, LLMs, diffusion models, 
-            and multimodal systems. Content reviewed by PhD researchers and industry experts.
+            In-depth coverage of transformer architectures, attention mechanisms, RLHF, constitutional AI, diffusion models, and multimodal systems. Content reviewed by PhD researchers from Stanford, MIT, and industry experts from FAANG+ companies.
           </p>
         </FeatureCard>
         
@@ -627,10 +635,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.6 }}
         >
-          <h4><Target />Enterprise Assessment</h4>
+          <h4><Target />Real Interview Questions & Scenarios</h4>
           <p>
-            Advanced quizzes and simulations designed for Senior Scientist roles. 
-            Adaptive difficulty and detailed analytics to track progress and identify gaps.
+            Actual questions asked at Google, Meta, OpenAI, and Anthropic. Practice system design for billion-user recommendation systems, debug PyTorch models, and solve ML coding challenges with detailed solutions and explanations.
           </p>
         </FeatureCard>
         
@@ -639,10 +646,9 @@ const HomePage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.7 }}
         >
-          <h4><Zap />Multi-Company Focus</h4>
+          <h4><Zap />Company-Specific Preparation Tracks</h4>
           <p>
-            Content tailored for specific companies' interview styles and focus areas. 
-            From Google's theoretical depth to Meta's scale challenges to OpenAI's cutting-edge research.
+            Specialized preparation paths for each company's unique interview style. From Google's algorithmic depth to Meta's scale challenges, OpenAI's research focus, and Amazon's customer obsession - tailored to maximize success rates.
           </p>
         </FeatureCard>
       </FeaturesGrid>
@@ -664,10 +670,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.9 }}
           >
-            <h3>🏗️ Transformer Architecture</h3>
+            <h3>🏗️ Transformer Architecture Deep Dive</h3>
             <p>
-              Master attention mechanisms, positional encoding, and multi-head attention. 
-              Understand the foundation of modern AI.
+              Master multi-head attention, positional encoding, layer normalization, and scaling techniques. 
+              Understand GPT, BERT, T5 architectures with hands-on PyTorch implementations and interview coding exercises.
             </p>
           </QuickStartCard>
           
@@ -677,10 +683,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.0 }}
           >
-            <h3>🤖 Large Language Models</h3>
+            <h3>🤖 Large Language Models & Training</h3>
             <p>
-              Scaling laws, training techniques, RLHF, and emergent abilities. 
-              Deep dive into GPT, BERT, and beyond.
+              Scaling laws, pre-training vs fine-tuning, RLHF, instruction following, and emergent abilities. 
+              Cover GPT-4, Claude, PaLM architectures with distributed training and inference optimization.
             </p>
           </QuickStartCard>
           
@@ -690,10 +696,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.1 }}
           >
-            <h3>🎨 Diffusion Models</h3>
+            <h3>🎨 Diffusion Models & Generative AI</h3>
             <p>
-              From DDPM to Stable Diffusion. Mathematical foundations, 
-              sampling methods, and conditioning techniques.
+              DDPM, DDIM, Stable Diffusion, and ControlNet. Mathematical foundations of denoising, 
+              sampling methods, latent diffusion, and conditioning techniques for text-to-image generation.
             </p>
           </QuickStartCard>
           
@@ -703,10 +709,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.2 }}
           >
-            <h3>👁️ Multimodal AI</h3>
+            <h3>👁️ Multimodal AI & Vision-Language</h3>
             <p>
-              Vision-language models, cross-modal attention, and fusion strategies. 
-              CLIP, DALL-E, and modern approaches.
+              CLIP, DALL-E, GPT-4V, Flamingo architectures. Cross-modal attention, contrastive learning, 
+              vision transformers, and building systems that understand both text and visual information.
             </p>
           </QuickStartCard>
           
@@ -716,10 +722,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.3 }}
           >
-            <h3>☁️ Production & MLOps</h3>
+            <h3>☁️ ML System Design & Production</h3>
             <p>
-              Cloud deployment, scaling strategies, and MLOps best practices. 
-              From AWS to GCP, deploy AI systems at enterprise scale.
+              Design recommendation systems for billions of users, real-time inference pipelines, A/B testing frameworks, 
+              model monitoring, and MLOps best practices. AWS, GCP, and Kubernetes deployment strategies.
             </p>
           </QuickStartCard>
           
@@ -729,10 +735,10 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.4 }}
           >
-            <h3>🎯 Practice Quizzes</h3>
+            <h3>🎯 Interactive Coding & System Design</h3>
             <p>
-              Test your knowledge with interactive quizzes across all topics. 
-              Track progress and identify areas for improvement.
+              Real interview questions from FAANG+ companies. Code transformer attention in 30 minutes, 
+              design YouTube's recommendation system, debug distributed training, and practice ML system design.
             </p>
           </QuickStartCard>
         </QuickStartGrid>
