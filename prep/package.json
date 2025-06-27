@@ -2,7 +2,7 @@
   "name": "prepme",
   "version": "1.0.0",
   "description": "PrepMe - Professional AI Interview Preparation Platform for Senior Scientists & Advanced AI Roles",
-  "homepage": "https://h3nok.github.io/Interviews",
+  "homepage": "https://h3nok.github.io/prepme",
   "private": false,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",

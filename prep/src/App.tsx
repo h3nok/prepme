@@ -11,6 +11,7 @@ import { ThemeProvider as CustomThemeProvider, useTheme } from './context/ThemeC
 // Components
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import LearningDashboard from './pages/LearningDashboard';
 import LearningInterface from './components/LearningInterface';
@@ -287,31 +288,41 @@ const AppContent: React.FC = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <AppContainer>
-        <Sidebar />
-        <MainContent
-          $isCollapsed={isCollapsed}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Header />
-          <ContentArea>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/learning" element={<LearningDashboard />} />
-              <Route path="/learning/:moduleId" element={<LearningInterface />} />
-              <Route path="/transformers" element={<TransformersPage />} />
-              <Route path="/llms" element={<LLMsPage />} />
-              <Route path="/diffusion" element={<DiffusionPage />} />
-              <Route path="/multimodal" element={<MultimodalPage />} />
-              <Route path="/aws" element={<AWSPage />} />
-              <Route path="/quiz" element={<QuizPage />} />
-            </Routes>
-          </ContentArea>
-          <Footer />
-        </MainContent>
-      </AppContainer>
+      <Routes>
+        {/* Landing page without sidebar/header */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Main app routes with sidebar and header */}
+        <Route path="/*" element={
+          <AppContainer>
+            <Sidebar />
+            <MainContent
+              $isCollapsed={isCollapsed}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Header />
+              <ContentArea>
+                <Routes>
+                  <Route path="/home" element={<HomePage />} />
+                  <Route path="/learning" element={<LearningDashboard />} />
+                  <Route path="/learning/:moduleId" element={<LearningInterface />} />
+                  <Route path="/transformers" element={<TransformersPage />} />
+                  <Route path="/llms" element={<LLMsPage />} />
+                  <Route path="/diffusion" element={<DiffusionPage />} />
+                  <Route path="/multimodal" element={<MultimodalPage />} />
+                  <Route path="/aws" element={<AWSPage />} />
+                  <Route path="/quiz" element={<QuizPage />} />
+                  {/* Catch-all route for unmatched paths in main app */}
+                  <Route path="*" element={<HomePage />} />
+                </Routes>
+              </ContentArea>
+              <Footer />
+            </MainContent>
+          </AppContainer>
+        } />
+      </Routes>
     </ThemeProvider>
   );
 };

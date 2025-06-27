@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, ExternalLink, Code, BookOpen, Users, Zap, Sun, Moon } from 'lucide-react';
+import { Menu, ExternalLink, Code, BookOpen, Users, Zap, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 const HeaderContainer = styled(motion.header)`
@@ -21,62 +21,6 @@ const HeaderContainer = styled(motion.header)`
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
     padding: ${props => props.theme.spacing.md};
   }
-`;
-
-const NavSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${props => props.theme.spacing.lg};
-  flex: 1;
-  justify-content: flex-start;
-
-  @media (max-width: ${props => props.theme.breakpoints.desktop}) {
-    display: none;
-  }
-`;
-
-const SearchContainer = styled.div`
-  max-width: 300px;
-  position: relative;
-  flex: 1;
-  max-width: 400px;
-
-  @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    display: none;
-  }
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
-  padding-left: 2.5rem;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  color: ${props => props.theme.colors.text};
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: ${props => props.theme.colors.primary};
-    box-shadow: 0 0 0 3px ${props => props.theme.colors.primary}20;
-    background: rgba(15, 23, 42, 0.8);
-  }
-
-  &::placeholder {
-    color: ${props => props.theme.colors.textSecondary};
-  }
-`;
-
-const SearchIcon = styled(Search)`
-  position: absolute;
-  left: ${props => props.theme.spacing.sm};
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  color: ${props => props.theme.colors.textSecondary};
 `;
 
 const ExternalLinks = styled.div`
@@ -282,16 +226,6 @@ const Header: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <NavSection>
-        <SearchContainer>
-          <SearchIcon />
-          <SearchInput 
-            type="text" 
-            placeholder="Search AI topics, algorithms, concepts..." 
-          />
-        </SearchContainer>
-      </NavSection>
-
       <ExternalLinks>
         {codingPlatforms.map((platform) => (
           <ExternalLinkButton
