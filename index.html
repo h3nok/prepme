@@ -78,12 +78,23 @@
                 </section>
 
                 <section>
-                    <h2>🎯 Key Innovation</h2>
+                    <h2>🎯 Key Innovation: Self-Attention</h2>
                     <div class="concept-box">
-                        <h3>Self-Attention Mechanism</h3>
-                        <p>Allows parallel processing and captures long-range dependencies</p>
+                        <h3>Mathematical Foundation</h3>
                         <div class="formula">
                             <code>Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>)V</code>
+                        </div>
+                        <p><strong>Why √d<sub>k</sub> scaling?</strong> Prevents softmax saturation in high dimensions</p>
+                        <p><strong>Computational Complexity:</strong> O(n²d) time, O(n²) memory where n = sequence length</p>
+                        <div class="technical-details">
+                            <h4>Step-by-Step Process:</h4>
+                            <ol>
+                                <li><strong>Linear projections:</strong> X → Q, K, V via learned weight matrices</li>
+                                <li><strong>Attention scores:</strong> QK<sup>T</sup> computes similarity between all position pairs</li>
+                                <li><strong>Scaling:</strong> Divide by √d<sub>k</sub> to maintain gradient stability</li>
+                                <li><strong>Normalization:</strong> Softmax converts scores to probability distribution</li>
+                                <li><strong>Weighted aggregation:</strong> Multiply probabilities with values</li>
+                            </ol>
                         </div>
                     </div>
                 </section>
@@ -110,68 +121,206 @@
                 </section>
 
                 <section>
-                    <h2>🎯 Multi-Head Attention</h2>
+                    <h2>🎯 Multi-Head Attention Deep Dive</h2>
                     <div class="multihead-explanation">
-                        <h3>Why Multiple Heads?</h3>
-                        <ul>
-                            <li><strong>Syntactic relationships</strong> (subject-verb agreement)</li>
-                            <li><strong>Semantic relationships</strong> (word meanings)</li>
-                            <li><strong>Positional relationships</strong> (nearby vs distant)</li>
-                            <li><strong>Different abstraction levels</strong></li>
-                        </ul>
+                        <h3>Mathematical Formulation</h3>
                         <div class="formula">
                             <code>MultiHead(Q,K,V) = Concat(head₁, head₂, ..., head<sub>h</sub>)W<sup>O</sup></code>
                         </div>
+                        <div class="formula">
+                            <code>where head<sub>i</sub> = Attention(QW<sub>i</sub><sup>Q</sup>, KW<sub>i</sub><sup>K</sup>, VW<sub>i</sub><sup>V</sup>)</code>
+                        </div>
+                        
+                        <h3>Why Multiple Heads?</h3>
+                        <div class="attention-types">
+                            <div class="type-box">
+                                <h4>Syntactic Attention</h4>
+                                <p>Subject-verb agreement, grammatical relationships</p>
+                            </div>
+                            <div class="type-box">
+                                <h4>Semantic Attention</h4>
+                                <p>Word meanings, conceptual relationships</p>
+                            </div>
+                            <div class="type-box">
+                                <h4>Positional Attention</h4>
+                                <p>Local vs global context, distance relationships</p>
+                            </div>
+                        </div>
+                        
+                        <h3>Implementation Details</h3>
+                        <ul>
+                            <li><strong>Head dimension:</strong> d<sub>k</sub> = d<sub>model</sub> / h (typically 64 for 8 heads)</li>
+                            <li><strong>Parameter count:</strong> 4 × d<sub>model</sub> × d<sub>model</sub> per layer</li>
+                            <li><strong>Parallel computation:</strong> All heads computed simultaneously</li>
+                            <li><strong>Output projection:</strong> W<sup>O</sup> combines head outputs</li>
+                        </ul>
                     </div>
                 </section>
 
                 <section>
-                    <h2>📍 Positional Encoding</h2>
+                    <h2>📍 Positional Encoding Deep Dive</h2>
                     <div class="position-types">
                         <div class="pos-type">
                             <h3>Sinusoidal (Original)</h3>
+                            <div class="formula-small">
+                                <code>PE(pos, 2i) = sin(pos / 10000<sup>2i/d</sup>)</code>
+                                <code>PE(pos, 2i+1) = cos(pos / 10000<sup>2i/d</sup>)</code>
+                            </div>
                             <ul>
-                                <li>Deterministic</li>
-                                <li>Good extrapolation</li>
-                                <li>Relative distance aware</li>
+                                <li><strong>Deterministic:</strong> Same position → same encoding</li>
+                                <li><strong>Relative distance aware:</strong> PE(pos+k) expressible via PE(pos)</li>
+                                <li><strong>Extrapolation:</strong> Works beyond training length</li>
+                                <li><strong>Frequency spectrum:</strong> Different frequencies for different dimensions</li>
                             </ul>
                         </div>
                         <div class="pos-type">
                             <h3>Learned Embeddings</h3>
                             <ul>
-                                <li>Trainable parameters</li>
-                                <li>Better on fixed-length</li>
-                                <li>Used in BERT, GPT</li>
+                                <li><strong>Trainable parameters:</strong> One embedding per position</li>
+                                <li><strong>Better performance:</strong> On fixed-length sequences</li>
+                                <li><strong>No extrapolation:</strong> Limited to training length</li>
+                                <li><strong>Used in:</strong> BERT, GPT, most modern models</li>
+                                <li><strong>Memory:</strong> O(max_len × d_model) parameters</li>
                             </ul>
                         </div>
                         <div class="pos-type">
-                            <h3>RoPE (Modern)</h3>
+                            <h3>RoPE (Rotary)</h3>
+                            <div class="formula-small">
+                                <code>RoPE(x, pos) = R<sub>θ,pos</sub> × x</code>
+                            </div>
                             <ul>
-                                <li>Rotary encoding</li>
-                                <li>Excellent extrapolation</li>
-                                <li>Used in LLaMA</li>
+                                <li><strong>Rotary encoding:</strong> Position as rotation in complex space</li>
+                                <li><strong>Excellent extrapolation:</strong> Beyond training length</li>
+                                <li><strong>Relative position:</strong> Natural relative position encoding</li>
+                                <li><strong>Used in:</strong> LLaMA, GPT-NeoX, PaLM</li>
+                                <li><strong>Efficiency:</strong> No additional parameters</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="position-comparison">
+                        <h3>Comparison Summary</h3>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Method</th>
+                                <th>Extrapolation</th>
+                                <th>Parameters</th>
+                                <th>Relative Position</th>
+                                <th>Performance</th>
+                            </tr>
+                            <tr>
+                                <td>Sinusoidal</td>
+                                <td>✅ Excellent</td>
+                                <td>0</td>
+                                <td>✅ Yes</td>
+                                <td>Good</td>
+                            </tr>
+                            <tr>
+                                <td>Learned</td>
+                                <td>❌ No</td>
+                                <td>O(L×d)</td>
+                                <td>❌ No</td>
+                                <td>Very Good</td>
+                            </tr>
+                            <tr>
+                                <td>RoPE</td>
+                                <td>✅ Excellent</td>
+                                <td>0</td>
+                                <td>✅ Natural</td>
+                                <td>Excellent</td>
+                            </tr>
+                        </table>
                     </div>
                 </section>
 
                 <section>
-                    <h2>🏗️ Transformer Variants</h2>
+                    <h2>🏗️ Transformer Architecture Optimizations</h2>
                     <div class="variants-grid">
                         <div class="variant">
-                            <h3>Encoder-Only (BERT)</h3>
-                            <p>Bidirectional context</p>
-                            <span class="use-case">Classification, NER, QA</span>
+                            <h3>Encoder-Only (BERT-style)</h3>
+                            <p>Bidirectional context, masked language modeling</p>
+                            <span class="use-case">Classification, NER, QA, embedding generation</span>
+                            <div class="technical-details">
+                                <ul>
+                                    <li><strong>MLM objective:</strong> Predict 15% masked tokens</li>
+                                    <li><strong>Bidirectional attention:</strong> Each token sees full sequence</li>
+                                    <li><strong>CLS token:</strong> Special token for classification tasks</li>
+                                    <li><strong>Segment embeddings:</strong> Distinguish sentence pairs</li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="variant">
-                            <h3>Decoder-Only (GPT)</h3>
-                            <p>Causal masking</p>
-                            <span class="use-case">Text generation</span>
+                            <h3>Decoder-Only (GPT-style)</h3>
+                            <p>Causal masking, autoregressive generation</p>
+                            <span class="use-case">Text generation, completion, instruction following</span>
+                            <div class="technical-details">
+                                <ul>
+                                    <li><strong>Causal mask:</strong> Only attend to previous tokens</li>
+                                    <li><strong>Autoregressive:</strong> Generate one token at a time</li>
+                                    <li><strong>Scaling benefits:</strong> Emergent abilities with scale</li>
+                                    <li><strong>Versatility:</strong> Any task can be framed as text generation</li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="variant">
-                            <h3>Encoder-Decoder (T5)</h3>
-                            <p>Separate encode/decode</p>
-                            <span class="use-case">Translation, summarization</span>
+                            <h3>Encoder-Decoder (T5-style)</h3>
+                            <p>Separate encoding and decoding stages</p>
+                            <span class="use-case">Translation, summarization, seq-to-seq tasks</span>
+                            <div class="technical-details">
+                                <ul>
+                                    <li><strong>Cross-attention:</strong> Decoder attends to encoder outputs</li>
+                                    <li><strong>Text-to-text:</strong> All tasks unified as text generation</li>
+                                    <li><strong>Better for translation:</strong> Explicit source-target separation</li>
+                                    <li><strong>Prefix LM:</strong> Hybrid approach gaining popularity</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="technical-details">
+                        <h4>Modern Architecture Innovations:</h4>
+                        <ul>
+                            <li><strong>RMSNorm:</strong> Simpler than LayerNorm, better gradient flow</li>
+                            <li><strong>SwiGLU activation:</strong> Swish + GLU, better than ReLU/GELU</li>
+                            <li><strong>Grouped Query Attention:</strong> Reduce KV cache memory usage</li>
+                            <li><strong>Parallel attention:</strong> Compute attention and MLP in parallel</li>
+                            <li><strong>FlashAttention:</strong> Memory-efficient attention computation</li>
+                            <li><strong>Mixture of Experts:</strong> Sparse models with conditional computation</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>⚡ Efficiency & Scaling Optimizations</h2>
+                    <div class="scaling-laws">
+                        <div class="law-box">
+                            <h4>Linear Attention</h4>
+                            <p>O(n) complexity vs O(n²)</p>
+                            <ul>
+                                <li><strong>Linformer:</strong> Low-rank projection of K,V</li>
+                                <li><strong>Performer:</strong> FAVOR+ random feature approximation</li>
+                                <li><strong>Linear Transformer:</strong> Kernel-based attention</li>
+                                <li><strong>Trade-off:</strong> Efficiency vs expressiveness</li>
+                            </ul>
+                        </div>
+                        <div class="law-box">
+                            <h4>Sparse Attention</h4>
+                            <p>Structured sparsity patterns</p>
+                            <ul>
+                                <li><strong>Local windows:</strong> Only attend to nearby tokens</li>
+                                <li><strong>Strided patterns:</strong> Skip connections across sequence</li>
+                                <li><strong>Random attention:</strong> Sparse random connections</li>
+                                <li><strong>Longformer:</strong> Combines local + global attention</li>
+                            </ul>
+                        </div>
+                        <div class="law-box">
+                            <h4>Memory Optimization</h4>
+                            <p>Reduce activation memory</p>
+                            <ul>
+                                <li><strong>Gradient checkpointing:</strong> Trade compute for memory</li>
+                                <li><strong>Mixed precision:</strong> FP16/BF16 training</li>
+                                <li><strong>ZeRO optimizer:</strong> Partition optimizer states</li>
+                                <li><strong>Offloading:</strong> CPU/disk storage for large models</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -185,53 +334,197 @@
                 </section>
 
                 <section>
-                    <h2>📊 Scaling Laws</h2>
+                    <h2>📊 Scaling Laws Deep Dive</h2>
                     <div class="scaling-info">
-                        <h3>Key Relationships</h3>
-                        <div class="formula">
-                            <code>L(N) = (N<sub>c</sub>/N)<sup>α</sup> + L<sub>∞</sub></code>
+                        <h3>Fundamental Scaling Relationships</h3>
+                        <div class="scaling-laws">
+                            <div class="law-box">
+                                <h4>Compute Scaling</h4>
+                                <div class="formula">
+                                    <code>L(C) ∝ C<sup>-α</sup>, α ≈ 0.076</code>
+                                </div>
+                                <p>Loss decreases as a power law with compute</p>
+                            </div>
+                            <div class="law-box">
+                                <h4>Parameter Scaling</h4>
+                                <div class="formula">
+                                    <code>L(N) ∝ N<sup>-α</sup>, α ≈ 0.076</code>
+                                </div>
+                                <p>More parameters → better performance</p>
+                            </div>
+                            <div class="law-box">
+                                <h4>Data Scaling</h4>
+                                <div class="formula">
+                                    <code>L(D) ∝ D<sup>-β</sup>, β ≈ 0.095</code>
+                                </div>
+                                <p>Data is slightly more important than parameters</p>
+                            </div>
                         </div>
-                        <p>Where α ≈ 0.076 for transformers</p>
+                        
+                        <h3>Chinchilla Scaling (Compute Optimal)</h3>
+                        <div class="formula">
+                            <code>N<sub>opt</sub> ∝ C<sup>0.50</sup>, D<sub>opt</sub> ∝ C<sup>0.50</sup></code>
+                        </div>
+                        <p><strong>Key insight:</strong> For compute budget C, scale parameters and data equally</p>
+                        
+                        <h3>Practical Implications</h3>
                         <ul>
-                            <li><strong>Compute scaling</strong>: More compute → better performance</li>
-                            <li><strong>Data scaling</strong>: More data → better performance</li>
-                            <li><strong>Model scaling</strong>: More parameters → better performance</li>
+                            <li><strong>Training FLOPs:</strong> ≈ 6ND (N=parameters, D=tokens)</li>
+                            <li><strong>Inference FLOPs:</strong> ≈ 2N per token generated</li>
+                            <li><strong>Memory (training):</strong> ≈ 4N (weights + gradients + optimizer)</li>
+                            <li><strong>Memory (inference):</strong> ≈ 2N (weights + activations)</li>
+                            <li><strong>Emergent abilities:</strong> Appear suddenly at scale thresholds</li>
                         </ul>
+                        
+                        <h3>Model Size Progression</h3>
+                        <table class="model-progression">
+                            <tr><th>Model</th><th>Parameters</th><th>Training Tokens</th><th>Training Compute</th></tr>
+                            <tr><td>GPT-1</td><td>117M</td><td>5B</td><td>~1e18 FLOPs</td></tr>
+                            <tr><td>GPT-2</td><td>1.5B</td><td>40B</td><td>~4e20 FLOPs</td></tr>
+                            <tr><td>GPT-3</td><td>175B</td><td>300B</td><td>~3e23 FLOPs</td></tr>
+                            <tr><td>Chinchilla</td><td>70B</td><td>1.4T</td><td>~6e23 FLOPs</td></tr>
+                            <tr><td>GPT-4</td><td>~1.7T</td><td>~13T</td><td>~2e25 FLOPs</td></tr>
+                        </table>
                     </div>
                 </section>
 
                 <section>
-                    <h2>🎯 Training Techniques</h2>
+                    <h2>🎯 Advanced Training Techniques Deep Dive</h2>
                     <div class="training-grid">
                         <div class="training-method">
                             <h3>Pre-training</h3>
-                            <p>Learn language patterns from massive text</p>
+                            <p><strong>Objective:</strong> Next token prediction with maximum likelihood</p>
+                            <div class="formula-small">
+                                <code>L<sub>LM</sub> = -∑<sub>t=1</sub><sup>T</sup> log P(x<sub>t</sub>|x<sub>&lt;t</sub>; θ)</code>
+                            </div>
+                            <ul>
+                                <li><strong>Data scale:</strong> Trillions of tokens from web crawls, books, papers</li>
+                                <li><strong>Curriculum learning:</strong> Start with shorter sequences, increase gradually</li>
+                                <li><strong>Duration:</strong> Weeks to months on thousands of A100s</li>
+                                <li><strong>Key insight:</strong> Emergent abilities appear at scale thresholds</li>
+                                <li><strong>Data quality:</strong> Careful filtering and deduplication crucial</li>
+                            </ul>
                         </div>
                         <div class="training-method">
-                            <h3>Fine-tuning</h3>
-                            <p>Adapt to specific tasks</p>
+                            <h3>Supervised Fine-tuning (SFT)</h3>
+                            <p><strong>Objective:</strong> Task-specific performance optimization</p>
+                            <div class="formula-small">
+                                <code>L<sub>SFT</sub> = -∑ log P(y|x; θ) over (x,y) pairs</code>
+                            </div>
+                            <ul>
+                                <li><strong>Data:</strong> High-quality instruction-response pairs (~100K examples)</li>
+                                <li><strong>Learning rate:</strong> 10-100x lower than pre-training (1e-5 to 1e-6)</li>
+                                <li><strong>Duration:</strong> Hours to days (1-3 epochs typically)</li>
+                                <li><strong>Catastrophic forgetting:</strong> Use EMA, low LR, replay buffer</li>
+                                <li><strong>Evaluation:</strong> Human eval on helpfulness, accuracy, safety</li>
+                            </ul>
                         </div>
                         <div class="training-method">
-                            <h3>RLHF</h3>
-                            <p>Align with human preferences</p>
+                            <h3>RLHF (Reinforcement Learning from Human Feedback)</h3>
+                            <p><strong>Objective:</strong> Align with human preferences and values</p>
+                            <div class="rlhf-stages">
+                                <div class="stage">
+                                    <h4>1. Reward Model Training</h4>
+                                    <div class="formula-small">
+                                        <code>r<sub>θ</sub>(x,y) = σ(h<sub>θ</sub>(x,y))</code>
+                                        <code>L<sub>RM</sub> = -E[log σ(r(x,y<sub>w</sub>) - r(x,y<sub>l</sub>))]</code>
+                                    </div>
+                                    <p>Train classifier to predict human preferences from comparison data</p>
+                                    <ul>
+                                        <li><strong>Data:</strong> ~50K human preference comparisons</li>
+                                        <li><strong>Architecture:</strong> Same as base model + value head</li>
+                                        <li><strong>Training:</strong> Binary classification on preference pairs</li>
+                                    </ul>
+                                </div>
+                                <div class="stage">
+                                    <h4>2. PPO Policy Training</h4>
+                                    <div class="formula-small">
+                                        <code>L<sub>PPO</sub> = E[r<sub>θ</sub>(x,y) - β·KL(π<sub>θ</sub>(y|x)||π<sub>ref</sub>(y|x))]</code>
+                                        <code>where β ≈ 0.01-0.1 (KL penalty coefficient)</code>
+                                    </div>
+                                    <p>Optimize policy to maximize reward while staying close to reference model</p>
+                                    <ul>
+                                        <li><strong>PPO clip:</strong> Prevent large policy updates</li>
+                                        <li><strong>KL penalty:</strong> Maintain model capabilities</li>
+                                        <li><strong>Value function:</strong> Reduce variance in policy gradients</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="technical-details">
+                                <h4>Key Challenges & Solutions:</h4>
+                                <ul>
+                                    <li><strong>Reward hacking:</strong> Model exploits flaws in reward model</li>
+                                    <li><strong>Mode collapse:</strong> Policy becomes repetitive or safe</li>
+                                    <li><strong>Distribution shift:</strong> RL diverges from original data distribution</li>
+                                    <li><strong>Solutions:</strong> Constitutional AI, iterative refinement, robust reward modeling</li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="training-method">
-                            <h3>In-Context Learning</h3>
-                            <p>Learn from examples in prompt</p>
+                            <h3>In-Context Learning (ICL)</h3>
+                            <p><strong>Emergent ability:</strong> Learn tasks from examples in prompt without parameter updates</p>
+                            <div class="formula-small">
+                                <code>P(y|x, examples) where examples = [(x₁,y₁), (x₂,y₂), ...]</code>
+                            </div>
+                            <ul>
+                                <li><strong>No parameter updates:</strong> Pure inference-time adaptation</li>
+                                <li><strong>Example format:</strong> Input-output pairs followed by query</li>
+                                <li><strong>Performance scaling:</strong> Better with model size and example quality</li>
+                                <li><strong>Context length limits:</strong> Typically 2K-32K tokens</li>
+                                <li><strong>Example selection:</strong> Semantic similarity, diversity, ordering matter</li>
+                                <li><strong>Chain-of-thought:</strong> Step-by-step reasoning improves complex tasks</li>
+                            </ul>
+                            <div class="technical-details">
+                                <h4>ICL Mechanisms (Research Insights):</h4>
+                                <ul>
+                                    <li><strong>Induction heads:</strong> Attention patterns that copy from context</li>
+                                    <li><strong>Linear probing:</strong> ICL implements simple linear classifiers</li>
+                                    <li><strong>Gradient descent analogy:</strong> ICL approximates gradient-based learning</li>
+                                    <li><strong>Semantic priors:</strong> Model uses pre-training knowledge to interpret examples</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section>
-                    <h2>🚀 Emergent Abilities</h2>
+                    <h2>🚀 Emergent Abilities & Capability Scaling</h2>
                     <div class="abilities-list">
+                        <h3>Abilities that Emerge at Scale:</h3>
                         <ul>
-                            <li><strong>Few-shot learning</strong>: Learn from minimal examples</li>
-                            <li><strong>Chain-of-thought reasoning</strong>: Step-by-step problem solving</li>
-                            <li><strong>Code generation</strong>: Writing and debugging code</li>
-                            <li><strong>Mathematical reasoning</strong>: Solving complex problems</li>
-                            <li><strong>Creative writing</strong>: Generating coherent long-form content</li>
-                            <li><strong>Multilingual capabilities</strong>: Cross-language understanding</li>
+                            <li><strong>Few-shot learning:</strong> Generalize from minimal examples (appears ~1-10B params)</li>
+                            <li><strong>Chain-of-thought reasoning:</strong> Step-by-step problem decomposition (~10B+ params)</li>
+                            <li><strong>Code generation:</strong> Writing and debugging complex programs (~10B+ params)</li>
+                            <li><strong>Mathematical reasoning:</strong> Multi-step problem solving (~100B+ params)</li>
+                            <li><strong>Creative writing:</strong> Long-form coherent narratives (~10B+ params)</li>
+                            <li><strong>Multilingual capabilities:</strong> Cross-language understanding and translation</li>
+                            <li><strong>Tool use:</strong> API calls, calculator usage, web search (~100B+ params)</li>
+                            <li><strong>Self-correction:</strong> Identifying and fixing own mistakes (~100B+ params)</li>
+                        </ul>
+                        
+                        <h3>Emergent Phenomena Characteristics:</h3>
+                        <div class="technical-details">
+                            <ul>
+                                <li><strong>Sharp phase transitions:</strong> Abilities appear suddenly, not gradually</li>
+                                <li><strong>Unpredictable timing:</strong> Hard to predict exact scale threshold</li>
+                                <li><strong>Task-dependent:</strong> Different abilities emerge at different scales</li>
+                                <li><strong>Not just scaling:</strong> Architecture and training details matter</li>
+                                <li><strong>Evaluation dependent:</strong> Some abilities only visible with right prompts</li>
+                            </ul>
+                        </div>
+                        
+                        <h3>Scaling Law Implications:</h3>
+                        <div class="formula-small">
+                            <code>Performance ∝ (Compute)^α where α varies by task</code>
+                            <code>Emergence threshold: log(Performance) vs log(Scale) shows inflection</code>
+                        </div>
+                        
+                        <h3>Current Research Questions:</h3>
+                        <ul>
+                            <li><strong>Predictability:</strong> Can we predict which abilities will emerge when?</li>
+                            <li><strong>Necessity:</strong> Are massive scales necessary, or can clever training help?</li>
+                            <li><strong>Generalization:</strong> Do emergent abilities transfer across domains?</li>
+                            <li><strong>Safety implications:</strong> How do we ensure beneficial emergence?</li>
                         </ul>
                     </div>
                 </section>
@@ -245,48 +538,102 @@
                 </section>
 
                 <section>
-                    <h2>🛠️ Core AWS Services</h2>
+                    <h2>🛠️ AWS ML Infrastructure Deep Dive</h2>
                     <div class="aws-services">
                         <div class="service">
-                            <h3>SageMaker</h3>
-                            <p>End-to-end ML platform</p>
+                            <h3>SageMaker Ecosystem</h3>
+                            <h4>Training & Deployment</h4>
                             <ul>
-                                <li>Training jobs</li>
-                                <li>Model endpoints</li>
-                                <li>Pipelines</li>
+                                <li><strong>Training Jobs:</strong> Distributed training with automatic scaling</li>
+                                <li><strong>Hyperparameter Tuning:</strong> Bayesian optimization for model tuning</li>
+                                <li><strong>Model Registry:</strong> Version control and lineage tracking</li>
+                                <li><strong>Endpoints:</strong> Real-time and batch inference</li>
+                                <li><strong>Pipelines:</strong> MLOps workflow orchestration</li>
+                                <li><strong>Feature Store:</strong> Centralized feature management</li>
+                            </ul>
+                            <h4>Advanced Features</h4>
+                            <ul>
+                                <li><strong>Multi-model endpoints:</strong> Cost-efficient hosting</li>
+                                <li><strong>Auto-scaling:</strong> Dynamic capacity management</li>
+                                <li><strong>A/B testing:</strong> Production variant testing</li>
+                                <li><strong>Data Wrangler:</strong> Visual data preparation</li>
                             </ul>
                         </div>
                         <div class="service">
-                            <h3>Bedrock</h3>
-                            <p>Foundation models API</p>
+                            <h3>Bedrock Foundation Models</h3>
+                            <h4>Available Models</h4>
                             <ul>
-                                <li>Pre-trained models</li>
-                                <li>Custom fine-tuning</li>
-                                <li>Serverless inference</li>
+                                <li><strong>Anthropic Claude:</strong> Constitutional AI, large context</li>
+                                <li><strong>Amazon Titan:</strong> Text and multimodal models</li>
+                                <li><strong>Stability AI:</strong> Stable Diffusion for image generation</li>
+                                <li><strong>Cohere:</strong> Command and embeddings models</li>
+                                <li><strong>Meta Llama 2:</strong> Open-source language models</li>
+                            </ul>
+                            <h4>Customization Options</h4>
+                            <ul>
+                                <li><strong>Fine-tuning:</strong> Task-specific adaptation</li>
+                                <li><strong>Retrieval Augmented Generation:</strong> Knowledge base integration</li>
+                                <li><strong>Prompt engineering:</strong> Advanced prompt templates</li>
+                                <li><strong>Guardrails:</strong> Content filtering and safety</li>
                             </ul>
                         </div>
                         <div class="service">
-                            <h3>EC2 + Storage</h3>
-                            <p>Compute infrastructure</p>
+                            <h3>Compute & Storage</h3>
+                            <h4>GPU Instances</h4>
                             <ul>
-                                <li>P4/P3 GPU instances</li>
-                                <li>S3 for data</li>
-                                <li>EFS for shared storage</li>
+                                <li><strong>p4d.24xlarge:</strong> 8x A100 (40GB), 320GB GPU memory</li>
+                                <li><strong>p4de.24xlarge:</strong> 8x A100 (80GB), 640GB GPU memory</li>
+                                <li><strong>p3.16xlarge:</strong> 8x V100, cost-effective training</li>
+                                <li><strong>g5.48xlarge:</strong> 8x A10G, inference optimization</li>
+                                <li><strong>trn1:</strong> AWS Trainium for large model training</li>
+                                <li><strong>inf2:</strong> AWS Inferentia for inference optimization</li>
+                            </ul>
+                            <h4>Storage Solutions</h4>
+                            <ul>
+                                <li><strong>S3:</strong> Petabyte-scale data lake with tiering</li>
+                                <li><strong>EFS:</strong> Shared file system for distributed training</li>
+                                <li><strong>FSx for Lustre:</strong> High-performance computing filesystem</li>
+                                <li><strong>EBS:</strong> Block storage with up to 64,000 IOPS</li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
                 <section>
-                    <h2>💰 Cost Optimization</h2>
+                    <h2>💰 Advanced Cost Optimization Strategies</h2>
                     <div class="cost-strategies">
-                        <ul>
-                            <li><strong>Spot instances</strong>: Up to 90% savings for training</li>
-                            <li><strong>Auto-scaling</strong>: Scale endpoints based on demand</li>
-                            <li><strong>Model optimization</strong>: Quantization, pruning, distillation</li>
-                            <li><strong>Efficient architectures</strong>: Choose right instance types</li>
-                            <li><strong>Data lifecycle</strong>: S3 Intelligent Tiering</li>
-                        </ul>
+                        <div class="strategy-category">
+                            <h3>Training Cost Optimization</h3>
+                            <ul>
+                                <li><strong>Spot instances:</strong> Up to 90% savings with fault-tolerant training</li>
+                                <li><strong>Mixed instance types:</strong> Combine spot/on-demand for reliability</li>
+                                <li><strong>Gradient checkpointing:</strong> Trade compute for memory (larger batch sizes)</li>
+                                <li><strong>Mixed precision (FP16):</strong> 2x memory savings, faster training</li>
+                                <li><strong>Model parallelism:</strong> Split large models across instances</li>
+                                <li><strong>Data parallelism:</strong> Distribute batch processing</li>
+                            </ul>
+                        </div>
+                        <div class="strategy-category">
+                            <h3>Inference Cost Optimization</h3>
+                            <ul>
+                                <li><strong>Model quantization:</strong> INT8/FP16 for 2-4x speedup</li>
+                                <li><strong>Knowledge distillation:</strong> Smaller student models</li>
+                                <li><strong>Dynamic batching:</strong> Batch multiple requests together</li>
+                                <li><strong>Model caching:</strong> Cache frequent query results</li>
+                                <li><strong>Auto-scaling:</strong> Scale endpoints based on traffic</li>
+                                <li><strong>Multi-model endpoints:</strong> Share infrastructure across models</li>
+                            </ul>
+                        </div>
+                        <div class="strategy-category">
+                            <h3>Storage & Data Optimization</h3>
+                            <ul>
+                                <li><strong>S3 Intelligent Tiering:</strong> Automatic data lifecycle management</li>
+                                <li><strong>Data compression:</strong> Reduce storage and transfer costs</li>
+                                <li><strong>Incremental training:</strong> Only retrain on new data</li>
+                                <li><strong>Data sampling:</strong> Train on representative subsets</li>
+                                <li><strong>Efficient data formats:</strong> Parquet, Arrow for faster loading</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
             </section>
@@ -355,23 +702,73 @@
                 </section>
 
                 <section>
-                    <h2>🔢 Key Formulas</h2>
-                    <div class="formulas-grid">
-                        <div class="formula-item">
-                            <h3>Attention</h3>
-                            <code>softmax(QK<sup>T</sup>/√d<sub>k</sub>)V</code>
+                    <h2>🔢 Essential Formulas & Calculations</h2>
+                    <div class="formulas-comprehensive">
+                        <div class="formula-category">
+                            <h3>Attention Mechanisms</h3>
+                            <div class="formula-item">
+                                <h4>Scaled Dot-Product Attention</h4>
+                                <code>Attention(Q,K,V) = softmax(QK<sup>T</sup>/√d<sub>k</sub>)V</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Multi-Head Attention</h4>
+                                <code>MultiHead(Q,K,V) = Concat(head₁,...,head<sub>h</sub>)W<sup>O</sup></code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Cross-Attention</h4>
+                                <code>CrossAttn(Q<sub>dec</sub>, K<sub>enc</sub>, V<sub>enc</sub>)</code>
+                            </div>
                         </div>
-                        <div class="formula-item">
-                            <h3>Scaling Laws</h3>
-                            <code>L(N) = (N<sub>c</sub>/N)<sup>α</sup> + L<sub>∞</sub></code>
+                        
+                        <div class="formula-category">
+                            <h3>Scaling Laws & Compute</h3>
+                            <div class="formula-item">
+                                <h4>Compute-Optimal Scaling (Chinchilla)</h4>
+                                <code>N<sub>opt</sub> ∝ C<sup>0.5</sup>, D<sub>opt</sub> ∝ C<sup>0.5</sup></code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Training FLOPs</h4>
+                                <code>≈ 6 × N × D (N=params, D=tokens)</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Inference FLOPs per Token</h4>
+                                <code>≈ 2 × N (forward pass only)</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Memory Requirements</h4>
+                                <code>Training: ≈ 4N, Inference: ≈ 2N</code>
+                            </div>
                         </div>
-                        <div class="formula-item">
-                            <h3>Training FLOPs</h3>
-                            <code>≈ 6 × Parameters × Tokens</code>
+                        
+                        <div class="formula-category">
+                            <h3>Loss Functions</h3>
+                            <div class="formula-item">
+                                <h4>Cross-Entropy (Language Modeling)</h4>
+                                <code>L = -∑<sub>t</sub> log P(x<sub>t</sub>|x<sub>&lt;t</sub>)</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Contrastive Loss (CLIP)</h4>
+                                <code>L = -log(exp(sim(i,t)/τ) / ∑exp(sim(i,t')/τ))</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>KL Divergence (RLHF)</h4>
+                                <code>KL(π||π<sub>ref</sub>) = E<sub>π</sub>[log π(a|s) - log π<sub>ref</sub>(a|s)]</code>
+                            </div>
                         </div>
-                        <div class="formula-item">
-                            <h3>Memory (Training)</h3>
-                            <code>≈ 4 × Parameters</code>
+                        
+                        <div class="formula-category">
+                            <h3>Optimization</h3>
+                            <div class="formula-item">
+                                <h4>Adam Optimizer</h4>
+                                <code>m<sub>t</sub> = β₁m<sub>t-1</sub> + (1-β₁)g<sub>t</sub></code>
+                                <code>v<sub>t</sub> = β₂v<sub>t-1</sub> + (1-β₂)g<sub>t</sub>²</code>
+                                <code>θ<sub>t</sub> = θ<sub>t-1</sub> - α·m̂<sub>t</sub>/√(v̂<sub>t</sub> + ε)</code>
+                            </div>
+                            <div class="formula-item">
+                                <h4>Learning Rate Scheduling</h4>
+                                <code>Cosine: η<sub>t</sub> = η<sub>min</sub> + (η<sub>max</sub>-η<sub>min</sub>)·(1+cos(πt/T))/2</code>
+                                <code>Warmup: η<sub>t</sub> = η<sub>max</sub>·min(t/t<sub>warmup</sub>, 1)</code>
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -726,119 +726,354 @@
     font-size: 1.1em;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .study-phases,
-    .attention-grid,
-    .position-types,
-    .variants-grid,
-    .training-grid,
-    .aws-services,
-    .formulas-grid {
+/* Enhanced styles for improved content */
+
+/* Technical details styling */
+.technical-details {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.technical-details h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.technical-details ol {
+    text-align: left;
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.technical-details li {
+    margin-bottom: 0.5rem;
+}
+
+/* Enhanced styles for expanded technical content */
+
+/* Improved formula styling with better readability */
+.formula-small {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    margin: 0.8rem 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.formula-small code {
+    color: #fbbf24;
+    display: block;
+    margin: 0.4rem 0;
+    font-weight: 500;
+}
+
+/* Enhanced technical details boxes */
+.technical-details {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin-top: 1.2rem;
+    border-left: 4px solid var(--accent-color);
+}
+
+.technical-details h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.technical-details ul,
+.technical-details ol {
+    text-align: left;
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.technical-details li {
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+}
+
+/* Enhanced attention types grid */
+.attention-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.type-box {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.2rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.type-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-left-color: var(--accent-color);
+}
+
+.type-box h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.6rem;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.type-box p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Enhanced comparison tables */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.9em;
+}
+
+.comparison-table th {
+    background: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.5px;
+}
+
+.comparison-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table td:first-child {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+/* RLHF stages layout improvement */
+.rlhf-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stage {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--purple-color);
+}
+
+.stage h4 {
+    color: var(--purple-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.stage p {
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: #cbd5e1;
+}
+
+.stage ul {
+    text-align: left;
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.stage li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Enhanced law boxes for scaling information */
+.law-box {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-top: 4px solid var(--accent-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.law-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.law-box h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.law-box p {
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.law-box ul {
+    text-align: left;
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.law-box li {
+    margin-bottom: 0.6rem;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Better spacing for abilities list */
+.abilities-list h3 {
+    color: var(--primary-color);
+    margin: 2rem 0 1rem 0;
+    font-size: 1.3em;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.abilities-list ul {
+    margin-bottom: 2rem;
+}
+
+.abilities-list li {
+    margin-bottom: 1rem;
+    font-size: 1.05em;
+    line-height: 1.5;
+}
+
+/* Enhanced interview QA sections */
+.interview-qa h4 {
+    color: var(--accent-color);
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-left: 3px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+.interview-qa .answer {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.interview-qa .answer h4 {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+/* Responsive improvements */
+@media (max-width: 1024px) {
+    .rlhf-stages {
         grid-template-columns: 1fr;
-        gap: 1rem;
     }
     
-    .reveal h1 {
-        font-size: 2em;
+    .attention-types {
+        grid-template-columns: 1fr;
     }
     
-    .reveal h2 {
-        font-size: 1.5em;
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.8rem 0.6rem;
     }
-    
-    .phase,
-    .attention-item,
-    .pos-type,
-    .variant,
-    .training-method,
-    .service,
-    .formula-item {
+}
+
+@media (max-width: 768px) {
+    .technical-details {
         padding: 1rem;
     }
     
-    .unet-components,
-    .innovations-grid,
-    .sampling-methods,
-    .fusion-strategies,
-    .vl-models,
-    .evaluation-challenges,
-    .advanced-techniques {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+    .formula-small {
+        font-size: 0.8em;
+        padding: 0.6rem;
     }
     
-    .frontiers-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+    .law-box,
+    .stage,
+    .type-box {
+        padding: 1rem;
     }
     
-    .attention-flow {
-        flex-direction: column;
-        gap: 0.5rem;
+    .comparison-table {
+        font-size: 0.8em;
     }
     
-    .arrow {
-        transform: rotate(90deg);
-    }
-    
-    .process-step {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .process-step span {
-        min-width: auto;
-        width: 100%;
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.6rem 0.4rem;
     }
 }
 
-/* Animations */
-.reveal .slides section[data-transition="slide"] {
-    transition: transform 0.5s ease-in-out;
+/* Animation improvements */
+.formula-small,
+.technical-details,
+.law-box,
+.stage,
+.type-box {
+    animation: fadeInUp 0.6s ease-out;
 }
 
-/* Custom progress bar */
-.reveal .progress {
-    height: 4px;
-}
-
-.reveal .progress span {
-    background: var(--primary-color);
-}
-
-/* Speaker notes styling */
-.reveal aside.notes {
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-/* Animation for process steps */
-@keyframes slideIn {
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
-.process-step span {
-    animation: slideIn 0.5s ease-out;
+/* Code syntax highlighting improvements */
+.formula-small code,
+.formula code {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
 }
 
-.process-step span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.process-step span:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.process-step span:nth-child(4) {
-    animation-delay: 0.6s;
+/* Better focus states for accessibility */
+.law-box:focus,
+.stage:focus,
+.type-box:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
