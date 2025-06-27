@@ -1,144 +1,151 @@
-# AWS Senior Applied Scientist, Gen AI - Interview Preparation
+# 🌐 Interactive Interview Preparation Website
 
-## 🎯 Role Overview
-**Position**: Senior Applied Scientist, Gen AI  
-**Company**: Amazon Development Center (Tel Aviv)  
-**Team**: AWS Multimodal Generative AI Science Team  
+A beautiful, interactive slideshow-based study platform for your AWS Senior Applied Scientist interview preparation.
 
-## 📚 Study Plan Structure
+## 🎯 Features
 
-### Phase 1: Core Technical Foundations (Week 1-2)
-- [ ] Transformer Architecture Deep Dive
-- [ ] Large Language Models (LLMs)
-- [ ] Diffusion Models & Generative AI
-- [ ] Multimodal AI Systems
+### 📊 Interactive Slideshows
+- **Main Overview**: Complete study plan and core concepts
+- **Diffusion & Multimodal**: Deep dive into advanced AI topics
+- **Navigation Portal**: Easy access to all resources
 
-### Phase 2: Research & Implementation (Week 3)
-- [ ] Research Methodology
-- [ ] Deep Learning Optimization
-- [ ] Model Training & Scaling
-- [ ] Evaluation Metrics
+### 🎨 Professional Design
+- **Responsive design** works on all devices
+- **Dark theme** optimized for long study sessions
+- **Color-coded sections** for easy topic identification
+- **Smooth animations** and transitions
 
-### Phase 3: AWS & Production Focus (Week 4)
-- [ ] AWS Services & Cloud Computing
-- [ ] Production ML Systems
-- [ ] Leadership & Collaboration
-- [ ] Recent Advances & Trends
+### ⌨️ Keyboard Navigation
+- **Arrow keys**: Navigate slides
+- **Space bar**: Next slide
+- **ESC**: Overview mode
+- **F**: Fullscreen
+- **H**: Help menu
+- **M**: Quick navigation menu
 
-### Phase 4: Interview Practice (Ongoing)
-- [ ] Technical Questions
-- [ ] Research Presentation
-- [ ] Coding Challenges
-- [ ] Behavioral Questions
+### 📱 Mobile Friendly
+- Touch navigation
+- Responsive layouts
+- Optimized for tablets and phones
+- Works offline after first load
 
-## 📖 Study Materials
+## 🚀 Quick Start
 
-### 📁 Technical Deep Dives
-- [01-transformer-architecture.md](./01-core-concepts/01-transformer-architecture.md) - Complete transformer guide
-- [02-large-language-models.md](./01-core-concepts/02-large-language-models.md) - LLM fundamentals
-- [03-diffusion-models.md](./01-core-concepts/03-diffusion-models.md) - Diffusion theory & practice
-- [04-multimodal-ai.md](./01-core-concepts/04-multimodal-ai.md) - Vision-language models
+### Local Development
+```bash
+# Navigate to website directory
+cd website
 
-### 🔬 Research & Implementation
-- [05-research-methodology.md](./02-research-implementation/05-research-methodology.md) - Research best practices
-- [06-training-optimization.md](./02-research-implementation/06-training-optimization.md) - Training techniques
-- [07-evaluation-metrics.md](./02-research-implementation/07-evaluation-metrics.md) - Model evaluation
+# Open in browser (any local server works)
+python -m http.server 8000
+# or
+npx serve .
 
-### ☁️ AWS & Production
-- [08-aws-services.md](./03-aws-production/08-aws-services.md) - Relevant AWS services
-- [09-production-ml.md](./03-aws-production/09-production-ml.md) - ML in production
-- [10-leadership-collaboration.md](./03-aws-production/10-leadership-collaboration.md) - Leadership skills
+# Visit http://localhost:8000
+```
 
-### 🎯 Interview Practice
-- [11-technical-questions.md](./04-interview-practice/11-technical-questions.md) - Common technical questions
-- [12-coding-challenges.md](./04-interview-practice/12-coding-challenges.md) - Coding problems
-- [13-research-presentation.md](./04-interview-practice/13-research-presentation.md) - Presentation guide
-- [14-behavioral-questions.md](./04-interview-practice/14-behavioral-questions.md) - STAR method examples
+### Deploy to GitHub Pages
+See `GITHUB_PAGES_SETUP.md` for detailed instructions.
 
-### 📊 Recent Advances & Resources
-- [15-recent-papers.md](./05-recent-advances/15-recent-papers.md) - Must-read papers & trends
+## 📁 File Structure
 
-### 💻 Hands-On Practice
-- [cheat-sheets.md](./06-hands-on/cheat-sheets.md) - Quick reference formulas & concepts
-- [code-examples/](./06-hands-on/code-examples/) - Implementation examples & templates
+```
+website/
+├── index.html                    # Main slideshow
+├── diffusion-multimodal.html     # Advanced topics slideshow
+├── navigation.html               # Study portal homepage
+├── styles.css                    # All styling
+├── script.js                     # Interactive features
+├── GITHUB_PAGES_SETUP.md        # Deployment guide
+└── README.md                     # This file
+```
 
-## 🎯 Key Focus Areas for AWS Role
+## 🎓 Study Workflow
 
-### Technical Excellence
-- **Multimodal Generative AI**: Vision-language models, cross-modal learning
-- **Foundation Models**: Large-scale model training and fine-tuning
-- **Computer Vision**: Image generation, understanding, and processing
-- **Production ML**: Scalable systems, optimization, deployment
+1. **Start at Navigation Portal** (`navigation.html`)
+2. **Main Overview** for broad concepts
+3. **Specific Slideshows** for deep dives
+4. **Practice explanations** out loud
+5. **Return to written guides** for implementation details
 
-### Research Leadership
-- **Research Design**: From ideation to implementation
-- **Publication**: Top-tier conferences and journals
-- **Mentorship**: Guiding scientists and engineers
-- **Innovation**: Pushing boundaries of what's possible
+## 🛠️ Customization
 
-### AWS-Specific Skills
-- **Cloud Computing**: AWS services for ML workloads
-- **Scalability**: Handling millions of customers
-- **Cross-functional Collaboration**: Working with diverse teams
-- **Product Impact**: Research that becomes real products
+### Adding New Slideshows
+1. Copy existing HTML structure
+2. Update content sections
+3. Add navigation links
+4. Test responsive design
 
-## 📅 Daily Study Schedule
+### Modifying Styles
+- Edit `styles.css` for global changes
+- Use CSS custom properties for consistent theming
+- Test on mobile devices
 
-### Week 1: Foundations
-- **Day 1-2**: Transformer architecture and attention mechanisms
-- **Day 3-4**: Large language models and training
-- **Day 5-6**: Diffusion models and generative AI
-- **Day 7**: Review and practice problems
+### Adding Interactive Features
+- Extend `script.js` for new functionality
+- Use Reveal.js API for slide control
+- Add progress tracking or analytics
 
-### Week 2: Advanced Topics
-- **Day 1-2**: Multimodal AI and vision-language models
-- **Day 3-4**: Training optimization and scaling
-- **Day 5-6**: Evaluation and alignment
-- **Day 7**: Technical interview practice
+## 📊 Built With
 
-### Week 3: Research & AWS
-- **Day 1-2**: Research methodology and project design
-- **Day 3-4**: AWS services and cloud ML
-- **Day 5-6**: Production systems and deployment
-- **Day 7**: Research presentation prep
+- **[Reveal.js](https://revealjs.com/)**: Presentation framework
+- **[Highlight.js](https://highlightjs.org/)**: Code syntax highlighting
+- **Vanilla CSS**: Custom styling and animations
+- **Vanilla JavaScript**: Interactive features
 
-### Week 4: Interview Prep
-- **Day 1-2**: Mock technical interviews
-- **Day 3-4**: Coding challenges and implementation
-- **Day 5-6**: Behavioral questions and leadership scenarios
-- **Day 7**: Final review and confidence building
+## 🎯 Key Benefits
 
-## ✅ Success Metrics
+### For Interview Prep
+- **Visual learning**: Complex concepts made clear
+- **Practice presentations**: Simulate interview scenarios
+- **Progress tracking**: Monitor your study advancement
+- **Quick reference**: Essential formulas and concepts
 
-### Technical Mastery
-- [ ] Can explain transformer architecture from memory
-- [ ] Understand trade-offs between different generative models
-- [ ] Know when to use different training techniques
-- [ ] Can discuss recent advances in the field
+### For Long-term Use
+- **Portfolio piece**: Demonstrate your web skills
+- **Knowledge base**: Reference for future projects
+- **Teaching tool**: Share with others learning AI
+- **Template**: Adapt for other technical topics
 
-### Research Readiness
-- [ ] Can design a research project from scratch
-- [ ] Understand evaluation methodologies
-- [ ] Know how to scale research to production
-- [ ] Can articulate research impact and vision
+## 🔧 Troubleshooting
 
-### AWS Alignment
-- [ ] Understand AWS ML services and capabilities
-- [ ] Know how to deploy models at scale
-- [ ] Can discuss customer impact and business value
-- [ ] Demonstrate leadership and collaboration skills
+### Common Issues
+- **Slides not loading**: Check internet connection for CDN resources
+- **Navigation not working**: Ensure JavaScript is enabled
+- **Mobile layout issues**: Test responsive breakpoints
+- **Performance problems**: Optimize images and reduce animations
 
-## 🚀 Quick Start Guide
+### Browser Support
+- **Chrome/Edge**: Full support ✅
+- **Firefox**: Full support ✅
+- **Safari**: Full support ✅
+- **Mobile browsers**: Optimized experience ✅
 
-1. **Start with Core Concepts**: Begin with transformer architecture
-2. **Code Along**: Implement key concepts as you learn
-3. **Practice Daily**: Solve at least one technical problem daily
-4. **Stay Current**: Read recent papers and follow developments
-5. **Mock Interviews**: Practice with peers or mentors
-6. **Build Projects**: Create portfolio pieces that demonstrate skills
+## 📈 Performance
+
+- **Fast loading**: CDN resources and optimized assets
+- **Offline ready**: Service worker caching (can be added)
+- **SEO optimized**: Proper meta tags and structure
+- **Accessibility**: Keyboard navigation and screen reader support
+
+## 🎨 Design Philosophy
+
+- **Clean and professional**: Suitable for interview contexts
+- **Information dense**: Maximum learning in minimum time
+- **Intuitive navigation**: Focus on content, not interface
+- **Consistent theming**: AWS orange and tech blues throughout
+
+## 🚀 Future Enhancements
+
+Potential additions:
+- **Audio narration**: Voice explanations for slides
+- **Interactive code examples**: Live coding environments
+- **Quiz mode**: Self-testing capabilities
+- **Study analytics**: Detailed progress tracking
+- **Collaboration features**: Study group functionality
 
 ---
 
-*"The best way to predict the future is to invent it."* - Alan Kay
+**Ready to ace your interview!** 🎯
 
-Let's build the future of AI together! 🚀
+Start studying: [Launch Navigation Portal](navigation.html)

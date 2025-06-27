@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Senior Applied Scientist Interview Prep</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-gradient="linear-gradient(45deg, #1a1a1a, #2d2d2d)">
+                <h1>🚀 AWS Senior Applied Scientist</h1>
+                <h2>Gen AI Interview Preparation</h2>
+                <p>
+                    <small>Interactive Study Guide</small>
+                </p>
+                <div class="navigation-hint">
+                    <p><a href="navigation.html" style="color: #7c3aed;">📚 Study Portal</a> | Press <kbd>→</kbd> to navigate | <kbd>ESC</kbd> for overview</p>
+                </div>
+            </section>
+
+            <!-- Study Plan Overview -->
+            <section>
+                <section>
+                    <h2>📚 Study Plan Overview</h2>
+                    <div class="study-phases">
+                        <div class="phase">
+                            <h3>Phase 1: Core Technical (Week 1-2)</h3>
+                            <ul>
+                                <li>Transformer Architecture</li>
+                                <li>Large Language Models</li>
+                                <li>Diffusion Models</li>
+                                <li>Multimodal AI</li>
+                            </ul>
+                        </div>
+                        <div class="phase">
+                            <h3>Phase 2: Research & Implementation (Week 3)</h3>
+                            <ul>
+                                <li>Research Methodology</li>
+                                <li>Training Optimization</li>
+                                <li>Evaluation Metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="study-phases">
+                        <div class="phase">
+                            <h3>Phase 3: AWS & Production (Week 4)</h3>
+                            <ul>
+                                <li>AWS Services</li>
+                                <li>Production ML Systems</li>
+                                <li>Leadership & Collaboration</li>
+                            </ul>
+                        </div>
+                        <div class="phase">
+                            <h3>Phase 4: Interview Practice (Ongoing)</h3>
+                            <ul>
+                                <li>Technical Questions</li>
+                                <li>Coding Challenges</li>
+                                <li>Behavioral Questions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Transformer Architecture Section -->
+            <section>
+                <section data-background-color="#1e3a8a">
+                    <h1>🏗️ Transformer Architecture</h1>
+                    <p>The foundation of modern AI</p>
+                </section>
+
+                <section>
+                    <h2>🎯 Key Innovation</h2>
+                    <div class="concept-box">
+                        <h3>Self-Attention Mechanism</h3>
+                        <p>Allows parallel processing and captures long-range dependencies</p>
+                        <div class="formula">
+                            <code>Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>)V</code>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>🔍 Attention Components</h2>
+                    <div class="attention-grid">
+                        <div class="attention-item">
+                            <h3>Q (Query)</h3>
+                            <p>"What am I looking for?"</p>
+                            <span class="role">Current position/token</span>
+                        </div>
+                        <div class="attention-item">
+                            <h3>K (Key)</h3>
+                            <p>"What info is available?"</p>
+                            <span class="role">All positions in sequence</span>
+                        </div>
+                        <div class="attention-item">
+                            <h3>V (Value)</h3>
+                            <p>"What is the actual info?"</p>
+                            <span class="role">Content to be retrieved</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>🎯 Multi-Head Attention</h2>
+                    <div class="multihead-explanation">
+                        <h3>Why Multiple Heads?</h3>
+                        <ul>
+                            <li><strong>Syntactic relationships</strong> (subject-verb agreement)</li>
+                            <li><strong>Semantic relationships</strong> (word meanings)</li>
+                            <li><strong>Positional relationships</strong> (nearby vs distant)</li>
+                            <li><strong>Different abstraction levels</strong></li>
+                        </ul>
+                        <div class="formula">
+                            <code>MultiHead(Q,K,V) = Concat(head₁, head₂, ..., head<sub>h</sub>)W<sup>O</sup></code>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>📍 Positional Encoding</h2>
+                    <div class="position-types">
+                        <div class="pos-type">
+                            <h3>Sinusoidal (Original)</h3>
+                            <ul>
+                                <li>Deterministic</li>
+                                <li>Good extrapolation</li>
+                                <li>Relative distance aware</li>
+                            </ul>
+                        </div>
+                        <div class="pos-type">
+                            <h3>Learned Embeddings</h3>
+                            <ul>
+                                <li>Trainable parameters</li>
+                                <li>Better on fixed-length</li>
+                                <li>Used in BERT, GPT</li>
+                            </ul>
+                        </div>
+                        <div class="pos-type">
+                            <h3>RoPE (Modern)</h3>
+                            <ul>
+                                <li>Rotary encoding</li>
+                                <li>Excellent extrapolation</li>
+                                <li>Used in LLaMA</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>🏗️ Transformer Variants</h2>
+                    <div class="variants-grid">
+                        <div class="variant">
+                            <h3>Encoder-Only (BERT)</h3>
+                            <p>Bidirectional context</p>
+                            <span class="use-case">Classification, NER, QA</span>
+                        </div>
+                        <div class="variant">
+                            <h3>Decoder-Only (GPT)</h3>
+                            <p>Causal masking</p>
+                            <span class="use-case">Text generation</span>
+                        </div>
+                        <div class="variant">
+                            <h3>Encoder-Decoder (T5)</h3>
+                            <p>Separate encode/decode</p>
+                            <span class="use-case">Translation, summarization</span>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Large Language Models Section -->
+            <section>
+                <section data-background-color="#059669">
+                    <h1>🤖 Large Language Models</h1>
+                    <p>Scaling transformers to new heights</p>
+                </section>
+
+                <section>
+                    <h2>📊 Scaling Laws</h2>
+                    <div class="scaling-info">
+                        <h3>Key Relationships</h3>
+                        <div class="formula">
+                            <code>L(N) = (N<sub>c</sub>/N)<sup>α</sup> + L<sub>∞</sub></code>
+                        </div>
+                        <p>Where α ≈ 0.076 for transformers</p>
+                        <ul>
+                            <li><strong>Compute scaling</strong>: More compute → better performance</li>
+                            <li><strong>Data scaling</strong>: More data → better performance</li>
+                            <li><strong>Model scaling</strong>: More parameters → better performance</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>🎯 Training Techniques</h2>
+                    <div class="training-grid">
+                        <div class="training-method">
+                            <h3>Pre-training</h3>
+                            <p>Learn language patterns from massive text</p>
+                        </div>
+                        <div class="training-method">
+                            <h3>Fine-tuning</h3>
+                            <p>Adapt to specific tasks</p>
+                        </div>
+                        <div class="training-method">
+                            <h3>RLHF</h3>
+                            <p>Align with human preferences</p>
+                        </div>
+                        <div class="training-method">
+                            <h3>In-Context Learning</h3>
+                            <p>Learn from examples in prompt</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>🚀 Emergent Abilities</h2>
+                    <div class="abilities-list">
+                        <ul>
+                            <li><strong>Few-shot learning</strong>: Learn from minimal examples</li>
+                            <li><strong>Chain-of-thought reasoning</strong>: Step-by-step problem solving</li>
+                            <li><strong>Code generation</strong>: Writing and debugging code</li>
+                            <li><strong>Mathematical reasoning</strong>: Solving complex problems</li>
+                            <li><strong>Creative writing</strong>: Generating coherent long-form content</li>
+                            <li><strong>Multilingual capabilities</strong>: Cross-language understanding</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- AWS Services Section -->
+            <section>
+                <section data-background-color="#ff6b35">
+                    <h1>☁️ AWS for ML & AI</h1>
+                    <p>Cloud-scale machine learning</p>
+                </section>
+
+                <section>
+                    <h2>🛠️ Core AWS Services</h2>
+                    <div class="aws-services">
+                        <div class="service">
+                            <h3>SageMaker</h3>
+                            <p>End-to-end ML platform</p>
+                            <ul>
+                                <li>Training jobs</li>
+                                <li>Model endpoints</li>
+                                <li>Pipelines</li>
+                            </ul>
+                        </div>
+                        <div class="service">
+                            <h3>Bedrock</h3>
+                            <p>Foundation models API</p>
+                            <ul>
+                                <li>Pre-trained models</li>
+                                <li>Custom fine-tuning</li>
+                                <li>Serverless inference</li>
+                            </ul>
+                        </div>
+                        <div class="service">
+                            <h3>EC2 + Storage</h3>
+                            <p>Compute infrastructure</p>
+                            <ul>
+                                <li>P4/P3 GPU instances</li>
+                                <li>S3 for data</li>
+                                <li>EFS for shared storage</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>💰 Cost Optimization</h2>
+                    <div class="cost-strategies">
+                        <ul>
+                            <li><strong>Spot instances</strong>: Up to 90% savings for training</li>
+                            <li><strong>Auto-scaling</strong>: Scale endpoints based on demand</li>
+                            <li><strong>Model optimization</strong>: Quantization, pruning, distillation</li>
+                            <li><strong>Efficient architectures</strong>: Choose right instance types</li>
+                            <li><strong>Data lifecycle</strong>: S3 Intelligent Tiering</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Interview Questions Section -->
+            <section>
+                <section data-background-color="#7c3aed">
+                    <h1>🎯 Interview Questions</h1>
+                    <p>Common technical deep dives</p>
+                </section>
+
+                <section>
+                    <h2>❓ Transformer Deep Dive</h2>
+                    <div class="question-answer">
+                        <h3 class="question">Q: "Why did transformers replace RNNs?"</h3>
+                        <div class="answer">
+                            <ul>
+                                <li><strong>Parallelization</strong>: Process all positions simultaneously</li>
+                                <li><strong>Long-range dependencies</strong>: Direct connections between any positions</li>
+                                <li><strong>Training efficiency</strong>: Better hardware utilization</li>
+                                <li><strong>Scalability</strong>: Architecture scales to larger models</li>
+                                <li><strong>Transfer learning</strong>: Better cross-task generalization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>❓ Scaling & Performance</h2>
+                    <div class="question-answer">
+                        <h3 class="question">Q: "How would you scale a model to handle 10x more traffic?"</h3>
+                        <div class="answer">
+                            <ul>
+                                <li><strong>Horizontal scaling</strong>: Multiple inference endpoints</li>
+                                <li><strong>Model optimization</strong>: Quantization, distillation</li>
+                                <li><strong>Caching strategies</strong>: Cache common queries</li>
+                                <li><strong>Batch optimization</strong>: Dynamic batching</li>
+                                <li><strong>Edge deployment</strong>: Distribute inference geographically</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>❓ Research & Innovation</h2>
+                    <div class="question-answer">
+                        <h3 class="question">Q: "How do you stay current with rapid AI advances?"</h3>
+                        <div class="answer">
+                            <ul>
+                                <li><strong>Paper reading</strong>: ArXiv, top conferences (NeurIPS, ICML, ICLR)</li>
+                                <li><strong>Implementation</strong>: Reproduce key results</li>
+                                <li><strong>Community engagement</strong>: Twitter, Discord, conferences</li>
+                                <li><strong>Experimentation</strong>: Apply new techniques to real problems</li>
+                                <li><strong>Collaboration</strong>: Work with research community</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Quick Reference Section -->
+            <section>
+                <section data-background-color="#dc2626">
+                    <h1>📋 Quick Reference</h1>
+                    <p>Essential formulas & concepts</p>
+                </section>
+
+                <section>
+                    <h2>🔢 Key Formulas</h2>
+                    <div class="formulas-grid">
+                        <div class="formula-item">
+                            <h3>Attention</h3>
+                            <code>softmax(QK<sup>T</sup>/√d<sub>k</sub>)V</code>
+                        </div>
+                        <div class="formula-item">
+                            <h3>Scaling Laws</h3>
+                            <code>L(N) = (N<sub>c</sub>/N)<sup>α</sup> + L<sub>∞</sub></code>
+                        </div>
+                        <div class="formula-item">
+                            <h3>Training FLOPs</h3>
+                            <code>≈ 6 × Parameters × Tokens</code>
+                        </div>
+                        <div class="formula-item">
+                            <h3>Memory (Training)</h3>
+                            <code>≈ 4 × Parameters</code>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>💡 Key Insights</h2>
+                    <div class="insights">
+                        <ul>
+                            <li><strong>Attention is all you need</strong> - but position matters</li>
+                            <li><strong>Scale is often the solution</strong> - but not always optimal</li>
+                            <li><strong>Data quality > data quantity</strong> - curated datasets win</li>
+                            <li><strong>Emergence happens at scale</strong> - capabilities appear suddenly</li>
+                            <li><strong>Alignment is crucial</strong> - technical capability ≠ usefulness</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Next Steps -->
+            <section data-background-gradient="linear-gradient(45deg, #1a1a1a, #2d2d2d)">
+                <h1>🚀 Ready to Excel!</h1>
+                <div class="next-steps">
+                    <h2>Your Action Plan:</h2>
+                    <ul>
+                        <li>📖 Review core concepts daily</li>
+                        <li>💻 Practice coding implementations</li>
+                        <li>🎯 Mock interview sessions</li>
+                        <li>📚 Read recent papers</li>
+                        <li>☁️ Hands-on AWS practice</li>
+                    </ul>
+                </div>
+                <p class="motivational">
+                    <em>"The best way to predict the future is to invent it." - Alan Kay</em>
+                </p>
+                <div style="margin-top: 2rem;">
+                    <a href="navigation.html" style="color: #ff6b35; font-size: 1.2em;">📚 Back to Study Portal</a> | 
+                    <a href="diffusion-multimodal.html" style="color: #059669; font-size: 1.2em;">🎨 Diffusion & Multimodal →</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
