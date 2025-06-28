@@ -346,6 +346,7 @@ const navigationItems = [
   { path: '/llms', label: 'Large Language Models', icon: Brain },
   { path: '/diffusion', label: 'Diffusion Models', icon: Wand2 },
   { path: '/multimodal', label: 'Multimodal AI', icon: Eye },
+  { path: '/genai-interview', label: 'GenAI Interview Prep', icon: Target },
   { path: '/aws', label: 'Production & Deployment', icon: Cloud },
 ];
 

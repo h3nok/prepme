@@ -21,6 +21,7 @@ import DiffusionPage from './pages/DiffusionPage';
 import MultimodalPage from './pages/MultimodalPage';
 import AWSPage from './pages/AWSPage';
 import QuizPage from './pages/QuizPage';
+import { GenAIInterviewPage } from './pages/GenAIInterviewPage';
 import Footer from './components/Footer';
 
 // Theme
@@ -312,6 +313,7 @@ const AppContent: React.FC = () => {
                   <Route path="/llms" element={<LLMsPage />} />
                   <Route path="/diffusion" element={<DiffusionPage />} />
                   <Route path="/multimodal" element={<MultimodalPage />} />
+                  <Route path="/genai-interview" element={<GenAIInterviewPage />} />
                   <Route path="/aws" element={<AWSPage />} />
                   <Route path="/quiz" element={<QuizPage />} />
                   {/* Catch-all route for unmatched paths in main app */}

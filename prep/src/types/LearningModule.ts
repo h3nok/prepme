@@ -28,6 +28,10 @@ export interface Slide {
   interactiveElements?: InteractiveElement[];
   mathNotations?: MathNotation[];
   progressiveDisclosure?: DisclosureLayer[];
+  keyPoints?: string[];
+  practiceQuestions?: string[];
+  commonMistakes?: string[];
+  interviewTips?: string[];
 }
 
 export interface SlideContent {
@@ -92,10 +96,22 @@ export interface LearningPath {
 
 export interface QuizQuestion {
   id: string;
+  type: 'multiple-choice' | 'true-false' | 'short-answer' | 'coding';
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  concept: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  category: string;
+  interviewFrequency: 'Very High' | 'High' | 'Medium' | 'Low';
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  description: string;
+  moduleId: string;
+  timeLimit: number; // in minutes
+  passingScore: number; // percentage
+  questions: QuizQuestion[];
 }
