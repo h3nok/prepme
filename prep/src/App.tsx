@@ -15,6 +15,7 @@ import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import LearningDashboard from './pages/LearningDashboard';
 import LearningInterface from './components/LearningInterface';
+import InteractiveLearningInterface from './components/InteractiveLearningInterface';
 import TransformersPage from './pages/TransformersPage';
 import LLMsPage from './pages/LLMsPage';
 import DiffusionPage from './pages/DiffusionPage';
@@ -312,7 +313,8 @@ const AppContent: React.FC = () => {
                 <Routes>
                   <Route path="/home" element={<HomePage />} />
                   <Route path="/learning" element={<LearningDashboard />} />
-                  <Route path="/learning/:moduleId" element={<LearningInterface />} />
+                  <Route path="/learning/:moduleId" element={<InteractiveLearningInterface />} />
+                  <Route path="/learn/:moduleId" element={<LearningInterface />} />
                   <Route path="/transformers" element={<TransformersPage />} />
                   <Route path="/llms" element={<LLMsPage />} />
                   <Route path="/diffusion" element={<DiffusionPage />} />

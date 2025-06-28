@@ -20,10 +20,74 @@ export const transformerModule: LearningModule = {
           id: 'attention-intuition',
           title: 'The Intuition Behind Attention',
           content: {
-            tier1: "Attention is like having a smart spotlight that can focus on different parts of a sentence to understand context. Instead of reading word-by-word like humans, it can look at all words at once and decide which ones are most important for understanding each word.",
-            tier2: "Think of it as a soft database lookup: each word (query) searches through all other words (keys) to find the most relevant information (values). The attention weights tell us how much each word should 'pay attention' to every other word.",
-            tier3: "Mathematically, this creates a weighted combination where each token's representation becomes a context-aware mixture of all other tokens, with weights determined by learned compatibility functions."
+            tier1: `<h3>🎯 Core Concept: Smart Information Retrieval</h3>
+            <p>Attention is like having a <strong>smart spotlight</strong> that can focus on different parts of a sentence to understand context. Instead of reading word-by-word like humans, it can look at all words at once and decide which ones are most important for understanding each word.</p>
+            
+            <p>Imagine you're at a party trying to follow a conversation. Your brain automatically "attends" to the speaker's voice while filtering out background noise. Similarly, attention mechanisms help models focus on relevant parts of the input.</p>`,
+            
+            tier2: `<h3>🔍 How It Works: Database Lookup Analogy</h3>
+            <p>Think of attention as a <strong>soft database lookup</strong>:</p>
+            <ul>
+              <li><strong>Query</strong>: "What am I looking for?" (the word trying to understand context)</li>
+              <li><strong>Keys</strong>: "What information is available?" (all words in the sequence)</li>
+              <li><strong>Values</strong>: "What is the actual content?" (the information to retrieve)</li>
+            </ul>
+            
+            <p>Unlike traditional databases that return exact matches, attention creates a <em>weighted combination</em> of all available information, where weights represent relevance.</p>
+            
+            <h4>🎨 Visual Example</h4>
+            <p>In the sentence "The cat sat on the mat":</p>
+            <ul>
+              <li>When processing "cat", the model might attend strongly to "sat" (verb relationship)</li>
+              <li>When processing "mat", it might attend to both "on" (preposition) and "cat" (subject)</li>
+              <li>The model learns these patterns during training</li>
+            </ul>`,
+            
+            tier3: `<h3>🧮 Mathematical Foundation</h3>
+            <p>Mathematically, attention creates a <strong>weighted combination</strong> where each token's representation becomes a context-aware mixture of all other tokens:</p>
+            
+            <div class="code-block">
+            <pre><code>For each position i:
+attention_weights[i] = softmax(compatibility(query[i], all_keys))
+output[i] = sum(attention_weights[i] * all_values)</code></pre>
+            </div>
+            
+            <p>The <strong>compatibility function</strong> is typically a dot product, measuring how similar the query is to each key. The softmax ensures weights sum to 1, creating a proper probability distribution.</p>
+            
+            <h4>🎯 Key Insights</h4>
+            <ul>
+              <li><strong>Parallelization</strong>: All positions are processed simultaneously</li>
+              <li><strong>Long-range dependencies</strong>: Direct connections between distant tokens</li>
+              <li><strong>Adaptive focus</strong>: Learned attention patterns specific to the task</li>
+              <li><strong>Differentiable</strong>: End-to-end trainable with backpropagation</li>
+            </ul>`
           },
+          keyPoints: [
+            "Attention allows parallel processing of all sequence positions",
+            "Each word attends to all other words with learned weights",
+            "The mechanism captures both local and long-range dependencies",
+            "Attention weights are interpretable and provide insight into model behavior"
+          ],
+          interactiveElements: [
+            {
+              id: 'attention-calculator',
+              type: 'calculator',
+              component: 'AttentionCalculator',
+              props: {
+                title: "Attention Score Calculator",
+                description: "Calculate attention scores for different query-key pairs"
+              }
+            },
+            {
+              id: 'attention-playground',
+              type: 'playground',
+              component: 'AttentionPlayground',
+              props: {
+                title: "Interactive Attention Demo",
+                description: "See how attention weights change with different sentences"
+              }
+            }
+          ],
           mathNotations: [
             {
               id: 'attention-formula',
@@ -144,6 +208,123 @@ export const transformerModule: LearningModule = {
                   defaultValue: false
                 }
               ]
+            }
+          ]
+        },
+        {
+          id: 'attention-coding-challenge',
+          title: 'Hands-On: Implement Attention from Scratch',
+          content: {
+            tier1: `<h3>🚀 Coding Challenge: Build Your Own Attention</h3>
+            <p>Now it's time to implement the attention mechanism yourself! This hands-on exercise will solidify your understanding by building each component step by step.</p>
+            
+            <h4>📝 Your Task</h4>
+            <p>Implement a basic attention mechanism in Python using only NumPy. You'll build the core components and see how they work together.</p>`,
+            
+            tier2: `<h3>🔧 Implementation Steps</h3>
+            <ol>
+              <li><strong>Generate Q, K, V matrices</strong> from input embeddings</li>
+              <li><strong>Compute attention scores</strong> using dot products</li>
+              <li><strong>Apply scaling and softmax</strong> to get attention weights</li>
+              <li><strong>Calculate weighted values</strong> to get the final output</li>
+              <li><strong>Verify with a concrete example</strong></li>
+            </ol>
+            
+            <div class="code-block">
+            <h4>Starter Code:</h4>
+            <pre><code class="language-python">import numpy as np
+
+def attention(Q, K, V, mask=None):
+    """
+    Compute scaled dot-product attention.
+    
+    Args:
+        Q: Query matrix (seq_len, d_k)
+        K: Key matrix (seq_len, d_k) 
+        V: Value matrix (seq_len, d_v)
+        mask: Optional attention mask
+    
+    Returns:
+        output: Attention output (seq_len, d_v)
+        weights: Attention weights (seq_len, seq_len)
+    """
+    # TODO: Implement attention mechanism
+    pass
+
+# Test with example data
+seq_len, d_k, d_v = 4, 3, 3
+Q = np.random.randn(seq_len, d_k)
+K = np.random.randn(seq_len, d_k)
+V = np.random.randn(seq_len, d_v)
+
+output, weights = attention(Q, K, V)
+print("Attention output shape:", output.shape)
+print("Attention weights shape:", weights.shape)</code></pre>
+            </div>`,
+            
+            tier3: `<h3>💡 Complete Solution with Explanations</h3>
+            
+            <div class="code-block">
+            <h4>Full Implementation:</h4>
+            <pre><code class="language-python">import numpy as np
+
+def attention(Q, K, V, mask=None):
+    """Scaled dot-product attention implementation."""
+    # Step 1: Compute attention scores (Q @ K^T)
+    d_k = Q.shape[-1]
+    scores = np.matmul(Q, K.transpose())
+    
+    # Step 2: Scale by sqrt(d_k) to prevent vanishing gradients
+    scores = scores / np.sqrt(d_k)
+    
+    # Step 3: Apply mask if provided
+    if mask is not None:
+        scores = np.where(mask == 0, -np.inf, scores)
+    
+    # Step 4: Apply softmax to get attention weights
+    scores_shifted = scores - np.max(scores, axis=-1, keepdims=True)
+    exp_scores = np.exp(scores_shifted)
+    weights = exp_scores / np.sum(exp_scores, axis=-1, keepdims=True)
+    
+    # Step 5: Apply attention weights to values
+    output = np.matmul(weights, V)
+    
+    return output, weights</code></pre>
+            </div>
+            
+            <h4>🎯 Key Implementation Details</h4>
+            <ul>
+              <li><strong>Numerical Stability</strong>: Subtract max before softmax to prevent overflow</li>
+              <li><strong>Scaling Factor</strong>: √d_k prevents dot products from becoming too large</li>
+              <li><strong>Masking</strong>: Set masked positions to -∞ before softmax</li>
+              <li><strong>Broadcasting</strong>: NumPy handles batch dimensions automatically</li>
+            </ul>`
+          },
+          keyPoints: [
+            "Attention computation involves matrix multiplication, scaling, softmax, and weighted combination",
+            "Scaling by √d_k is crucial for preventing vanishing gradients in deeper models",
+            "The attention weights matrix is interpretable and shows what the model focuses on",
+            "Proper numerical stability techniques (subtracting max) prevent overflow in softmax"
+          ],
+          interactiveElements: [
+            {
+              id: 'attention-code-playground',
+              type: 'playground',
+              component: 'CodePlayground',
+              props: {
+                title: "Interactive Attention Implementation",
+                description: "Try implementing attention with different parameters and see the results",
+                language: "python"
+              }
+            },
+            {
+              id: 'attention-quiz',
+              type: 'quiz',
+              component: 'AttentionQuiz',
+              props: {
+                title: "Test Your Understanding",
+                description: "Quick quiz to verify your attention mechanism knowledge"
+              }
             }
           ]
         }
