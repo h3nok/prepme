@@ -10,6 +10,16 @@ import {
 } from 'lucide-react';
 import { LearningModule, Concept, Slide } from '../types/LearningModule';
 import { fundamentalsModule } from '../data/FundamentalsModule';
+import { transformerModule } from '../data/TransformerModule';
+import { useTheme } from '../context/ThemeContext';
+
+// Import visualization components
+import AttentionVisualization from './visualizations/AttentionVisualization';
+import MultiHeadAttention from './visualizations/MultiHeadAttention';
+import SinusoidalEncoding from './visualizations/SinusoidalEncoding';
+import ScalingLaws from './visualizations/ScalingLaws';
+import NextTokenPrediction from './visualizations/NextTokenPrediction';
+import DiffusionProcess from './visualizations/DiffusionProcess';
 
 // Main Layout
 const LearningContainer = styled.div`
@@ -263,11 +273,11 @@ const ToolsContent = styled.div`
 `;
 
 const VisualizationContainer = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  background: ${props => props.theme.colors.surface};
+  border: 1px solid ${props => props.theme.colors.border};
+  border-radius: ${props => props.theme.radii.lg};
+  padding: ${props => props.theme.spacing.lg};
+  margin: ${props => props.theme.spacing.lg} 0;
 `;
 
 const ToolSection = styled.div`
@@ -328,7 +338,8 @@ const SlideIndicator = styled.div`
 `;
 
 const modules: Record<string, LearningModule> = {
-  fundamentals: fundamentalsModule
+  fundamentals: fundamentalsModule,
+  transformer: transformerModule
 };
 
 const LearningInterface: React.FC = () => {
@@ -388,6 +399,26 @@ const LearningInterface: React.FC = () => {
 
   const toggleTier = (tier: keyof typeof visibleTiers) => {
     setVisibleTiers(prev => ({ ...prev, [tier]: !prev[tier] }));
+  };
+
+  // Visualization renderer
+  const renderVisualization = (visualization: any) => {
+    switch (visualization.component) {
+      case 'AttentionVisualization':
+        return <AttentionVisualization data={visualization.data} controls={visualization.controls} />;
+      case 'MultiHeadAttention':
+        return <MultiHeadAttention data={visualization.data} controls={visualization.controls} />;
+      case 'SinusoidalEncoding':
+        return <SinusoidalEncoding data={visualization.data} controls={visualization.controls} />;
+      case 'ScalingLaws':
+        return <ScalingLaws data={visualization.data} controls={visualization.controls} />;
+      case 'NextTokenPrediction':
+        return <NextTokenPrediction data={visualization.data} controls={visualization.controls} />;
+      case 'DiffusionProcess':
+        return <DiffusionProcess data={visualization.data} controls={visualization.controls} />;
+      default:
+        return <div>Visualization not found: {visualization.component}</div>;
+    }
   };
 
   return (
@@ -488,6 +519,13 @@ const LearningInterface: React.FC = () => {
                     <MathFormula>{math.latex}</MathFormula>
                     <MathExplanation>{math.explanation}</MathExplanation>
                   </MathContainer>
+                ))}
+
+                {/* Visualizations */}
+                {currentSlide.visualizations?.map(viz => (
+                  <div key={viz.id}>
+                    {renderVisualization(viz)}
+                  </div>
                 ))}
               </motion.div>
             )}

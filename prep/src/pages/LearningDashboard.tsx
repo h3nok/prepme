@@ -9,6 +9,12 @@ import {
 import { Link } from 'react-router-dom';
 import { LearningModule, UserProgress } from '../types/LearningModule';
 import { fundamentalsModule } from '../data/FundamentalsModule';
+import { transformerModule } from '../data/TransformerModule';
+import { llmsModule } from '../data/LLMsModule';
+import { diffusionModule } from '../data/DiffusionModule';
+import { useTheme } from '../context/ThemeContext';
+import { useSidebar } from '../context/SidebarContext';
+import LearningInterface from '../components/LearningInterface';
 
 // Glassmorphic styling
 const GlassContainer = styled(motion.div)`
@@ -320,7 +326,7 @@ const PathArrow = styled(ChevronRight)`
   margin: 0 0.5rem;
 `;
 
-const modules: LearningModule[] = [fundamentalsModule];
+const modules: LearningModule[] = [fundamentalsModule, transformerModule, llmsModule, diffusionModule];
 
 const pathSteps = [
   { id: 'fundamentals', title: 'Fundamentals', color: '#ff6b35', completed: false, active: true },
@@ -331,6 +337,9 @@ const pathSteps = [
 ];
 
 const LearningDashboard: React.FC = () => {
+  const { theme } = useTheme();
+  const { isCollapsed } = useSidebar();
+  const [selectedModule, setSelectedModule] = useState<LearningModule | null>(null);
   const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
   const [stats, setStats] = useState({
     totalHours: 0,

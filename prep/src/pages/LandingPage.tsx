@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowRight, Zap, Brain, Target } from 'lucide-react';
+import { ArrowRight, Zap, Brain, Target, Sparkles, Code, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const LandingContainer = styled.div`

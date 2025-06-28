@@ -89,3 +89,13 @@ export interface LearningPath {
   dependencies: Record<string, string[]>;
   estimatedTotalHours: number;
 }
+
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  concept: string;
+}
