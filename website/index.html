@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrepMe: Generative AI & Applied Science at AWS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .desc {
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.15);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #eee;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+      .desc { font-size: 1rem; }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>window.onload = () => { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); };</script>
+</head>
+<body>
+  <header>
+    <h1>PrepMe: Generative AI & Applied Science at AWS</h1>
+    <div class="desc">
+      <strong>Your comprehensive, interactive guide to mastering Generative AI, LLMs, and applied science for AWS interviews and beyond.</strong><br>
+      <ul>
+        <li>Streamlined slide decks for every core concept</li>
+        <li>Hands-on code samples and cheat sheets</li>
+        <li>External resources and recent advances</li>
+        <li>Beautifully formatted math and intuitive explanations</li>
+      </ul>
+    </div>
+  </header>
+  <nav>
+    <a href="slides.html">📊 Slide Decks</a>
+    <a href="code.html">💻 Code Samples</a>
+    <a href="resources.html">🌐 External Resources</a>
+    <a href="pdf.html">📄 Full PDF Guide</a>
+  </nav>
+  <section style="max-width: 800px; margin: 2rem auto; background: rgba(0,0,0,0.10); padding: 2rem; border-radius: 1rem;">
+    <h2>Example: Self-Attention Equation</h2>
+    <p>The core of the Transformer is the self-attention mechanism, mathematically defined as:</p>
+    <p style="font-size:1.3em;">
+      $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+    </p>
+    <pre><code class="language-python"># PyTorch implementation of scaled dot-product attention
+scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+weights = F.softmax(scores, dim=-1)
+output = torch.matmul(weights, V)
+</code></pre>
+  </section>
+  <footer>
+    &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+  </footer>
+</body>
+</html> 
