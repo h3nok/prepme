@@ -3,7 +3,7 @@ import { LearningModule } from '../types/LearningModule';
 export const llmsModule: LearningModule = {
   id: 'llms',
   title: 'Large Language Models',
-  description: 'Master the architecture, training, and deployment of modern language models. From pre-training to fine-tuning, understand how LLMs work and how to use them effectively.',
+  description: 'Master the architecture, training, and deployment of modern language models. This comprehensive module covers everything from foundational concepts to production deployment, with hands-on exercises, real-world scenarios, and interview preparation. Follow the interactive learning workflow with 40+ research papers, AWS documentation, and practical exercises.',
   color: '#059669',
   icon: 'Brain',
   progress: 0,
@@ -11,6 +11,119 @@ export const llmsModule: LearningModule = {
   prerequisites: ['fundamentals', 'transformers'],
   difficulty: 'Advanced',
   concepts: [
+    {
+      id: 'learning-workflow',
+      title: '🎯 Interactive Learning Workflow',
+      description: 'Your guided path through mastering Large Language Models with hands-on exercises, research papers, and interview preparation',
+      slides: [
+        {
+          id: 'learning-path-overview',
+          title: 'Your Complete LLM Learning Journey',
+          content: {
+            tier1: "This module provides a comprehensive, interactive learning experience designed for AI/ML professionals preparing for senior roles at top tech companies. Follow our structured workflow with 40+ research papers, AWS documentation, and hands-on exercises.",
+            tier2: "Learning approach: Each concept includes tiered explanations (basic → advanced), interactive elements (calculators, simulators, quizzes), external resources from top conferences, and interview preparation materials with STAR framework examples.",
+            tier3: "Expected outcomes: Master LLM architectures, production deployment strategies, AWS tech stack, multimodal AI, research leadership principles, and cost optimization techniques. Gain hands-on experience with real-world scenarios and interview-ready knowledge."
+          },
+          keyPoints: [
+            "🎯 Structured Learning Path: 7 major concepts with 25+ detailed slides",
+            "📚 40+ Research Papers: NeurIPS, ICML, CVPR, and industry publications",
+            "🛠️ Hands-on Exercises: Code labs, AWS workshops, interactive calculators",
+            "💼 Interview Prep: STAR framework, technical scenarios, common questions",
+            "🔗 External Resources: AWS docs, Hugging Face, research repositories",
+            "📊 Progress Tracking: Quizzes, self-assessments, practical exercises"
+          ],
+          interactiveElements: [
+            {
+              id: 'learning-tracker',
+              type: 'playground',
+              component: 'LearningTracker',
+              props: {
+                modules: [
+                  { id: 'architecture', title: 'LLM Architecture & Scaling Laws', difficulty: 'Advanced', time: '3 hours' },
+                  { id: 'training', title: 'Training & Optimization', difficulty: 'Advanced', time: '3 hours' },
+                  { id: 'capabilities', title: 'Capabilities & Limitations', difficulty: 'Intermediate', time: '2 hours' },
+                  { id: 'multimodal', title: 'Multimodal GenAI', difficulty: 'Expert', time: '2 hours' },
+                  { id: 'production', title: 'Production Deployment', difficulty: 'Expert', time: '2 hours' },
+                  { id: 'aws-stack', title: 'AWS Tech Stack', difficulty: 'Advanced', time: '2 hours' },
+                  { id: 'leadership', title: 'Leadership & Innovation', difficulty: 'Intermediate', time: '1 hour' }
+                ],
+                progressTracking: true,
+                estimatedCompletion: '15 hours'
+              }
+            }
+          ]
+        },
+        {
+          id: 'resource-library',
+          title: '📚 Curated Research Library & External Resources',
+          content: {
+            tier1: "Access our carefully curated collection of research papers, documentation, and interactive resources from leading institutions and companies. All resources are verified for accuracy and relevance to modern LLM development.",
+            tier2: "Resource categories: Foundational papers (Attention Is All You Need, BERT, GPT series), scaling laws research (OpenAI, DeepMind), production deployment guides (AWS, NVIDIA), and multimodal AI advances (recent CVPR, NeurIPS papers).",
+            tier3: "Interactive elements: Each resource includes context, relevance scores, difficulty levels, and connections to other materials. Use our recommendation engine to find papers based on your current learning focus and career goals."
+          },
+          keyPoints: [
+            "🏆 Top-Tier Papers: NeurIPS, ICML, CVPR, ICLR publications",
+            "🔗 Direct Links: arXiv papers, official documentation, GitHub repositories",
+            "🏢 Industry Sources: OpenAI, DeepMind, Google Research, AWS, NVIDIA",
+            "📖 Documentation: AWS SageMaker, Hugging Face Transformers, TensorRT",
+            "💻 Code Examples: Official implementations, tutorials, notebooks",
+            "🎥 Video Resources: Conference talks, technical deep-dives"
+          ],
+          interactiveElements: [
+            {
+              id: 'resource-navigator',
+              type: 'playground',
+              component: 'ResourceNavigator',
+              props: {
+                categories: [
+                  'Foundational Papers',
+                  'Scaling Laws',
+                  'Production Deployment',
+                  'AWS Documentation',
+                  'Multimodal AI',
+                  'Code Repositories'
+                ],
+                filters: ['Difficulty', 'Topic', 'Institution', 'Year'],
+                searchEnabled: true
+              }
+            }
+          ]
+        },
+        {
+          id: 'hands-on-exercises',
+          title: '🛠️ Hands-on Labs & Practical Exercises',
+          content: {
+            tier1: "Apply your knowledge through carefully designed hands-on exercises that mirror real-world scenarios. Each lab includes setup instructions, step-by-step guidance, and expected outcomes to reinforce learning.",
+            tier2: "Exercise types: Code labs (implement attention mechanisms, scaling law calculators), AWS workshops (SageMaker training, Bedrock fine-tuning), simulation exercises (production deployment scenarios), and interview practice (technical deep-dives).",
+            tier3: "Progressive complexity: Start with basic implementations and progress to advanced production scenarios. Each exercise builds on previous knowledge and introduces new concepts in a practical context."
+          },
+          keyPoints: [
+            "💻 Code Labs: Implement LLM components from scratch",
+            "☁️ AWS Workshops: SageMaker, Bedrock, Inferentia hands-on",
+            "🎮 Simulators: Production deployment, scaling scenarios",
+            "📊 Interactive Tools: Scaling law calculators, cost estimators",
+            "🎯 Interview Prep: Mock technical interviews, scenario practice",
+            "📈 Progress Tracking: Completion status, skill assessments"
+          ],
+          interactiveElements: [
+            {
+              id: 'lab-environment',
+              type: 'playground',
+              component: 'LabEnvironment',
+              props: {
+                environments: ['Jupyter Notebook', 'AWS Console', 'Local Setup'],
+                languages: ['Python', 'PyTorch', 'TensorFlow', 'AWS CLI'],
+                labs: [
+                  { title: 'Implement Multi-Head Attention', difficulty: 'Intermediate', time: '45 min' },
+                  { title: 'SageMaker Distributed Training', difficulty: 'Advanced', time: '90 min' },
+                  { title: 'Production Model Optimization', difficulty: 'Expert', time: '120 min' }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
     {
       id: 'llm-architecture',
       title: 'LLM Architecture & Scaling Laws',
@@ -43,7 +156,45 @@ export const llmsModule: LearningModule = {
             "RNNs: Sequential processing, vanishing gradient problems",
             "LSTMs: Gated mechanisms for longer memory",
             "Transformers: Parallel attention, scalable architecture",
-            "LLMs: Emergent intelligence through massive scale"
+            "LLMs: Emergent intelligence through massive scale",
+            "📚 Key Papers: Attention Is All You Need (NeurIPS 2017), BERT (NAACL 2019)",
+            "🔗 Resources: Hugging Face Docs, The Illustrated Transformer (Jay Alammar)",
+            "💡 Practice: Compare tokenization between BERT and GPT models"
+          ],
+          interactiveElements: [
+            {
+              id: 'llm-evolution-quiz',
+              type: 'quiz',
+              component: 'QuizComponent',
+              props: {
+                questions: [
+                  {
+                    question: 'What was the main limitation of N-gram models?',
+                    options: ['Computational complexity', 'Limited context window', 'Training instability', 'Memory requirements'],
+                    correct: 1,
+                    explanation: 'N-gram models could only consider n-1 previous words, severely limiting context understanding.'
+                  },
+                  {
+                    question: 'Which innovation enabled parallel processing in Transformers?',
+                    options: ['LSTM gates', 'Attention mechanism', 'Dropout', 'Layer normalization'],
+                    correct: 1,
+                    explanation: 'Self-attention allows all positions to be processed simultaneously, unlike sequential RNNs.'
+                  }
+                ]
+              }
+            }
+          ],
+          interviewTips: [
+            "Know the timeline: N-grams (1948) → RNNs (1990) → LSTM (1997) → Transformers (2017)",
+            "Explain why each advancement was necessary (vanishing gradients, parallelization)",
+            "Mention key papers: 'Attention Is All You Need', BERT, GPT series",
+            "Practice explaining attention mechanism without looking at notes"
+          ],
+          commonMistakes: [
+            "Confusing BERT (encoder) with GPT (decoder) architectures",
+            "Not understanding why attention enables parallelization",
+            "Forgetting the vanishing gradient problem in RNNs",
+            "Missing the connection between scale and emergent capabilities"
           ]
         },
         {
@@ -73,7 +224,69 @@ export const llmsModule: LearningModule = {
             "GPT: Autoregressive decoder, next-token prediction", 
             "BERT: Better for understanding tasks (classification, QA)",
             "GPT: Better for generation tasks (writing, completion)",
-            "Both: Transfer learning from large-scale pre-training"
+            "Both: Transfer learning from large-scale pre-training",
+            "📚 Papers: BERT (NAACL 2019), GPT (OpenAI 2018), GPT-2 (2019)",
+            "🛠️ Try: Hugging Face Model Hub, OpenAI Playground",
+            "🔧 Practice: Fine-tune BERT for classification, GPT for completion"
+          ],
+          interactiveElements: [
+            {
+              id: 'bert-gpt-comparison',
+              type: 'playground',
+              component: 'ModelComparison',
+              props: {
+                models: ['BERT', 'GPT'],
+                tasks: ['sentiment analysis', 'text completion', 'question answering'],
+                examples: [
+                  {
+                    input: "The movie was [MASK] amazing.",
+                    bertOutput: "The movie was absolutely amazing.",
+                    gptOutput: "The movie was absolutely amazing. I really enjoyed..."
+                  }
+                ]
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'attention-patterns',
+              type: 'interactive',
+              component: 'AttentionVisualization',
+              data: {
+                sentence: "The cat sat on the mat because it was comfortable",
+                model: 'BERT',
+                layer: 8,
+                head: 12
+              },
+              controls: [
+                {
+                  id: 'model-type',
+                  type: 'dropdown',
+                  label: 'Model Type',
+                  options: ['BERT', 'GPT'],
+                  defaultValue: 'BERT'
+                },
+                {
+                  id: 'layer',
+                  type: 'slider',
+                  label: 'Layer',
+                  range: [1, 12],
+                  defaultValue: 8
+                }
+              ]
+            }
+          ],
+          interviewTips: [
+            "Explain bidirectional vs autoregressive with concrete examples",
+            "Discuss task suitability: BERT for understanding, GPT for generation",
+            "Mention the importance of pre-training + fine-tuning paradigm",
+            "Know the masking strategies: [MASK] tokens vs causal masking"
+          ],
+          practiceQuestions: [
+            "Why can't GPT see future tokens during training?",
+            "How does BERT's bidirectional nature help with understanding tasks?",
+            "What are the trade-offs between encoder-only and decoder-only architectures?",
+            "How would you choose between BERT and GPT for a specific NLP task?"
           ]
         },
         {
@@ -133,7 +346,71 @@ export const llmsModule: LearningModule = {
             "Three factors: Model size (N), Data size (D), Compute (C)",
             "Empirical constants: α ≈ 0.076, β ≈ 0.050 from experiments",
             "Predictive power: Forecast performance before training",
-            "Resource allocation: Guide investment in compute vs data vs architecture"
+            "Resource allocation: Guide investment in compute vs data vs architecture",
+            "📚 Key Paper: 'Scaling Laws for Neural Language Models' (OpenAI 2020)",
+            "🔗 Kaplan et al.: https://arxiv.org/abs/2001.08361",
+            "💻 Interactive: OpenAI Scaling Laws Calculator"
+          ],
+          interactiveElements: [
+            {
+              id: 'scaling-laws-calculator',
+              type: 'calculator',
+              component: 'ScalingLawsCalculator',
+              props: {
+                parameters: {
+                  modelSize: { min: 1e6, max: 1e12, default: 1e9, step: 1e6 },
+                  dataSize: { min: 1e9, max: 1e13, default: 1e11, step: 1e9 },
+                  compute: { min: 1e18, max: 1e24, default: 1e21, step: 1e18 }
+                },
+                formulas: {
+                  loss: 'L(N) = A * N^(-0.076) + E',
+                  optimal: 'N_opt ∝ C^0.5, D_opt ∝ C^0.5'
+                }
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'scaling-laws-plot',
+              type: 'interactive',
+              component: 'ScalingLawsVisualization',
+              data: {
+                models: [
+                  { name: 'GPT-1', params: 117e6, loss: 3.2 },
+                  { name: 'GPT-2', params: 1.5e9, loss: 2.8 },
+                  { name: 'GPT-3', params: 175e9, loss: 2.2 },
+                  { name: 'PaLM', params: 540e9, loss: 1.9 },
+                  { name: 'GPT-4', params: 1.8e12, loss: 1.5 }
+                ]
+              },
+              controls: [
+                {
+                  id: 'x-axis',
+                  type: 'dropdown',
+                  label: 'X-axis',
+                  options: ['Model Size', 'Compute', 'Data Size'],
+                  defaultValue: 'Model Size'
+                },
+                {
+                  id: 'log-scale',
+                  type: 'toggle',
+                  label: 'Log Scale',
+                  defaultValue: true
+                }
+              ]
+            }
+          ],
+          interviewTips: [
+            "Know the exact exponents: α ≈ 0.076 for model size, β ≈ 0.050 for compute",
+            "Explain why scaling laws matter for business decisions and ROI",
+            "Discuss the practical implications: bigger isn't always better",
+            "Mention how scaling laws guide architecture choices and training strategies"
+          ],
+          practiceQuestions: [
+            "How do scaling laws help predict model performance before training?",
+            "What's the relationship between model size, data size, and compute?",
+            "Why are scaling laws important for resource allocation decisions?",
+            "How would you use scaling laws to plan a model training budget?"
           ]
         },
         {
@@ -700,7 +977,52 @@ export const llmsModule: LearningModule = {
             "ONNX: Cross-platform model portability and optimization",
             "TensorRT: GPU-specific optimizations with 2-5x speedup",
             "Dynamic batching: Optimize throughput for variable workloads",
-            "Memory optimization: KV-cache management for long sequences"
+            "Memory optimization: KV-cache management for long sequences",
+            "📚 NVIDIA TensorRT Developer Guide: https://developer.nvidia.com/tensorrt",
+            "🔗 ONNX Documentation: https://onnx.ai/",
+            "🛠️ AWS SageMaker Neo: Model optimization service",
+            "💻 Hands-on: TensorRT Python API examples"
+          ],
+          interactiveElements: [
+            {
+              id: 'optimization-simulator',
+              type: 'simulator',
+              component: 'OptimizationSimulator',
+              props: {
+                model: 'GPT-3-6.7B',
+                optimizations: ['ONNX', 'TensorRT', 'Dynamic Batching', 'INT8 Quantization'],
+                metrics: ['latency', 'throughput', 'memory', 'accuracy'],
+                hardware: ['V100', 'A100', 'T4', 'Inferentia']
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'performance-comparison',
+              type: 'interactive',
+              component: 'PerformanceChart',
+              data: {
+                models: ['GPT-3-1.3B', 'GPT-3-6.7B', 'GPT-3-175B'],
+                optimizations: ['Baseline', 'ONNX', 'TensorRT', 'TensorRT+INT8'],
+                metrics: {
+                  latency: [120, 85, 35, 28],
+                  throughput: [8.3, 11.8, 28.6, 35.7],
+                  memory: [5.2, 5.2, 4.8, 3.2]
+                }
+              }
+            }
+          ],
+          interviewTips: [
+            "Know specific numbers: TensorRT typically gives 2-5x speedup",
+            "Explain the optimization pipeline: Model → ONNX → TensorRT → Deployment",
+            "Discuss memory vs speed tradeoffs with different batch sizes",
+            "Mention AWS SageMaker Neo for automated optimization"
+          ],
+          practiceQuestions: [
+            "How does TensorRT optimize models for production deployment?",
+            "What are the tradeoffs between batch size and latency?",
+            "How would you optimize a 175B parameter model for real-time inference?",
+            "What's the difference between ONNX and TensorRT optimizations?"
           ]
         },
         {
@@ -843,7 +1165,74 @@ export const llmsModule: LearningModule = {
             "Hyperparameter tuning: Bayesian optimization for efficient search",
             "Distributed training: Data and model parallelism for large models",
             "Spot training: 70% cost reduction with managed interruption handling",
-            "Custom containers: Bring your own algorithms and frameworks"
+            "Custom containers: Bring your own algorithms and frameworks",
+            "📚 AWS SageMaker Developer Guide: https://docs.aws.amazon.com/sagemaker/",
+            "🎯 SageMaker Examples: https://github.com/aws/amazon-sagemaker-examples",
+            "🛠️ Hands-on Labs: AWS ML University courses",
+            "💰 Cost Calculator: AWS SageMaker pricing calculator"
+          ],
+          interactiveElements: [
+            {
+              id: 'sagemaker-workflow',
+              type: 'playground',
+              component: 'SageMakerWorkflow',
+              props: {
+                steps: [
+                  'Data Preparation',
+                  'Hyperparameter Tuning',
+                  'Distributed Training',
+                  'Model Deployment',
+                  'A/B Testing',
+                  'Monitoring'
+                ],
+                estimatedCosts: {
+                  'ml.p3.16xlarge': 24.48,
+                  'ml.p4d.24xlarge': 32.77,
+                  'ml.trn1.32xlarge': 21.50
+                }
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'sagemaker-architecture',
+              type: 'diagram',
+              component: 'SageMakerArchitecture',
+              data: {
+                components: [
+                  'Data Sources (S3)',
+                  'SageMaker Processing',
+                  'Training Jobs',
+                  'Model Registry',
+                  'Endpoints',
+                  'Monitoring'
+                ],
+                connections: [
+                  { from: 'S3', to: 'Processing' },
+                  { from: 'Processing', to: 'Training' },
+                  { from: 'Training', to: 'Registry' },
+                  { from: 'Registry', to: 'Endpoints' }
+                ]
+              }
+            }
+          ],
+          interviewTips: [
+            "Know the SageMaker components: Processing, Training, Endpoints, Pipelines",
+            "Discuss cost optimization: Spot instances, right-sizing, auto-scaling",
+            "Explain distributed training strategies for large models",
+            "Mention integration with other AWS services (S3, CloudWatch, IAM)"
+          ],
+          practiceQuestions: [
+            "How would you set up distributed training for a 175B parameter model on SageMaker?",
+            "What are the cost benefits of using Spot instances for training?",
+            "How does SageMaker's hyperparameter tuning work with Bayesian optimization?",
+            "What's the difference between SageMaker Training Jobs and Processing Jobs?"
+          ],
+          commonMistakes: [
+            "Not using Spot instances for non-critical training jobs",
+            "Choosing wrong instance types for specific workloads",
+            "Forgetting to set up proper IAM roles and permissions",
+            "Not utilizing SageMaker Pipelines for MLOps workflows"
           ]
         },
         {
@@ -918,7 +1307,51 @@ export const llmsModule: LearningModule = {
             "Visual reasoning: Spatial relationships and object interactions",
             "Attention mechanisms: Focus on relevant image regions for questions",
             "Compositional understanding: Handle complex multi-step reasoning",
-            "Large-scale training: VQA v2.0, GQA, and synthetic datasets"
+            "Large-scale training: VQA v2.0, GQA, and synthetic datasets",
+            "📚 Key Papers: VQA (ICCV 2015), LXMERT (EMNLP 2019), UNITER (ECCV 2020)",
+            "🔗 Datasets: VQA v2.0, GQA, VG-QA, CLEVR for compositional reasoning",
+            "🛠️ Implementation: Hugging Face LXMERT, MMF framework",
+            "🎯 Practice: Build VQA system, analyze attention patterns"
+          ],
+          interactiveElements: [
+            {
+              id: 'vqa-demo',
+              type: 'playground',
+              component: 'VQADemo',
+              props: {
+                models: ['LXMERT', 'UNITER', 'VILLA'],
+                sampleImages: [
+                  { image: 'kitchen.jpg', questions: ['How many apples are on the table?', 'What color is the refrigerator?'] },
+                  { image: 'street.jpg', questions: ['Is the traffic light red or green?', 'How many cars are visible?'] }
+                ],
+                showAttention: true,
+                explainReasoning: true
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'attention-heatmap',
+              type: 'heatmap',
+              component: 'AttentionHeatmap',
+              data: {
+                image: 'sample_vqa_image.jpg',
+                question: 'What color is the car in the background?',
+                attentionWeights: [[0.1, 0.2, 0.05], [0.15, 0.8, 0.12], [0.05, 0.1, 0.03]]
+              }
+            }
+          ],
+          interviewTips: [
+            "Explain the fusion mechanisms: early vs late fusion trade-offs",
+            "Discuss attention visualization and interpretability",
+            "Know the datasets: VQA v2.0 has 265k images, 1.1M questions",
+            "Mention compositional reasoning challenges and CLEVR dataset"
+          ],
+          practiceQuestions: [
+            "How do you handle compositional reasoning in VQA systems?",
+            "What are the challenges in cross-modal attention mechanisms?",
+            "How would you design a VQA system for production deployment?",
+            "What metrics would you use to evaluate VQA model performance?"
           ]
         },
         {
@@ -1054,7 +1487,72 @@ export const llmsModule: LearningModule = {
             "Situation: Set context with business/technical background",
             "Task: Clearly define your specific responsibilities",
             "Action: Detail technical approaches and decision-making",
-            "Result: Quantify impact with metrics and customer outcomes"
+            "Result: Quantify impact with metrics and customer outcomes",
+            "📚 Amazon Leadership Principles Guide: 16 core principles",
+            "🔗 STAR Method Resources: behavioral interview preparation",
+            "🎯 Practice: 50+ AI/ML scenario examples with solutions",
+            "💼 Templates: Structured response frameworks for each principle"
+          ],
+          interactiveElements: [
+            {
+              id: 'star-practice',
+              type: 'playground',
+              component: 'STARPractice',
+              props: {
+                scenarios: [
+                  {
+                    principle: 'Dive Deep',
+                    scenario: 'Production model accuracy dropped 15% overnight',
+                    hints: ['Root cause analysis', 'Data drift investigation', 'Model monitoring'],
+                    exampleResponse: {
+                      situation: 'Production VQA model serving 1M requests/day saw accuracy drop from 85% to 70%',
+                      task: 'Investigate cause and restore performance within 24 hours',
+                      action: 'Analyzed logs, found data distribution shift, implemented drift detection',
+                      result: 'Restored 84% accuracy, prevented $500K revenue loss, deployed monitoring'
+                    }
+                  },
+                  {
+                    principle: 'Invent and Simplify',
+                    scenario: 'Reduce training costs for large language models',
+                    hints: ['Novel architectures', 'Efficiency improvements', 'Resource optimization'],
+                    exampleResponse: {
+                      situation: 'Training costs for 175B model were $4.6M per run',
+                      task: 'Reduce costs while maintaining performance',
+                      action: 'Designed gradient checkpointing + mixed precision + ZeRO optimization',
+                      result: '60% cost reduction ($1.8M per run), 2x faster training'
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          visualizations: [
+            {
+              id: 'star-structure',
+              type: 'diagram',
+              component: 'STARDiagram',
+              data: {
+                sections: ['Situation', 'Task', 'Action', 'Result'],
+                details: {
+                  situation: ['Context', 'Background', 'Stakeholders'],
+                  task: ['Objectives', 'Constraints', 'Success criteria'],
+                  action: ['Technical approach', 'Decision process', 'Implementation'],
+                  result: ['Metrics', 'Impact', 'Lessons learned']
+                }
+              }
+            }
+          ],
+          interviewTips: [
+            "Use the 70-20-10 rule: 70% Action, 20% Result, 10% Situation/Task",
+            "Include specific numbers: latency, cost savings, performance improvements",
+            "Show leadership: How you influenced others, drove decisions",
+            "Demonstrate learning: What you'd do differently next time"
+          ],
+          practiceQuestions: [
+            "Tell me about a time you had to debug a complex production ML issue",
+            "Describe when you invented a solution that simplified a complex problem",
+            "Give an example of when you took ownership of a failing project",
+            "How did you dive deep into a technical problem others couldn't solve?"
           ]
         }
       ]
