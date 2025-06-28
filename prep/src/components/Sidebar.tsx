@@ -339,22 +339,26 @@ const ProgressText = styled.p`
   margin: 0;
 `;
 
-const navigationItems = [
-  { path: '/', label: 'Home', icon: Home },
-  { path: '/learning', label: 'Interactive Learning', icon: Brain },
-  { path: '/transformers', label: 'Transformer Architecture', icon: Layers },
+const learningModules = [
+  { path: '/home', label: 'Dashboard', icon: Home },
+  { path: '/learning', label: 'Learning Hub', icon: Brain },
+  { path: '/transformers', label: 'Transformers', icon: Layers },
   { path: '/llms', label: 'Large Language Models', icon: Brain },
   { path: '/diffusion', label: 'Diffusion Models', icon: Wand2 },
   { path: '/multimodal', label: 'Multimodal AI', icon: Eye },
-  { path: '/genai-interview', label: 'GenAI Interview Prep', icon: Target },
-  { path: '/aws', label: 'Production & Deployment', icon: Cloud },
 ];
 
-const practiceItems = [
+const interviewPrep = [
+  { path: '/genai-interview', label: 'GenAI Interview Prep', icon: Target },
   { path: '/quiz', label: 'Knowledge Assessment', icon: HelpCircle },
-  { path: '/progress', label: 'Learning Analytics', icon: BarChart },
   { path: '/interview-sim', label: 'Interview Simulator', icon: Target },
-  { path: '/teams', label: 'Team Management', icon: Users },
+  { path: '/analytics', label: 'Learning Analytics', icon: BarChart },
+];
+
+const productionSkills = [
+  { path: '/aws', label: 'AWS & Production', icon: Cloud },
+  { path: '/deployment', label: 'Model Deployment', icon: Cloud },
+  { path: '/scaling', label: 'Scaling & Optimization', icon: BarChart },
 ];
 
 interface SidebarProps {}
@@ -404,9 +408,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
         </SidebarHeader>
 
         <SidebarSection>
-          <SectionTitle $isCollapsed={isCollapsed}>Core Topics</SectionTitle>
+          <SectionTitle $isCollapsed={isCollapsed}>Learning Modules</SectionTitle>
           <NavList>
-            {navigationItems.map((item, index) => (
+            {learningModules.map((item, index) => (
               <NavItem key={item.path}>
                 <NavLink 
                   to={item.path} 
@@ -423,9 +427,28 @@ const Sidebar: React.FC<SidebarProps> = () => {
         </SidebarSection>
 
         <SidebarSection>
-          <SectionTitle $isCollapsed={isCollapsed}>Practice & Analytics</SectionTitle>
+          <SectionTitle $isCollapsed={isCollapsed}>Interview Preparation</SectionTitle>
           <NavList>
-            {practiceItems.map((item, index) => (
+            {interviewPrep.map((item, index) => (
+              <NavItem key={item.path}>
+                <NavLink 
+                  to={item.path} 
+                  $isActive={location.pathname === item.path}
+                  $isCollapsed={isCollapsed}
+                  title={isCollapsed ? item.label : undefined}
+                >
+                  <item.icon />
+                  <span className="nav-text">{item.label}</span>
+                </NavLink>
+              </NavItem>
+            ))}
+          </NavList>
+        </SidebarSection>
+
+        <SidebarSection>
+          <SectionTitle $isCollapsed={isCollapsed}>Production Skills</SectionTitle>
+          <NavList>
+            {productionSkills.map((item, index) => (
               <NavItem key={item.path}>
                 <NavLink 
                   to={item.path} 

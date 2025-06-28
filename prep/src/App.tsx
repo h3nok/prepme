@@ -22,6 +22,10 @@ import MultimodalPage from './pages/MultimodalPage';
 import AWSPage from './pages/AWSPage';
 import QuizPage from './pages/QuizPage';
 import { GenAIInterviewPage } from './pages/GenAIInterviewPage';
+import InterviewSimulatorPage from './pages/InterviewSimulatorPage';
+import ModelDeploymentPage from './pages/ModelDeploymentPage';
+import ScalingOptimizationPage from './pages/ScalingOptimizationPage';
+import LearningAnalyticsPage from './pages/LearningAnalyticsPage';
 import Footer from './components/Footer';
 
 // Theme
@@ -316,6 +320,10 @@ const AppContent: React.FC = () => {
                   <Route path="/genai-interview" element={<GenAIInterviewPage />} />
                   <Route path="/aws" element={<AWSPage />} />
                   <Route path="/quiz" element={<QuizPage />} />
+                  <Route path="/interview-sim" element={<InterviewSimulatorPage />} />
+                  <Route path="/deployment" element={<ModelDeploymentPage />} />
+                  <Route path="/scaling" element={<ScalingOptimizationPage />} />
+                  <Route path="/analytics" element={<LearningAnalyticsPage />} />
                   {/* Catch-all route for unmatched paths in main app */}
                   <Route path="*" element={<HomePage />} />
                 </Routes>
