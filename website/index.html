@@ -834,7 +834,6 @@
       setFocusMode(!document.body.classList.contains('focus-mode'));
     });
     exitFocusBtn.addEventListener('click', () => setFocusMode(false));
-    // Keyboard shortcut: ESC to exit focus mode
     window.addEventListener('keydown', e => {
       if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
         setFocusMode(false);
