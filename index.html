@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrepMe: Generative AI & Applied Science at AWS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    :root {
+      --primary-bg: #f7f8fa;
+      --card-bg: #fff;
+      --card-hover: #f0f4f8;
+      --accent-color: #3b82f6;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --shadow: 0 2px 8px rgba(0,0,0,0.04);
+      --border-radius: 1rem;
+      --code-bg: #23272e;
+      --code-text: #e0e0e0;
+    }
+    body.dark-theme {
+      --primary-bg: #181a1b;
+      --card-bg: #23272e;
+      --card-hover: #23272e;
+      --accent-color: #60a5fa;
+      --text-primary: #f3f4f6;
+      --text-secondary: #bdbdbd;
+      --shadow: 0 2px 8px rgba(0,0,0,0.5);
+      --code-bg: #181a1b;
+      --code-text: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      margin: 0;
+      min-height: 100vh;
+      line-height: 1.8;
+      font-size: 1.15rem;
+      transition: background 0.3s;
+    }
+
+    .focus-mode body {
+      background: #fff;
+    }
+
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+      background: none;
+      box-shadow: none;
+    }
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+      animation: none;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    .search-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      position: relative;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 2rem;
+      background: #f7f8fa;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+    .search-bar:focus {
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 2px var(--accent-color, #3b82f6);
+    }
+    .search-bar::placeholder {
+      color: #bbb;
+    }
+    nav, .quick-actions, footer {
+      transition: opacity 0.3s, max-height 0.3s;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav-card {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+      min-width: 180px;
+      text-align: center;
+    }
+    .nav-card:hover {
+      background: var(--card-hover);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.08);
+      border-color: var(--accent-color);
+    }
+    .nav-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+    }
+    .nav-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .progress-section {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-color);
+      width: 0%;
+      transition: width 1s ease;
+      border-radius: 4px;
+    }
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+    .stat-card {
+      background: #f7f8fa;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+    }
+    .stat-number {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+    .stat-label {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .interactive-example {
+      max-width: 800px;
+      margin: 2.5rem auto;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+    }
+    .example-tabs {
+      display: flex;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .tab-button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    .tab-button.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .math-display {
+      background: #f7f8fa;
+      padding: 1.2rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-size: 1.1rem;
+      border: 1px solid #e0e0e0;
+    }
+    .code-block {
+      background: #23272e;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      border: 1px solid #e0e0e0;
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 1rem;
+    }
+    .code-block code {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e0e0e0;
+    }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2.5rem auto;
+      max-width: 900px;
+    }
+    .action-card {
+      background: var(--card-bg);
+      padding: 1.2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+      transition: background 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .action-card:hover {
+      background: var(--card-hover);
+      border-color: var(--accent-color);
+    }
+    .action-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+      color: var(--accent-color);
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 2rem;
+      text-align: center;
+      background: #f7f8fa;
+      border-top: 1px solid #e0e0e0;
+      color: var(--text-secondary);
+    }
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      text-align: left;
+    }
+    .footer-section h4 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+    .footer-section a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .footer-section a:hover {
+      color: var(--accent-color);
+    }
+    /* Focus Mode */
+    .focus-mode nav,
+    .focus-mode .quick-actions,
+    .focus-mode footer,
+    .focus-mode .progress-section {
+      opacity: 0;
+      max-height: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .focus-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      transition: background 0.2s;
+    }
+    .focus-toggle:active {
+      background: #2563eb;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 5.5rem;
+      z-index: 1001;
+      background: var(--card-bg);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, color 0.2s;
+    }
+    .theme-toggle:active {
+      background: var(--accent-color);
+      color: var(--card-bg);
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5rem; }
+      .nav-card { min-width: 120px; padding: 0.7rem; }
+      .progress-stats { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+    }
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: none;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, var(--accent-color) 0%, var(--card-bg) 100%);
+      opacity: 0.12;
+      z-index: 0;
+      pointer-events: none;
+      animation: heroBgAnim 8s linear infinite alternate;
+    }
+    @keyframes heroBgAnim {
+      0% { filter: blur(0px) brightness(1); }
+      100% { filter: blur(4px) brightness(1.1); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .hero-logo svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 2px 8px var(--accent-color));
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--accent-color);
+      margin: 0;
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent-color);
+      color: var(--card-bg);
+      font-weight: 700;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover, .cta-btn:focus {
+      background: var(--accent-color-dark);
+      color: var(--card-bg);
+      box-shadow: 0 4px 24px var(--accent-color);
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.5rem; }
+      .hero-logo svg { width: 56px; height: 56px; }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-logo" aria-label="PrepMe Logo">
+        <!-- Futuristic SVG logo -->
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" stroke="var(--accent-color)" stroke-width="4" fill="none"/>
+          <path d="M20 44L32 20L44 44" stroke="var(--accent-color)" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="32" cy="36" r="4" fill="var(--accent-color)"/>
+        </svg>
+      </div>
+      <h1>Generative AI & Applied Science at AWS</h1>
+      <p class="hero-sub">A Comprehensive, Interactive Preparation Guide</p>
+      <a href="#main-content" class="cta-btn">Start Learning</a>
+    </div>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar" role="toolbar" aria-label="Site controls">
+    <span class="tooltip">
+      <button id="theme-toggle" aria-label="Toggle dark/light theme" tabindex="0">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <span class="tooltiptext">Toggle dark/light theme</span>
+    </span>
+    <span class="tooltip">
+      <button id="focus-toggle" aria-label="Toggle focus mode" tabindex="0">
+        <span id="focus-icon">🛏️</span>
+      </button>
+      <span class="tooltiptext">Toggle focus mode</span>
+    </span>
+  </div>
+  <div class="focus-mode-indicator" aria-live="polite" style="display:none;">
+    <span>Focus Mode Active</span>
+    <button id="exit-focus" aria-label="Exit focus mode">✕</button>
+  </div>
+
+  <main id="main-content">
+  <!-- Progress Tracking -->
+  <div class="progress-section fade-in">
+    <div class="progress-header">
+      <h3>📊 Your Learning Progress</h3>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-stats">
+      <div class="stat-card">
+        <div class="stat-number" id="completedTopics">0</div>
+        <div class="stat-label">Topics Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="codeExamples">4</div>
+        <div class="stat-label">Code Examples</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="resources">25+</div>
+        <div class="stat-label">External Resources</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="studyTime">0</div>
+        <div class="stat-label">Study Hours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Cards -->
+  <nav>
+    <a href="slides.html" class="nav-card fade-in">
+      <h3>📊 Interactive Slide Decks</h3>
+      <p>Visual learning with detailed explanations and mathematical foundations</p>
+    </a>
+    <a href="code.html" class="nav-card fade-in">
+      <h3>💻 Code Samples & Implementations</h3>
+      <p>Hands-on examples with interview-ready implementations</p>
+    </a>
+    <a href="resources.html" class="nav-card fade-in">
+      <h3>🌐 External Resources</h3>
+      <p>Curated papers, blogs, courses, and AWS documentation</p>
+    </a>
+    <a href="pdf.html" class="nav-card fade-in">
+      <h3>📄 Full PDF Guide</h3>
+      <p>Complete reference with detailed explanations and formulas</p>
+    </a>
+  </nav>
+
+  <!-- Interactive Example -->
+  <div class="interactive-example fade-in">
+    <h2>🎯 Interactive Learning Example: Self-Attention Mechanism</h2>
+    
+    <div class="example-tabs">
+      <button class="tab-button active" onclick="showTab('theory')">Theory</button>
+      <button class="tab-button" onclick="showTab('math')">Mathematics</button>
+      <button class="tab-button" onclick="showTab('code')">Implementation</button>
+      <button class="tab-button" onclick="showTab('visual')">Visualization</button>
+    </div>
+
+    <div id="theory" class="tab-content active">
+      <p><strong>Self-Attention</strong> is the core innovation of the Transformer architecture. It allows the model to focus on different parts of the input sequence when processing each position.</p>
+      <ul>
+        <li><strong>Query (Q):</strong> "What am I looking for?" - represents the current position/token</li>
+        <li><strong>Key (K):</strong> "What information is available?" - all positions in the sequence</li>
+        <li><strong>Value (V):</strong> "What is the actual information?" - the content to be retrieved</li>
+        <li><strong>√d_k scaling:</strong> Prevents softmax saturation in high dimensions</li>
+      </ul>
+    </div>
+
+    <div id="math" class="tab-content">
+      <div class="math-display">
+        $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+      </div>
+      <p><strong>Step-by-step process:</strong></p>
+      <ol>
+        <li>Compute attention scores: \(QK^T\)</li>
+        <li>Scale by \(\sqrt{d_k}\) to prevent gradient vanishing</li>
+        <li>Apply softmax to get attention weights</li>
+        <li>Multiply by values \(V\) to get final output</li>
+      </ol>
+    </div>
+
+    <div id="code" class="tab-content">
+      <div class="code-block">
+        <pre><code class="language-python">def scaled_dot_product_attention(Q, K, V, mask=None):
+    # Calculate attention scores
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+    
+    # Apply mask if provided
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, -1e9)
+    
+    # Apply softmax
+    attention_weights = F.softmax(scores, dim=-1)
+    
+    # Apply attention to values
+    output = torch.matmul(attention_weights, V)
+    
+    return output, attention_weights</code></pre>
+      </div>
+    </div>
+
+    <div id="visual" class="tab-content">
+      <div style="text-align: center; padding: 2rem;">
+        <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
+          <h4>🎨 Attention Visualization</h4>
+          <p>Interactive attention heatmap would be displayed here</p>
+          <p><em>Click on different tokens to see attention patterns</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <div class="action-card fade-in" onclick="startQuiz()">
+      <span class="action-icon">🧠</span>
+      <h3>Take a Quick Quiz</h3>
+      <p>Test your knowledge with interactive questions</p>
+    </div>
+    <div class="action-card fade-in" onclick="startTimer()">
+      <span class="action-icon">⏱️</span>
+      <h3>Study Timer</h3>
+      <p>Track your study sessions and progress</p>
+    </div>
+    <div class="action-card fade-in" onclick="showNotes()">
+      <span class="action-icon">📝</span>
+      <h3>Study Notes</h3>
+      <p>Save and organize your learning notes</p>
+    </div>
+    <div class="action-card fade-in" onclick="showBookmarks()">
+      <span class="action-icon">🔖</span>
+      <h3>Bookmarks</h3>
+      <p>Quick access to your favorite resources</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>📚 Learning Paths</h4>
+        <a href="slides.html#transformers">Transformer Architecture</a>
+        <a href="slides.html#llms">Large Language Models</a>
+        <a href="slides.html#diffusion">Diffusion Models</a>
+        <a href="slides.html#multimodal">Multimodal AI</a>
+      </div>
+      <div class="footer-section">
+        <h4>💻 Code Examples</h4>
+        <a href="code.html#attention">Multi-Head Attention</a>
+        <a href="code.html#training">Training Loops</a>
+        <a href="code.html#sagemaker">AWS SageMaker</a>
+        <a href="code.html#evaluation">Evaluation Metrics</a>
+      </div>
+      <div class="footer-section">
+        <h4>🌐 Resources</h4>
+        <a href="resources.html#papers">Research Papers</a>
+        <a href="resources.html#aws">AWS Documentation</a>
+        <a href="resources.html#blogs">Blogs & Tutorials</a>
+        <a href="resources.html#courses">Courses</a>
+      </div>
+      <div class="footer-section">
+        <h4>📞 Support</h4>
+        <a href="#" onclick="showFeedback()">Send Feedback</a>
+        <a href="#" onclick="showHelp()">Help & FAQ</a>
+        <a href="#" onclick="showAbout()">About PrepMe</a>
+        <a href="#" onclick="showContact()">Contact</a>
+      </div>
+    </div>
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+      &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    </div>
+  </footer>
+  </main>
+
+  <script>
+    // Initialize
+    window.onload = function() {
+      // Highlight code
+      document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+      
+      // Initialize progress
+      updateProgress();
+      
+      // Add fade-in animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    };
+
+    // Tab functionality
+    function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Progress tracking
+    function updateProgress() {
+      const progress = localStorage.getItem('prepmeProgress') || 0;
+      const progressFill = document.getElementById('progressFill');
+      const progressPercent = document.getElementById('progressPercent');
+      
+      progressFill.style.width = progress + '%';
+      progressPercent.textContent = progress + '%';
+      
+      // Update stats
+      const completedTopics = Math.floor(progress / 10);
+      document.getElementById('completedTopics').textContent = completedTopics;
+      
+      const studyTime = Math.floor(progress / 5);
+      document.getElementById('studyTime').textContent = studyTime;
+    }
+
+    // Search functionality
+    document.getElementById('searchBar').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      // Implement search logic here
+      console.log('Searching for:', query);
+    });
+
+    // Quick action functions
+    function startQuiz() {
+      alert('Quiz feature coming soon! 🧠');
+    }
+
+    function startTimer() {
+      alert('Study timer feature coming soon! ⏱️');
+    }
+
+    function showNotes() {
+      alert('Study notes feature coming soon! 📝');
+    }
+
+    function showBookmarks() {
+      alert('Bookmarks feature coming soon! 🔖');
+    }
+
+    function showFeedback() {
+      alert('Feedback form coming soon! 📝');
+    }
+
+    function showHelp() {
+      alert('Help & FAQ coming soon! ❓');
+    }
+
+    function showAbout() {
+      alert('About PrepMe coming soon! ℹ️');
+    }
+
+    function showContact() {
+      alert('Contact information coming soon! 📧');
+    }
+
+    // Save progress when user interacts
+    function saveProgress(progress) {
+      localStorage.setItem('prepmeProgress', progress);
+      updateProgress();
+    }
+
+    // Example: Mark a topic as completed
+    function markTopicCompleted(topic) {
+      const currentProgress = parseInt(localStorage.getItem('prepmeProgress') || 0);
+      const newProgress = Math.min(currentProgress + 10, 100);
+      saveProgress(newProgress);
+    }
+
+    // Focus Mode functionality
+    function toggleFocusMode() {
+      const nav = document.querySelector('nav');
+      const quickActions = document.querySelector('.quick-actions');
+      const footer = document.querySelector('footer');
+      const progressSection = document.querySelector('.progress-section');
+
+      if (nav.classList.contains('focus-mode')) {
+        nav.classList.remove('focus-mode');
+        quickActions.classList.remove('focus-mode');
+        footer.classList.remove('focus-mode');
+        progressSection.classList.remove('focus-mode');
+      } else {
+        nav.classList.add('focus-mode');
+        quickActions.classList.add('focus-mode');
+        footer.classList.add('focus-mode');
+        progressSection.classList.add('focus-mode');
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+      localStorage.setItem('prepmeTheme', theme);
+    }
+
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('prepmeTheme', isDark ? 'dark' : 'light');
+    }
+
+    (function() {
+      const saved = localStorage.getItem('prepmeTheme');
+      if (saved === 'dark') setTheme('dark');
+      else setTheme('light');
+    })();
+
+    // Enhanced toolbar and focus mode logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const focusToggle = document.getElementById('focus-toggle');
+    const focusIndicator = document.querySelector('.focus-mode-indicator');
+    const exitFocusBtn = document.getElementById('exit-focus');
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+    function getTheme() {
+      return localStorage.getItem('theme') || 'dark';
+    }
+    themeToggle.addEventListener('click', () => {
+      const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+    setTheme(getTheme());
+
+    function setFocusMode(active) {
+      document.body.classList.toggle('focus-mode', active);
+      focusIndicator.style.display = active ? 'flex' : 'none';
+      if (active) {
+        focusToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        focusToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+    focusToggle.addEventListener('click', () => {
+      setFocusMode(!document.body.classList.contains('focus-mode'));
+    });
+    exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+        setFocusMode(false);
+      }
+    });
+  </script>
+</body>
+</html>
