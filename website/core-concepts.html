@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Concepts | PrepMe</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>🧠 Core Concepts in Generative AI</h1>
+      <p class="subtitle">Master the foundations: attention, embeddings, optimization, and more.</p>
+    </div>
+  </header>
+  <div class="toolbar" role="toolbar" aria-label="Site controls">
+    <span class="tooltip">
+      <button id="theme-toggle" aria-label="Toggle dark/light theme" tabindex="0">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <span class="tooltiptext">Toggle dark/light theme</span>
+    </span>
+    <span class="tooltip">
+      <button id="focus-toggle" aria-label="Toggle focus mode" tabindex="0">
+        <span id="focus-icon">🛏️</span>
+      </button>
+      <span class="tooltiptext">Toggle focus mode</span>
+    </span>
+  </div>
+  <div class="focus-mode-indicator" aria-live="polite" style="display:none;">
+    <span>Focus Mode Active</span>
+    <button id="exit-focus" aria-label="Exit focus mode">✕</button>
+  </div>
+  <main>
+    <section class="card fade-in">
+      <h2>Transformer Attention</h2>
+      <p><strong>Self-attention</strong> enables each token to attend to every other token in a sequence, allowing for rich contextual representations. This is the core of modern LLMs.</p>
+      <div class="math-example">
+        $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+      </div>
+      <div class="code-block">
+        <pre><code class="language-python">def scaled_dot_product_attention(Q, K, V, mask=None):
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, -1e9)
+    attention_weights = F.softmax(scores, dim=-1)
+    output = torch.matmul(attention_weights, V)
+    return output, attention_weights</code></pre>
+      </div>
+      <div class="explanation">
+        <strong>Why it matters:</strong> Attention allows models to dynamically focus on relevant parts of the input, improving performance on tasks like translation, summarization, and question answering.
+      </div>
+    </section>
+    <section class="card fade-in">
+      <h2>Embeddings</h2>
+      <p>Embeddings map discrete tokens (words, subwords) to continuous vectors, capturing semantic and syntactic information.</p>
+      <div class="math-example">
+        $$\text{Embedding}: \mathbb{N} \to \mathbb{R}^d$$
+      </div>
+      <div class="explanation">
+        <strong>Tip:</strong> Use pre-trained embeddings (e.g., GloVe, FastText) for faster convergence and better generalization.
+      </div>
+    </section>
+  </main>
+  <script>
+  // Enhanced toolbar and focus mode logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const focusToggle = document.getElementById('focus-toggle');
+  const focusIndicator = document.querySelector('.focus-mode-indicator');
+  const exitFocusBtn = document.getElementById('exit-focus');
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
+  }
+  function getTheme() {
+    return localStorage.getItem('theme') || 'dark';
+  }
+  themeToggle.addEventListener('click', () => {
+    const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+  setTheme(getTheme());
+  function setFocusMode(active) {
+    document.body.classList.toggle('focus-mode', active);
+    focusIndicator.style.display = active ? 'flex' : 'none';
+    if (active) {
+      focusToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      focusToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+  focusToggle.addEventListener('click', () => {
+    setFocusMode(!document.body.classList.contains('focus-mode'));
+  });
+  exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+      setFocusMode(false);
+    }
+  });
+  </script>
+</body>
+</html>

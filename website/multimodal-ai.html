@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimodal AI | PrepMe</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>🖼️ Multimodal AI</h1>
+      <p class="subtitle">Learn how AI models combine vision, language, and more.</p>
+    </div>
+  </header>
+  <div class="toolbar" role="toolbar" aria-label="Site controls">
+    <span class="tooltip">
+      <button id="theme-toggle" aria-label="Toggle dark/light theme" tabindex="0">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <span class="tooltiptext">Toggle dark/light theme</span>
+    </span>
+    <span class="tooltip">
+      <button id="focus-toggle" aria-label="Toggle focus mode" tabindex="0">
+        <span id="focus-icon">🛏️</span>
+      </button>
+      <span class="tooltiptext">Toggle focus mode</span>
+    </span>
+  </div>
+  <div class="focus-mode-indicator" aria-live="polite" style="display:none;">
+    <span>Focus Mode Active</span>
+    <button id="exit-focus" aria-label="Exit focus mode">✕</button>
+  </div>
+  <main>
+    <section class="card fade-in">
+      <h2>What is Multimodal AI?</h2>
+      <p>Multimodal AI models process and generate data from multiple modalities, such as text, images, and audio.</p>
+      <div class="explanation">
+        <strong>Example:</strong> CLIP (Contrastive Language–Image Pretraining) learns joint representations of images and text for tasks like zero-shot classification.
+      </div>
+    </section>
+    <section class="card fade-in">
+      <h2>Applications</h2>
+      <ul>
+        <li>Image captioning</li>
+        <li>Visual question answering</li>
+        <li>Text-to-image generation (e.g., DALL·E)</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+  // Enhanced toolbar and focus mode logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const focusToggle = document.getElementById('focus-toggle');
+  const focusIndicator = document.querySelector('.focus-mode-indicator');
+  const exitFocusBtn = document.getElementById('exit-focus');
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
+  }
+  function getTheme() {
+    return localStorage.getItem('theme') || 'dark';
+  }
+  themeToggle.addEventListener('click', () => {
+    const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+  setTheme(getTheme());
+  function setFocusMode(active) {
+    document.body.classList.toggle('focus-mode', active);
+    focusIndicator.style.display = active ? 'flex' : 'none';
+    if (active) {
+      focusToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      focusToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+  focusToggle.addEventListener('click', () => {
+    setFocusMode(!document.body.classList.contains('focus-mode'));
+  });
+  exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+      setFocusMode(false);
+    }
+  });
+  </script>
+</body>
+</html>

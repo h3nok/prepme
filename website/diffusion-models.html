@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffusion Models | PrepMe</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>🌫️ Diffusion Models</h1>
+      <p class="subtitle">Understand the math and intuition behind generative diffusion models.</p>
+    </div>
+  </header>
+  <div class="toolbar" role="toolbar" aria-label="Site controls">
+    <span class="tooltip">
+      <button id="theme-toggle" aria-label="Toggle dark/light theme" tabindex="0">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <span class="tooltiptext">Toggle dark/light theme</span>
+    </span>
+    <span class="tooltip">
+      <button id="focus-toggle" aria-label="Toggle focus mode" tabindex="0">
+        <span id="focus-icon">🛏️</span>
+      </button>
+      <span class="tooltiptext">Toggle focus mode</span>
+    </span>
+  </div>
+  <div class="focus-mode-indicator" aria-live="polite" style="display:none;">
+    <span>Focus Mode Active</span>
+    <button id="exit-focus" aria-label="Exit focus mode">✕</button>
+  </div>
+  <main>
+    <section class="card fade-in">
+      <h2>What is a Diffusion Model?</h2>
+      <p>Diffusion models are a class of generative models that learn to reverse a gradual noising process, producing high-quality samples from noise.</p>
+      <div class="math-example">
+        $$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t}x_{t-1}, \beta_t I)$$
+      </div>
+      <div class="explanation">
+        <strong>Key idea:</strong> The model learns to denoise step-by-step, eventually generating realistic data (e.g., images, audio) from pure noise.
+      </div>
+    </section>
+    <section class="card fade-in">
+      <h2>Applications</h2>
+      <ul>
+        <li>Image synthesis (e.g., DALL·E 2, Stable Diffusion)</li>
+        <li>Audio generation</li>
+        <li>Scientific data simulation</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+  // Enhanced toolbar and focus mode logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const focusToggle = document.getElementById('focus-toggle');
+  const focusIndicator = document.querySelector('.focus-mode-indicator');
+  const exitFocusBtn = document.getElementById('exit-focus');
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
+  }
+  function getTheme() {
+    return localStorage.getItem('theme') || 'dark';
+  }
+  themeToggle.addEventListener('click', () => {
+    const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+  setTheme(getTheme());
+  function setFocusMode(active) {
+    document.body.classList.toggle('focus-mode', active);
+    focusIndicator.style.display = active ? 'flex' : 'none';
+    if (active) {
+      focusToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      focusToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+  focusToggle.addEventListener('click', () => {
+    setFocusMode(!document.body.classList.contains('focus-mode'));
+  });
+  exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+      setFocusMode(false);
+    }
+  });
+  </script>
+</body>
+</html>
