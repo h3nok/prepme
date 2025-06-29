@@ -7,34 +7,32 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
   <style>
     :root {
-      --primary-gradient: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
-      --card-bg: rgba(0,0,0,0.15);
-      --card-hover: rgba(0,0,0,0.25);
-      --accent-color: #4CAF50;
-      --text-primary: #fff;
-      --text-secondary: #e0e0e0;
-      --shadow: 0 4px 16px rgba(0,0,0,0.1);
+      --primary-bg: #f7f8fa;
+      --card-bg: #fff;
+      --card-hover: #f0f4f8;
+      --accent-color: #3b82f6;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --shadow: 0 2px 8px rgba(0,0,0,0.04);
       --border-radius: 1rem;
     }
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--primary-gradient);
+      background: var(--primary-bg);
       color: var(--text-primary);
       margin: 0;
       min-height: 100vh;
-      line-height: 1.6;
+      line-height: 1.8;
+      font-size: 1.15rem;
     }
 
     /* Header & Navigation */
     header {
       padding: 2rem 1rem 1rem 1rem;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
+      background: none;
+      box-shadow: none;
     }
 
     .header-content {
@@ -45,10 +43,12 @@
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(45deg, #fff, #4CAF50);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent-color);
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+      animation: none;
     }
 
     nav {
@@ -60,21 +60,20 @@
     }
 
     nav a {
-      background: rgba(255,255,255,0.1);
+      background: var(--card-bg);
       color: var(--text-primary);
       padding: 0.75rem 1.5rem;
       border-radius: 2rem;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: background 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
     }
 
     nav a:hover, nav a.active {
-      background: rgba(255,255,255,0.25);
+      background: var(--card-hover);
       border-color: var(--accent-color);
-      transform: translateY(-2px);
     }
 
     /* Progress Bar */
@@ -87,7 +86,7 @@
     .progress-bar {
       width: 100%;
       height: 6px;
-      background: rgba(255,255,255,0.1);
+      background: #e0e0e0;
       border-radius: 3px;
       overflow: hidden;
       margin-bottom: 1rem;
@@ -95,7 +94,7 @@
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-color), #66dfea);
+      background: var(--accent-color);
       width: 0%;
       transition: width 0.5s ease;
       border-radius: 3px;
@@ -120,20 +119,20 @@
       margin: 2rem 0;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
       overflow: hidden;
       transition: all 0.3s ease;
     }
 
     .slide:hover {
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.08);
+      border-color: var(--accent-color);
     }
 
     .slide-header {
-      background: rgba(255,255,255,0.05);
+      background: #f7f8fa;
       padding: 1.5rem 2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid #e0e0e0;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -142,7 +141,7 @@
     }
 
     .slide-header:hover {
-      background: rgba(255,255,255,0.1);
+      background: #f0f4f8;
     }
 
     .slide-header h2 {
@@ -154,7 +153,7 @@
     .slide-toggle {
       background: none;
       border: none;
-      color: var(--text-primary);
+      color: var(--accent-color);
       font-size: 1.5rem;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -203,8 +202,8 @@
 
     /* Interactive Elements */
     .interactive-element {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #f7f8fa;
+      border: 1px solid #e0e0e0;
       border-radius: 0.5rem;
       padding: 1.5rem;
       margin: 1rem 0;
@@ -212,25 +211,25 @@
     }
 
     .interactive-element:hover {
-      background: rgba(255,255,255,0.1);
+      background: #f0f4f8;
       border-color: var(--accent-color);
     }
 
     .math-example {
-      background: rgba(0,0,0,0.2);
+      background: #f7f8fa;
       padding: 1.5rem;
       border-radius: 0.5rem;
       margin: 1rem 0;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
     }
 
     .code-example {
-      background: #1e1e1e;
+      background: #23272e;
       border-radius: 0.5rem;
       margin: 1rem 0;
       overflow-x: auto;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
     }
 
     .code-example pre {
@@ -240,12 +239,13 @@
 
     .code-example code {
       font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e0e0e0;
     }
 
     .key-point {
-      background: rgba(255,255,255,0.1);
+      background: #f7f8fa;
       border-left: 4px solid var(--accent-color);
       padding: 1.5rem;
       margin: 1.5rem 0;
@@ -266,32 +266,33 @@
       align-items: center;
       justify-content: center;
       font-size: 1rem;
+      color: white;
     }
 
     .comparison-table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
-      background: rgba(0,0,0,0.2);
+      background: var(--card-bg);
       border-radius: 0.5rem;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
     }
 
     .comparison-table th, .comparison-table td {
       padding: 1rem;
       text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid #e0e0e0;
     }
 
     .comparison-table th {
-      background: rgba(255,255,255,0.1);
+      background: #f7f8fa;
       font-weight: 600;
       color: var(--text-primary);
     }
 
     .comparison-table tr:hover {
-      background: rgba(255,255,255,0.05);
+      background: #f0f4f8;
     }
 
     /* Interactive Buttons */
@@ -303,9 +304,9 @@
     }
 
     .action-btn {
-      background: rgba(255,255,255,0.1);
+      background: var(--card-bg);
       color: var(--text-primary);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid #e0e0e0;
       padding: 0.75rem 1.5rem;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -314,24 +315,24 @@
     }
 
     .action-btn:hover {
-      background: rgba(255,255,255,0.2);
+      background: var(--card-hover);
       border-color: var(--accent-color);
-      transform: translateY(-2px);
     }
 
     .action-btn.primary {
       background: var(--accent-color);
       border-color: var(--accent-color);
+      color: white;
     }
 
     .action-btn.primary:hover {
-      background: #45a049;
+      background: #2563eb;
     }
 
     /* Quiz Elements */
     .quiz-question {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #f7f8fa;
+      border: 1px solid #e0e0e0;
       border-radius: 0.5rem;
       padding: 1.5rem;
       margin: 1.5rem 0;
@@ -344,8 +345,8 @@
     }
 
     .quiz-option {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--card-bg);
+      border: 1px solid #e0e0e0;
       border-radius: 0.5rem;
       padding: 1rem;
       cursor: pointer;
@@ -353,23 +354,26 @@
     }
 
     .quiz-option:hover {
-      background: rgba(255,255,255,0.1);
+      background: var(--card-hover);
       border-color: var(--accent-color);
     }
 
     .quiz-option.selected {
       background: var(--accent-color);
       border-color: var(--accent-color);
+      color: white;
     }
 
     .quiz-option.correct {
-      background: #4CAF50;
-      border-color: #4CAF50;
+      background: #10b981;
+      border-color: #10b981;
+      color: white;
     }
 
     .quiz-option.incorrect {
-      background: #f44336;
-      border-color: #f44336;
+      background: #ef4444;
+      border-color: #ef4444;
+      color: white;
     }
 
     /* Tooltips */
@@ -382,8 +386,8 @@
     .tooltip .tooltiptext {
       visibility: hidden;
       width: 200px;
-      background-color: rgba(0,0,0,0.9);
-      color: var(--text-primary);
+      background-color: #333;
+      color: white;
       text-align: center;
       border-radius: 0.5rem;
       padding: 0.5rem;
@@ -406,8 +410,8 @@
       margin-top: 4rem;
       padding: 2rem;
       text-align: center;
-      background: rgba(0,0,0,0.1);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      background: #f7f8fa;
+      border-top: 1px solid #e0e0e0;
     }
 
     /* Responsive Design */
@@ -435,6 +439,26 @@
 
     .fade-in {
       animation: fadeInUp 0.6s ease-out;
+    }
+
+    .focus-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      transition: background 0.2s;
+    }
+
+    .focus-toggle:active {
+      background: #2563eb;
     }
   </style>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -471,13 +495,13 @@
     <!-- Transformer Architecture -->
     <div id="transformers" class="slide fade-in">
       <div class="slide-header" onclick="toggleSlide(this)">
-        <h2>🏗️ Transformer Architecture Deep Dive</h2>
+        <h2>🏗️ Transformer Architecture: Deep Dive & Enterprise Applications</h2>
         <button class="slide-toggle">▼</button>
       </div>
       <div class="slide-content">
         
         <div class="key-point">
-          <strong>Key Innovation:</strong> Self-attention mechanism allows parallel processing and captures long-range dependencies better than RNNs.
+          <strong>Enterprise Impact:</strong> Transformers revolutionized NLP and enabled large-scale language models that power modern AI applications across industries.
         </div>
 
         <div class="action-buttons">
@@ -486,104 +510,115 @@
           <button class="action-btn" onclick="showDetails('transformers')">📖 Show Details</button>
         </div>
 
-        <h3>🔍 Self-Attention Mechanism</h3>
-        <p>The core of the Transformer is the self-attention mechanism:</p>
+        <h3>🔍 Self-Attention Mechanism: Mathematical Foundation</h3>
+        <p>The self-attention mechanism is the core innovation that enables parallel processing and captures long-range dependencies:</p>
         
         <div class="math-example">
           $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
         </div>
 
         <div class="interactive-element">
-          <h4>🎯 Interactive Understanding</h4>
-          <p><strong>Think of attention as a soft database lookup:</strong></p>
+          <h4>🎯 Enterprise Implementation Insights</h4>
+          <p><strong>Key Components & Their Roles:</strong></p>
           <ul>
-            <li><strong>Query (Q):</strong> "What am I looking for?" - represents the current position/token</li>
-            <li><strong>Key (K):</strong> "What information is available?" - all positions in the sequence</li>
-            <li><strong>Value (V):</strong> "What is the actual information?" - the content to be retrieved</li>
-            <li><strong>√d_k scaling:</strong> Prevents softmax saturation in high dimensions</li>
+            <li><strong>Query (Q):</strong> Represents the current position's information needs</li>
+            <li><strong>Key (K):</strong> Encodes what information is available at each position</li>
+            <li><strong>Value (V):</strong> Contains the actual content to be retrieved</li>
+            <li><strong>√d_k scaling:</strong> Prevents gradient vanishing in high-dimensional spaces</li>
+            <li><strong>Softmax:</strong> Converts attention scores to probability distribution</li>
           </ul>
-          <div class="action-buttons">
-            <button class="action-btn" onclick="showVisualization('attention')">🎨 Show Visualization</button>
-            <button class="action-btn" onclick="playAnimation('attention')">▶️ Play Animation</button>
-          </div>
+          
+          <h4>🔧 Implementation Considerations</h4>
+          <ul>
+            <li><strong>Memory Complexity:</strong> O(n²) for sequence length n</li>
+            <li><strong>Computational Complexity:</strong> O(n²d) where d is embedding dimension</li>
+            <li><strong>Parallelization:</strong> All attention computations can be parallelized</li>
+            <li><strong>Scalability:</strong> Linear attention variants reduce complexity to O(n)</li>
+          </ul>
         </div>
 
-        <h3>🎯 Multi-Head Attention</h3>
-        <p>Multiple heads capture different types of relationships:</p>
-        <ul>
-          <li><strong>Syntactic relationships:</strong> Subject-verb agreement</li>
-          <li><strong>Semantic relationships:</strong> Word meanings</li>
-          <li><strong>Positional relationships:</strong> Nearby vs distant words</li>
-          <li><strong>Different abstraction levels:</strong> Various linguistic patterns</li>
-        </ul>
-
+        <h3>🎯 Multi-Head Attention: Parallel Processing</h3>
+        <p>Multiple attention heads capture different types of relationships simultaneously:</p>
+        
         <div class="math-example">
           $$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \text{head}_2, ..., \text{head}_h)W^O$$
           $$\text{where } \text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
         </div>
 
-        <div class="quiz-question" id="transformer-quiz" style="display: none;">
-          <h4>🧠 Quick Quiz: Transformer Architecture</h4>
-          <p>What is the main advantage of the self-attention mechanism over RNNs?</p>
-          <div class="quiz-options">
-            <div class="quiz-option" onclick="selectOption(this, 'parallel')">A. Parallel processing</div>
-            <div class="quiz-option" onclick="selectOption(this, 'memory')">B. Better memory usage</div>
-            <div class="quiz-option" onclick="selectOption(this, 'speed')">C. Faster computation</div>
-            <div class="quiz-option" onclick="selectOption(this, 'accuracy')">D. Higher accuracy</div>
-          </div>
-          <div class="action-buttons">
-            <button class="action-btn primary" onclick="checkAnswer('transformer-quiz', 'parallel')">Check Answer</button>
-            <button class="action-btn" onclick="showExplanation('transformer-quiz')">Show Explanation</button>
-          </div>
-        </div>
+        <h4>🔍 Attention Head Specialization</h4>
+        <ul>
+          <li><strong>Syntactic Heads:</strong> Capture grammatical relationships (subject-verb, noun-adjective)</li>
+          <li><strong>Semantic Heads:</strong> Focus on meaning and word associations</li>
+          <li><strong>Positional Heads:</strong> Learn relative and absolute position patterns</li>
+          <li><strong>Cross-lingual Heads:</strong> Bridge different languages in multilingual models</li>
+        </ul>
 
-        <h3>📍 Positional Encoding</h3>
-        <p><strong>The Problem:</strong> Transformers process all positions simultaneously → no inherent sequence understanding</p>
+        <h3>📍 Positional Encoding: Sequence Understanding</h3>
+        <p><strong>The Challenge:</strong> Transformers process all positions simultaneously, requiring explicit position information.</p>
         
-        <p><strong>Sinusoidal Encoding (Original Transformer):</strong></p>
+        <h4>🔄 Sinusoidal Positional Encoding</h4>
         <div class="math-example">
           $$\text{PE}(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$$
           $$\text{PE}(pos, 2i+1) = \cos(pos / 10000^{2i/d_{model}})$$
         </div>
 
         <div class="tooltip">
-          <span style="color: var(--accent-color); cursor: help;">💡 Why sinusoidal encoding?</span>
-          <span class="tooltiptext">Sinusoidal encoding allows the model to learn relative positions and generalize to longer sequences than seen during training.</span>
+          <span style="color: var(--accent-color); cursor: help;">💡 Why Sinusoidal Encoding?</span>
+          <span class="tooltiptext">Sinusoidal encoding allows the model to learn relative positions and generalize to longer sequences than seen during training. The frequency decreases exponentially, enabling the model to attend to both local and global patterns.</span>
         </div>
 
-        <h3>🏗️ Transformer Variants</h3>
+        <h4>🔧 Alternative Positional Encodings</h4>
+        <ul>
+          <li><strong>Learned Positional Embeddings:</strong> Trainable position vectors (BERT, GPT)</li>
+          <li><strong>Relative Position Encoding:</strong> Encode relative distances between positions</li>
+          <li><strong>ALiBi:</strong> Attention with Linear Biases for extrapolation</li>
+          <li><strong>RoPE:</strong> Rotary Position Embedding for better extrapolation</li>
+        </ul>
+
+        <h3>🏗️ Transformer Variants: Enterprise Applications</h3>
         <table class="comparison-table">
           <thead>
             <tr>
-              <th>Type</th>
               <th>Architecture</th>
+              <th>Attention Pattern</th>
               <th>Use Cases</th>
-              <th>Examples</th>
+              <th>Enterprise Examples</th>
+              <th>Trade-offs</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Encoder-Only</strong></td>
-              <td>Bidirectional attention</td>
-              <td>Classification, NER, QA</td>
-              <td>BERT, RoBERTa</td>
+              <td>Bidirectional (full attention)</td>
+              <td>Classification, NER, QA, Sentiment Analysis</td>
+              <td>BERT, RoBERTa, DistilBERT</td>
+              <td>Best for understanding, slower generation</td>
             </tr>
             <tr>
               <td><strong>Decoder-Only</strong></td>
-              <td>Causal attention (triangular mask)</td>
-              <td>Text generation, completion</td>
-              <td>GPT-3, GPT-4, LLaMA</td>
+              <td>Causal (triangular mask)</td>
+              <td>Text generation, completion, summarization</td>
+              <td>GPT-3, GPT-4, LLaMA, Claude</td>
+              <td>Fast generation, limited context understanding</td>
             </tr>
             <tr>
               <td><strong>Encoder-Decoder</strong></td>
-              <td>Separate encoding/decoding</td>
-              <td>Translation, summarization</td>
-              <td>T5, BART, mT5</td>
+              <td>Cross-attention between encoder/decoder</td>
+              <td>Translation, summarization, dialogue</td>
+              <td>T5, BART, mT5, FLAN-T5</td>
+              <td>Balanced, requires paired data</td>
+            </tr>
+            <tr>
+              <td><strong>Sparse Attention</strong></td>
+              <td>Local + global patterns</td>
+              <td>Long sequences, efficiency</td>
+              <td>Longformer, BigBird, Reformer</td>
+              <td>Memory efficient, may lose some patterns</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>📊 Scaling Laws & Model Sizes</h3>
+        <h3>📊 Scaling Laws & Model Sizes: Enterprise Considerations</h3>
         <table class="comparison-table">
           <thead>
             <tr>
@@ -592,6 +627,8 @@
               <th>Layers</th>
               <th>Hidden Size</th>
               <th>Attention Heads</th>
+              <th>Training Cost</th>
+              <th>Inference Cost</th>
             </tr>
           </thead>
           <tbody>
@@ -601,6 +638,8 @@
               <td>12</td>
               <td>768</td>
               <td>12</td>
+              <td>$1K-5K</td>
+              <td>$0.01-0.05/hr</td>
             </tr>
             <tr>
               <td>BERT-large</td>
@@ -608,6 +647,8 @@
               <td>24</td>
               <td>1024</td>
               <td>16</td>
+              <td>$5K-15K</td>
+              <td>$0.05-0.15/hr</td>
             </tr>
             <tr>
               <td>GPT-3</td>
@@ -615,6 +656,8 @@
               <td>96</td>
               <td>12288</td>
               <td>96</td>
+              <td>$12M</td>
+              <td>$0.50-2.00/hr</td>
             </tr>
             <tr>
               <td>GPT-4</td>
@@ -622,9 +665,46 @@
               <td>~120</td>
               <td>~18432</td>
               <td>~128</td>
+              <td>$100M+</td>
+              <td>$2.00-10.00/hr</td>
             </tr>
           </tbody>
         </table>
+
+        <h3>⚡ Optimization Techniques: Production Deployment</h3>
+        <h4>🔧 Inference Optimizations</h4>
+        <ul>
+          <li><strong>KV Caching:</strong> Store key-value pairs to avoid recomputation</li>
+          <li><strong>Attention Optimization:</strong> Flash Attention, Sparse Attention</li>
+          <li><strong>Quantization:</strong> INT8, INT4, mixed precision</li>
+          <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs/TPUs</li>
+          <li><strong>Speculative Decoding:</strong> Predict multiple tokens ahead</li>
+          <li><strong>Dynamic Batching:</strong> Group requests for efficiency</li>
+        </ul>
+
+        <h4>🏭 Production Considerations</h4>
+        <ul>
+          <li><strong>Latency Requirements:</strong> Real-time vs batch processing</li>
+          <li><strong>Throughput Optimization:</strong> Requests per second</li>
+          <li><strong>Cost Management:</strong> Compute vs accuracy trade-offs</li>
+          <li><strong>Scalability:</strong> Horizontal vs vertical scaling</li>
+          <li><strong>Monitoring:</strong> Performance metrics and alerting</li>
+        </ul>
+
+        <div class="quiz-question" id="transformer-quiz" style="display: none;">
+          <h4>🧠 Enterprise Quiz: Transformer Architecture</h4>
+          <p>What is the primary advantage of the self-attention mechanism over RNNs in production environments?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="selectOption(this, 'parallel')">A. Parallel processing enabling faster training and inference</div>
+            <div class="quiz-option" onclick="selectOption(this, 'memory')">B. Better memory usage for long sequences</div>
+            <div class="quiz-option" onclick="selectOption(this, 'accuracy')">C. Higher accuracy on all tasks</div>
+            <div class="quiz-option" onclick="selectOption(this, 'simplicity')">D. Simpler implementation and debugging</div>
+          </div>
+          <div class="action-buttons">
+            <button class="action-btn primary" onclick="checkAnswer('transformer-quiz', 'parallel')">Check Answer</button>
+            <button class="action-btn" onclick="showExplanation('transformer-quiz')">Show Explanation</button>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -632,13 +712,13 @@
     <!-- Large Language Models -->
     <div id="llms" class="slide fade-in">
       <div class="slide-header" onclick="toggleSlide(this)">
-        <h2>🧠 Large Language Models (LLMs)</h2>
+        <h2>🧠 Large Language Models: Enterprise Architecture & Deployment</h2>
         <button class="slide-toggle">▼</button>
       </div>
       <div class="slide-content">
         
         <div class="key-point">
-          <strong>Definition:</strong> Neural networks trained on massive text corpora to understand and generate human language.
+          <strong>Enterprise Definition:</strong> Neural networks with 100M+ parameters trained on massive text corpora, enabling human-like language understanding and generation across diverse domains.
         </div>
 
         <div class="action-buttons">
@@ -647,45 +727,110 @@
           <button class="action-btn" onclick="showDetails('llms')">📖 Show Details</button>
         </div>
 
-        <h3>🎯 Training Objectives</h3>
+        <h3>🎯 Training Objectives: From Pre-training to Fine-tuning</h3>
+        <h4>🔧 Pre-training Objectives</h4>
         <ul>
-          <li><strong>Language Modeling:</strong> Predict next token given previous tokens</li>
-          <li><strong>Masked Language Modeling:</strong> Predict masked tokens in context</li>
-          <li><strong>Span Corruption:</strong> Predict corrupted spans of text</li>
+          <li><strong>Language Modeling:</strong> Predict next token given previous tokens (GPT family)</li>
+          <li><strong>Masked Language Modeling:</strong> Predict masked tokens in context (BERT family)</li>
+          <li><strong>Span Corruption:</strong> Predict corrupted spans of text (T5 family)</li>
+          <li><strong>Prefix Language Modeling:</strong> Predict tokens after a prefix (UniLM)</li>
         </ul>
 
-        <h3>🔧 Key Components</h3>
+        <h4>🎯 Fine-tuning Strategies</h4>
         <ul>
-          <li><strong>Tokenization:</strong> Convert text to subword units (BPE, SentencePiece)</li>
-          <li><strong>Embeddings:</strong> Learn dense vector representations</li>
-          <li><strong>Attention Layers:</strong> Capture contextual relationships</li>
-          <li><strong>Feed-Forward Networks:</strong> Process information</li>
-          <li><strong>Layer Normalization:</strong> Stabilize training</li>
+          <li><strong>Supervised Fine-tuning (SFT):</strong> Task-specific labeled data</li>
+          <li><strong>Reinforcement Learning from Human Feedback (RLHF):</strong> Align with human preferences</li>
+          <li><strong>Direct Preference Optimization (DPO):</strong> Direct preference learning</li>
+          <li><strong>Parameter-Efficient Fine-tuning (PEFT):</strong> LoRA, AdaLoRA, QLoRA</li>
         </ul>
 
-        <h3>📈 Scaling Laws</h3>
-        <p><strong>Chinchilla Scaling Laws:</strong></p>
+        <h3>🔧 Key Components: Enterprise Architecture</h3>
+        <h4>📝 Tokenization Strategies</h4>
+        <ul>
+          <li><strong>Byte Pair Encoding (BPE):</strong> GPT family, subword tokenization</li>
+          <li><strong>WordPiece:</strong> BERT family, similar to BPE with different merge strategy</li>
+          <li><strong>SentencePiece:</strong> Language-agnostic, supports multiple languages</li>
+          <li><strong>Unigram Language Model:</strong> Probabilistic subword segmentation</li>
+        </ul>
+
+        <h4>🔗 Embedding Layers</h4>
+        <ul>
+          <li><strong>Token Embeddings:</strong> Learn dense vector representations</li>
+          <li><strong>Position Embeddings:</strong> Encode sequence position information</li>
+          <li><strong>Segment Embeddings:</strong> Distinguish different sequences (BERT)</li>
+          <li><strong>Layer Normalization:</strong> Stabilize training and improve convergence</li>
+        </ul>
+
+        <h3>📈 Scaling Laws: Chinchilla & Beyond</h3>
+        <p><strong>Chinchilla Scaling Laws:</strong> Optimal model size vs dataset size relationship</p>
+        
         <div class="math-example">
           $$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
           <p>where N = number of parameters, D = dataset size</p>
         </div>
 
-        <h3>🎭 Emergent Abilities</h3>
+        <h4>🔍 Key Findings</h4>
         <ul>
-          <li><strong>Few-shot learning:</strong> Learn from few examples</li>
-          <li><strong>Chain-of-thought reasoning:</strong> Step-by-step problem solving</li>
-          <li><strong>Code generation:</strong> Write and debug code</li>
-          <li><strong>Mathematical reasoning:</strong> Solve complex problems</li>
-          <li><strong>Multilingual capabilities:</strong> Cross-language understanding</li>
+          <li><strong>Optimal Ratio:</strong> ~20 tokens per parameter</li>
+          <li><strong>Compute Efficiency:</strong> Larger models are more compute-efficient</li>
+          <li><strong>Data Requirements:</strong> Scale dataset with model size</li>
+          <li><strong>Training Stability:</strong> Larger models train more stably</li>
         </ul>
 
-        <h3>⚡ Inference Optimization</h3>
+        <h3>🎭 Emergent Abilities: Enterprise Applications</h3>
+        <h4>🧠 Cognitive Capabilities</h4>
+        <ul>
+          <li><strong>Few-shot Learning:</strong> Learn from few examples (in-context learning)</li>
+          <li><strong>Chain-of-thought Reasoning:</strong> Step-by-step problem solving</li>
+          <li><strong>Code Generation:</strong> Write, debug, and explain code</li>
+          <li><strong>Mathematical Reasoning:</strong> Solve complex mathematical problems</li>
+          <li><strong>Multilingual Capabilities:</strong> Cross-language understanding and translation</li>
+        </ul>
+
+        <h4>🏭 Enterprise Use Cases</h4>
+        <ul>
+          <li><strong>Content Generation:</strong> Marketing copy, technical documentation</li>
+          <li><strong>Code Assistance:</strong> GitHub Copilot, code review, debugging</li>
+          <li><strong>Customer Support:</strong> Chatbots, ticket classification</li>
+          <li><strong>Data Analysis:</strong> SQL generation, report writing</li>
+          <li><strong>Research Assistance:</strong> Literature review, hypothesis generation</li>
+        </ul>
+
+        <h3>⚡ Inference Optimization: Production Deployment</h3>
+        <h4>🚀 Performance Optimizations</h4>
         <ul>
           <li><strong>KV Caching:</strong> Store key-value pairs for efficiency</li>
           <li><strong>Attention Optimization:</strong> Flash Attention, Sparse Attention</li>
-          <li><strong>Quantization:</strong> Reduce precision (INT8, INT4)</li>
-          <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs</li>
+          <li><strong>Quantization:</strong> INT8, INT4, mixed precision</li>
+          <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs/TPUs</li>
           <li><strong>Speculative Decoding:</strong> Predict multiple tokens ahead</li>
+          <li><strong>Dynamic Batching:</strong> Group requests for efficiency</li>
+        </ul>
+
+        <h4>🏭 Production Considerations</h4>
+        <ul>
+          <li><strong>Latency Requirements:</strong> Real-time vs batch processing</li>
+          <li><strong>Throughput Optimization:</strong> Requests per second</li>
+          <li><strong>Cost Management:</strong> Compute vs accuracy trade-offs</li>
+          <li><strong>Scalability:</strong> Horizontal vs vertical scaling</li>
+          <li><strong>Monitoring:</strong> Performance metrics and alerting</li>
+        </ul>
+
+        <h3>🔒 Safety & Alignment: Enterprise Governance</h3>
+        <h4>🛡️ Safety Measures</h4>
+        <ul>
+          <li><strong>Content Filtering:</strong> Remove harmful or inappropriate content</li>
+          <li><strong>Bias Mitigation:</strong> Reduce demographic and cultural biases</li>
+          <li><strong>Factual Accuracy:</strong> Improve truthfulness and reduce hallucinations</li>
+          <li><strong>Privacy Protection:</strong> Ensure data privacy and security</li>
+        </ul>
+
+        <h4>🎯 Alignment Techniques</h4>
+        <ul>
+          <li><strong>RLHF:</strong> Align with human preferences and values</li>
+          <li><strong>Constitutional AI:</strong> Follow predefined principles</li>
+          <li><strong>Self-critique:</strong> Models evaluate their own outputs</li>
+          <li><strong>Red-teaming:</strong> Systematic testing for vulnerabilities</li>
         </ul>
 
       </div>
@@ -694,13 +839,13 @@
     <!-- Diffusion Models -->
     <div id="diffusion" class="slide fade-in">
       <div class="slide-header" onclick="toggleSlide(this)">
-        <h2>🎨 Diffusion Models</h2>
+        <h2>🎨 Diffusion Models: Generative AI for Enterprise Applications</h2>
         <button class="slide-toggle">▼</button>
       </div>
       <div class="slide-content">
         
         <div class="key-point">
-          <strong>Core Idea:</strong> Learn to reverse a gradual noising process to generate high-quality samples.
+          <strong>Core Innovation:</strong> Learn to reverse a gradual noising process to generate high-quality samples, enabling state-of-the-art image, audio, and video generation.
         </div>
 
         <div class="action-buttons">
@@ -709,38 +854,144 @@
           <button class="action-btn" onclick="showDetails('diffusion')">📖 Show Details</button>
         </div>
 
-        <h3>🔄 Forward Process (Noising)</h3>
-        <p>Gradually add noise to data over T timesteps:</p>
+        <h3>🔄 Forward Process: Gradual Noising</h3>
+        <p>Gradually add noise to data over T timesteps, transforming clean data to pure noise:</p>
+        
         <div class="math-example">
           $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)$$
         </div>
 
-        <h3>🔄 Reverse Process (Denoising)</h3>
-        <p>Learn to predict and remove noise:</p>
+        <h4>🔧 Noise Schedule Design</h4>
+        <ul>
+          <li><strong>Linear Schedule:</strong> β_t increases linearly from β₁ to β_T</li>
+          <li><strong>Cosine Schedule:</strong> Smoother transition, better for high-resolution images</li>
+          <li><strong>Quadratic Schedule:</strong> Faster initial noise addition</li>
+          <li><strong>Learned Schedule:</strong> Optimize noise schedule during training</li>
+        </ul>
+
+        <h3>🔄 Reverse Process: Denoising</h3>
+        <p>Learn to predict and remove noise, recovering clean data from noise:</p>
+        
         <div class="math-example">
           $$p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))$$
         </div>
 
-        <h3>🎯 Training Objective</h3>
+        <h4>🎯 Training Objective</h4>
         <div class="math-example">
           $$\mathcal{L} = \mathbb{E}_{t,x_0,\epsilon} \left[ \|\epsilon - \epsilon_\theta(x_t, t)\|^2 \right]$$
         </div>
 
-        <h3>🚀 Advanced Techniques</h3>
+        <h4>🔧 Implementation Details</h4>
         <ul>
-          <li><strong>DDPM:</strong> Original diffusion paper</li>
-          <li><strong>DDIM:</strong> Deterministic sampling</li>
-          <li><strong>Classifier-Free Guidance:</strong> Control generation without classifier</li>
-          <li><strong>Latent Diffusion:</strong> Work in compressed latent space</li>
-          <li><strong>Stable Diffusion:</strong> Text-to-image generation</li>
+          <li><strong>Noise Prediction:</strong> Predict the noise added at each step</li>
+          <li><strong>Time Embedding:</strong> Encode timestep information</li>
+          <li><strong>Conditional Generation:</strong> Control generation with text, images, or other modalities</li>
+          <li><strong>Classifier-free Guidance:</strong> Balance conditional and unconditional generation</li>
         </ul>
 
-        <h3>⚡ Sampling Strategies</h3>
+        <h3>🚀 Advanced Techniques: Enterprise Applications</h3>
+        <h4>🎨 Image Generation</h4>
         <ul>
-          <li><strong>DDPM Sampling:</strong> Full T steps, stochastic</li>
-          <li><strong>DDIM Sampling:</strong> Fewer steps, deterministic</li>
+          <li><strong>DDPM:</strong> Original diffusion paper, high-quality but slow</li>
+          <li><strong>DDIM:</strong> Deterministic sampling, faster generation</li>
+          <li><strong>Stable Diffusion:</strong> Latent diffusion for efficiency</li>
+          <li><strong>DALL-E 2:</strong> Hierarchical diffusion with CLIP guidance</li>
+          <li><strong>Midjourney:</strong> High-quality artistic image generation</li>
+        </ul>
+
+        <h4>🎵 Audio & Video Generation</h4>
+        <ul>
+          <li><strong>AudioCraft:</strong> Music and audio generation</li>
+          <li><strong>Stable Audio:</strong> High-quality audio synthesis</li>
+          <li><strong>Video Diffusion:</strong> Temporal consistency in video generation</li>
+          <li><strong>Gen-2:</strong> Text-to-video generation</li>
+        </ul>
+
+        <h4>🔬 Scientific Applications</h4>
+        <ul>
+          <li><strong>Protein Design:</strong> Generate novel protein structures</li>
+          <li><strong>Drug Discovery:</strong> Molecular generation and optimization</li>
+          <li><strong>Material Science:</strong> Crystal structure prediction</li>
+          <li><strong>Climate Modeling:</strong> Weather and climate prediction</li>
+        </ul>
+
+        <h3>⚡ Sampling Strategies: Production Optimization</h3>
+        <h4>🚀 Fast Sampling Methods</h4>
+        <ul>
+          <li><strong>DDPM Sampling:</strong> Full T steps, stochastic, high quality</li>
+          <li><strong>DDIM Sampling:</strong> Fewer steps, deterministic, faster</li>
           <li><strong>DPM-Solver:</strong> Fast ODE-based sampling</li>
           <li><strong>UniPC:</strong> Universal predictor-corrector</li>
+          <li><strong>PNDM:</strong> Pseudo numerical methods</li>
+        </ul>
+
+        <h4>🎯 Quality vs Speed Trade-offs</h4>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Steps</th>
+              <th>Quality</th>
+              <th>Speed</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DDPM</td>
+              <td>1000</td>
+              <td>Excellent</td>
+              <td>Slow</td>
+              <td>Research, high-quality generation</td>
+            </tr>
+            <tr>
+              <td>DDIM</td>
+              <td>50-100</td>
+              <td>Very Good</td>
+              <td>Medium</td>
+              <td>Production, balanced quality/speed</td>
+            </tr>
+            <tr>
+              <td>DPM-Solver</td>
+              <td>20-50</td>
+              <td>Good</td>
+              <td>Fast</td>
+              <td>Real-time applications</td>
+            </tr>
+            <tr>
+              <td>UniPC</td>
+              <td>10-30</td>
+              <td>Good</td>
+              <td>Very Fast</td>
+              <td>Interactive applications</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>🏭 Enterprise Deployment Considerations</h3>
+        <h4>🔧 Technical Challenges</h4>
+        <ul>
+          <li><strong>Computational Requirements:</strong> High GPU/TPU usage</li>
+          <li><strong>Memory Constraints:</strong> Large model sizes</li>
+          <li><strong>Latency Requirements:</strong> Real-time vs batch processing</li>
+          <li><strong>Quality Control:</strong> Ensuring consistent output quality</li>
+        </ul>
+
+        <h4>🎯 Business Applications</h4>
+        <ul>
+          <li><strong>Marketing & Advertising:</strong> Generate creative assets</li>
+          <li><strong>E-commerce:</strong> Product visualization and customization</li>
+          <li><strong>Entertainment:</strong> Content creation and augmentation</li>
+          <li><strong>Healthcare:</strong> Medical imaging and drug discovery</li>
+          <li><strong>Education:</strong> Visual content for learning materials</li>
+        </ul>
+
+        <h4>🔒 Ethical Considerations</h4>
+        <ul>
+          <li><strong>Deepfakes:</strong> Potential for misuse and misinformation</li>
+          <li><strong>Copyright:</strong> Training data and generated content rights</li>
+          <li><strong>Bias:</strong> Reflecting biases in training data</li>
+          <li><strong>Transparency:</strong> Disclosure of AI-generated content</li>
         </ul>
 
       </div>
@@ -749,13 +1000,13 @@
     <!-- Multimodal AI -->
     <div id="multimodal" class="slide fade-in">
       <div class="slide-header" onclick="toggleSlide(this)">
-        <h2>🖼️ Multimodal AI</h2>
+        <h2>🖼️ Multimodal AI: Cross-Modal Understanding & Generation</h2>
         <button class="slide-toggle">▼</button>
       </div>
       <div class="slide-content">
         
         <div class="key-point">
-          <strong>Goal:</strong> Process and understand multiple modalities (text, image, audio, video) simultaneously.
+          <strong>Enterprise Goal:</strong> Process and understand multiple modalities (text, image, audio, video) simultaneously, enabling richer AI applications and better user experiences.
         </div>
 
         <div class="action-buttons">
@@ -764,37 +1015,130 @@
           <button class="action-btn" onclick="showDetails('multimodal')">📖 Show Details</button>
         </div>
 
-        <h3>🔗 Modality Fusion Strategies</h3>
+        <h3>🔗 Modality Fusion Strategies: Technical Approaches</h3>
+        <h4>🔄 Fusion Architectures</h4>
         <ul>
-          <li><strong>Early Fusion:</strong> Combine at input level</li>
-          <li><strong>Late Fusion:</strong> Combine at output level</li>
-          <li><strong>Cross-Attention:</strong> Attend across modalities</li>
-          <li><strong>Shared Representations:</strong> Common embedding space</li>
+          <li><strong>Early Fusion:</strong> Combine modalities at input level, process jointly</li>
+          <li><strong>Late Fusion:</strong> Process modalities separately, combine at output level</li>
+          <li><strong>Cross-Attention:</strong> Attend across modalities during processing</li>
+          <li><strong>Shared Representations:</strong> Learn common embedding space</li>
+          <li><strong>Hierarchical Fusion:</strong> Multi-level modality integration</li>
         </ul>
 
-        <h3>🎯 Key Applications</h3>
+        <h4>🔧 Implementation Patterns</h4>
         <ul>
-          <li><strong>Vision-Language Models:</strong> CLIP, ALIGN, CoCa</li>
-          <li><strong>Text-to-Image:</strong> DALL-E, Midjourney, Stable Diffusion</li>
+          <li><strong>Dual-Encoder:</strong> Separate encoders + similarity learning (CLIP, ALIGN)</li>
+          <li><strong>Fusion-Encoder:</strong> Combined processing (ViLBERT, LXMERT)</li>
+          <li><strong>Encoder-Decoder:</strong> Generate one modality from another (DALL-E, Stable Diffusion)</li>
+          <li><strong>Transformer-Based:</strong> Cross-modal attention (Flamingo, CoCa)</li>
+        </ul>
+
+        <h3>🎯 Key Applications: Enterprise Use Cases</h3>
+        <h4>🖼️ Vision-Language Models</h4>
+        <ul>
+          <li><strong>CLIP:</strong> Contrastive learning for image-text pairs</li>
+          <li><strong>ALIGN:</strong> Large-scale image-text alignment</li>
+          <li><strong>CoCa:</strong> Contrastive Captioner for unified vision-language</li>
+          <li><strong>Flamingo:</strong> Few-shot learning across modalities</li>
+        </ul>
+
+        <h4>🎨 Text-to-Image Generation</h4>
+        <ul>
+          <li><strong>DALL-E:</strong> Hierarchical diffusion with CLIP guidance</li>
+          <li><strong>Midjourney:</strong> High-quality artistic image generation</li>
+          <li><strong>Stable Diffusion:</strong> Latent diffusion for efficiency</li>
+          <li><strong>Imagen:</strong> Large language model for text-to-image</li>
+        </ul>
+
+        <h4>📝 Image Understanding</h4>
+        <ul>
           <li><strong>Image Captioning:</strong> Describe images in natural language</li>
           <li><strong>Visual Question Answering:</strong> Answer questions about images</li>
-          <li><strong>Video Understanding:</strong> Action recognition, video captioning</li>
+          <li><strong>Visual Reasoning:</strong> Logical reasoning about visual content</li>
+          <li><strong>Document Understanding:</strong> Extract information from documents</li>
         </ul>
 
-        <h3>🏗️ Architecture Patterns</h3>
+        <h4>🎬 Video Understanding</h4>
         <ul>
-          <li><strong>Dual-Encoder:</strong> Separate encoders + similarity learning</li>
-          <li><strong>Fusion-Encoder:</strong> Combined processing</li>
-          <li><strong>Encoder-Decoder:</strong> Generate one modality from another</li>
-          <li><strong>Transformer-Based:</strong> Cross-modal attention</li>
+          <li><strong>Action Recognition:</strong> Identify actions in video sequences</li>
+          <li><strong>Video Captioning:</strong> Generate descriptions for video content</li>
+          <li><strong>Temporal Localization:</strong> Find specific events in videos</li>
+          <li><strong>Video Question Answering:</strong> Answer questions about video content</li>
         </ul>
 
-        <h3>📊 Evaluation Metrics</h3>
+        <h3>🏗️ Architecture Patterns: Technical Deep Dive</h3>
+        <h4>🔗 Cross-Modal Attention</h4>
+        <p>Allow modalities to attend to each other during processing:</p>
+        
+        <div class="math-example">
+          $$\text{CrossAttention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+          <p>where Q comes from one modality, K,V from another</p>
+        </div>
+
+        <h4>🎯 Modality-Specific Encoders</h4>
         <ul>
-          <li><strong>Retrieval:</strong> R@K, mAP</li>
-          <li><strong>Generation:</strong> BLEU, ROUGE, CIDEr</li>
-          <li><strong>Understanding:</strong> Accuracy, F1-score</li>
+          <li><strong>Vision Encoders:</strong> ViT, ResNet, EfficientNet for images</li>
+          <li><strong>Text Encoders:</strong> BERT, RoBERTa, T5 for text</li>
+          <li><strong>Audio Encoders:</strong> Wav2Vec, HuBERT for audio</li>
+          <li><strong>Video Encoders:</strong> 3D CNNs, Video Swin Transformer</li>
+        </ul>
+
+        <h4>🔧 Fusion Mechanisms</h4>
+        <ul>
+          <li><strong>Concatenation:</strong> Simple concatenation of features</li>
+          <li><strong>Addition:</strong> Element-wise addition of features</li>
+          <li><strong>Attention:</strong> Weighted combination using attention</li>
+          <li><strong>Gating:</strong> Learnable gates to control information flow</li>
+        </ul>
+
+        <h3>📊 Evaluation Metrics: Enterprise Benchmarks</h3>
+        <h4>🔄 Retrieval Metrics</h4>
+        <ul>
+          <li><strong>R@K:</strong> Recall at K (percentage of relevant items in top K)</li>
+          <li><strong>mAP:</strong> Mean Average Precision</li>
+          <li><strong>NDCG:</strong> Normalized Discounted Cumulative Gain</li>
+        </ul>
+
+        <h4>📝 Generation Metrics</h4>
+        <ul>
+          <li><strong>BLEU:</strong> Bilingual Evaluation Understudy for text</li>
+          <li><strong>ROUGE:</strong> Recall-Oriented Understudy for Gisting Evaluation</li>
+          <li><strong>CIDEr:</strong> Consensus-based Image Description Evaluation</li>
+          <li><strong>METEOR:</strong> Metric for Evaluation of Translation with Explicit ORdering</li>
+        </ul>
+
+        <h4>🎯 Understanding Metrics</h4>
+        <ul>
+          <li><strong>Accuracy:</strong> Percentage of correct predictions</li>
+          <li><strong>F1-Score:</strong> Harmonic mean of precision and recall</li>
+          <li><strong>ROUGE-L:</strong> Longest common subsequence</li>
           <li><strong>Human Evaluation:</strong> Preference, quality scores</li>
+        </ul>
+
+        <h3>🏭 Enterprise Applications & Challenges</h3>
+        <h4>🎯 Business Use Cases</h4>
+        <ul>
+          <li><strong>E-commerce:</strong> Visual search, product recommendations</li>
+          <li><strong>Healthcare:</strong> Medical image analysis, patient documentation</li>
+          <li><strong>Automotive:</strong> Autonomous driving, traffic analysis</li>
+          <li><strong>Entertainment:</strong> Content recommendation, video analysis</li>
+          <li><strong>Education:</strong> Interactive learning, content generation</li>
+        </ul>
+
+        <h4>🔧 Technical Challenges</h4>
+        <ul>
+          <li><strong>Modality Alignment:</strong> Aligning different modalities in time and space</li>
+          <li><strong>Data Imbalance:</strong> Unequal representation of modalities</li>
+          <li><strong>Computational Complexity:</strong> Processing multiple modalities efficiently</li>
+          <li><strong>Evaluation:</strong> Measuring performance across modalities</li>
+        </ul>
+
+        <h4>🔒 Ethical Considerations</h4>
+        <ul>
+          <li><strong>Bias:</strong> Reflecting biases across modalities</li>
+          <li><strong>Privacy:</strong> Handling sensitive multimodal data</li>
+          <li><strong>Transparency:</strong> Understanding model decisions</li>
+          <li><strong>Accessibility:</strong> Ensuring inclusive multimodal interfaces</li>
         </ul>
 
       </div>
@@ -823,6 +1167,8 @@
       &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
     </div>
   </footer>
+
+  <button class="focus-toggle" onclick="toggleFocusMode()" title="Toggle Focus Mode">🛏️ Focus Mode</button>
 
   <script>
     // Initialize
@@ -956,12 +1302,27 @@
       alert('Detailed explanation coming soon! 📚');
     }
 
-    function showVisualization(type) {
-      alert(`${type} visualization coming soon! 🎨`);
-    }
+    // Focus Mode functionality
+    function toggleFocusMode() {
+      const body = document.body;
+      const nav = document.querySelector('nav');
+      const quickActions = document.querySelector('.quick-actions');
+      const footer = document.querySelector('footer');
+      const progressSection = document.querySelector('.progress-section');
 
-    function playAnimation(type) {
-      alert(`${type} animation coming soon! ▶️`);
+      if (body.classList.contains('focus-mode')) {
+        body.classList.remove('focus-mode');
+        if (nav) nav.classList.remove('focus-mode');
+        if (quickActions) quickActions.classList.remove('focus-mode');
+        if (footer) footer.classList.remove('focus-mode');
+        if (progressSection) progressSection.classList.remove('focus-mode');
+      } else {
+        body.classList.add('focus-mode');
+        if (nav) nav.classList.add('focus-mode');
+        if (quickActions) quickActions.classList.add('focus-mode');
+        if (footer) footer.classList.add('focus-mode');
+        if (progressSection) progressSection.classList.add('focus-mode');
+      }
     }
 
     // Utility functions

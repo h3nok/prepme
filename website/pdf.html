@@ -3,180 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Full PDF Guide | PrepMe</title>
+  <title>Comprehensive PDF Guide | PrepMe</title>
   <style>
+    :root {
+      --primary-bg: #f7f8fa;
+      --card-bg: #fff;
+      --accent-color: #3b82f6;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --shadow: 0 2px 8px rgba(0,0,0,0.04);
+      --border-radius: 1rem;
+    }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
-      color: #fff;
+      background: var(--primary-bg);
+      color: var(--text-primary);
       margin: 0;
       min-height: 100vh;
+      line-height: 1.8;
+      font-size: 1.15rem;
     }
     header {
       padding: 2rem 1rem 1rem 1rem;
       text-align: center;
+      background: none;
+      box-shadow: none;
     }
-    nav {
-      margin: 2rem 0;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    nav a {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 1.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    nav a:hover {
-      background: rgba(255,255,255,0.25);
-    }
-    .pdf-container {
-      max-width: 1200px;
+    .header-content {
+      max-width: 900px;
       margin: 0 auto;
-      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+      animation: none;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
     }
     .pdf-section {
-      background: rgba(0,0,0,0.15);
-      margin: 2rem 0;
+      max-width: 900px;
+      margin: 2.5rem auto;
+      background: var(--card-bg);
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+      margin-bottom: 2.5rem;
+      text-align: center;
     }
     .pdf-section h2 {
-      color: #fff;
-      border-bottom: 2px solid rgba(255,255,255,0.3);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+    .pdf-section a {
+      color: var(--accent-color);
+      text-decoration: underline;
+      font-weight: 600;
+      margin: 0 1rem;
+      transition: color 0.2s;
+    }
+    .pdf-section a:hover {
+      color: #2563eb;
     }
     .pdf-embed {
       width: 100%;
-      height: 800px;
-      border: none;
+      height: 70vh;
+      border: 1px solid #e0e0e0;
       border-radius: 0.5rem;
+      margin-top: 2rem;
       background: #fff;
     }
-    .download-section {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    .download-btn {
-      background: rgba(255,255,255,0.2);
+    .focus-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      background: var(--accent-color);
       color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      margin: 0.5rem;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
       transition: background 0.2s;
     }
-    .download-btn:hover {
-      background: rgba(255,255,255,0.3);
-    }
-    .description {
-      background: rgba(255,255,255,0.1);
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      margin: 1.5rem 0;
-      line-height: 1.6;
+    .focus-toggle:active {
+      background: #2563eb;
     }
     footer {
       margin-top: 3rem;
-      padding: 1rem;
-      font-size: 0.95rem;
-      color: #eee;
+      padding: 2rem;
       text-align: center;
+      background: #f7f8fa;
+      border-top: 1px solid #e0e0e0;
+      color: var(--text-secondary);
+    }
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      text-align: left;
+    }
+    .footer-section h4 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+    .footer-section a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .footer-section a:hover {
+      color: var(--accent-color);
     }
     @media (max-width: 768px) {
-      .pdf-container { padding: 1rem; }
-      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
-      .pdf-embed { height: 500px; }
+      h1 { font-size: 1.5rem; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .pdf-section { padding: 1rem; }
+      .pdf-embed { height: 50vh; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📄 Full PDF Guide</h1>
-    <nav>
-      <a href="index.html">🏠 Home</a>
-      <a href="slides.html">📊 Slide Decks</a>
-      <a href="code.html">💻 Code Samples</a>
-      <a href="resources.html">🌐 External Resources</a>
-    </nav>
+    <div class="header-content">
+      <h1>📄 Comprehensive PDF Guide</h1>
+      <p class="subtitle">Download or read the full expert guide: Generative AI and Applied Science at AWS.</p>
+    </div>
   </header>
-
-  <div class="pdf-container">
-    
-    <div class="pdf-section">
-      <h2>📚 Generative AI and Applied Science at AWS: A Comprehensive Preparation Guide</h2>
-      
-      <div class="description">
-        <p><strong>Complete Reference:</strong> This comprehensive PDF guide contains all the detailed content, mathematical formulations, implementation details, and interview preparation materials for Generative AI and Applied Science roles at AWS.</p>
-        
-        <p><strong>What's Included:</strong></p>
-        <ul>
-          <li>🏗️ <strong>Transformer Architecture:</strong> Complete mathematical foundations and implementation details</li>
-          <li>🧠 <strong>Large Language Models:</strong> Training, scaling, and optimization techniques</li>
-          <li>🎨 <strong>Diffusion Models:</strong> Theory and practical implementations</li>
-          <li>🖼️ <strong>Multimodal AI:</strong> Cross-modal learning and applications</li>
-          <li>☁️ <strong>AWS Services:</strong> SageMaker, Bedrock, and production deployment</li>
-          <li>📊 <strong>Research & Evaluation:</strong> Metrics, methodologies, and best practices</li>
-          <li>🎯 <strong>Interview Preparation:</strong> Technical questions, coding challenges, and behavioral guidance</li>
-        </ul>
-      </div>
-
-      <div class="download-section">
-        <a href="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf" 
-           class="download-btn" download>
-           📥 Download PDF Guide
-        </a>
-        <a href="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf" 
-           class="download-btn" target="_blank">
-           🔗 Open in New Tab
-        </a>
-      </div>
-
-      <iframe 
-        src="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf#toolbar=1&navpanes=1&scrollbar=1" 
-        class="pdf-embed"
-        title="Generative AI and Applied Science at AWS Preparation Guide">
-      </iframe>
-    </div>
-
-    <div class="pdf-section">
-      <h2>📖 How to Use This Guide</h2>
-      
-      <div class="description">
-        <p><strong>Study Strategy:</strong></p>
-        <ol>
-          <li><strong>Start with the interactive slides</strong> for visual learning and quick concepts</li>
-          <li><strong>Practice with code samples</strong> to understand implementations</li>
-          <li><strong>Use this PDF as your reference</strong> for detailed explanations and formulas</li>
-          <li><strong>Explore external resources</strong> for deeper understanding</li>
-          <li><strong>Practice explaining concepts</strong> out loud as if in an interview</li>
-        </ol>
-        
-        <p><strong>Interview Tips:</strong></p>
-        <ul>
-          <li>📝 <strong>Take notes</strong> while reading the PDF</li>
-          <li>💻 <strong>Implement key algorithms</strong> from the code samples</li>
-          <li>🎯 <strong>Focus on AWS-specific sections</strong> for applied science roles</li>
-          <li>📊 <strong>Understand scaling laws</strong> and optimization techniques</li>
-          <li>🤝 <strong>Practice behavioral questions</strong> about collaboration and leadership</li>
-        </ul>
-      </div>
-    </div>
-
+  <div class="pdf-section">
+    <h2>Generative AI and Applied Science at AWS: A Comprehensive Preparation Guide</h2>
+    <a href="../Generative%20AI%20and%20Applied%20Science%20at%20AWS_%20A%20Comprehensive%20Preparation%20Guide.pdf" download>⬇️ Download PDF</a>
+    <a href="../Generative%20AI%20and%20Applied%20Science%20at%20AWS_%20A%20Comprehensive%20Preparation%20Guide.pdf" target="_blank">🔗 Open in New Tab</a>
+    <embed class="pdf-embed" src="../Generative%20AI%20and%20Applied%20Science%20at%20AWS_%20A%20Comprehensive%20Preparation%20Guide.pdf#toolbar=1&navpanes=0&scrollbar=1" type="application/pdf">
   </div>
-
+  <button class="focus-toggle" onclick="toggleFocusMode()" title="Toggle Focus Mode">🛏️ Focus Mode</button>
   <footer>
-    &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>📚 Learning Paths</h4>
+        <a href="slides.html#transformers">Transformer Architecture</a>
+        <a href="slides.html#llms">Large Language Models</a>
+        <a href="slides.html#diffusion">Diffusion Models</a>
+        <a href="slides.html#multimodal">Multimodal AI</a>
+      </div>
+      <div class="footer-section">
+        <h4>💻 Code Examples</h4>
+        <a href="code.html#attention">Multi-Head Attention</a>
+        <a href="code.html#training">Training Loops</a>
+        <a href="code.html#sagemaker">AWS SageMaker</a>
+        <a href="code.html#evaluation">Evaluation Metrics</a>
+      </div>
+      <div class="footer-section">
+        <h4>🌐 Resources</h4>
+        <a href="resources.html#papers">Research Papers</a>
+        <a href="resources.html#aws">AWS Documentation</a>
+        <a href="resources.html#blogs">Blogs & Tutorials</a>
+        <a href="resources.html#courses">Courses</a>
+      </div>
+      <div class="footer-section">
+        <h4>📞 Support</h4>
+        <a href="#" onclick="alert('Feedback form coming soon!')">Send Feedback</a>
+        <a href="#" onclick="alert('Help & FAQ coming soon!')">Help & FAQ</a>
+        <a href="#" onclick="alert('About PrepMe coming soon!')">About PrepMe</a>
+        <a href="#" onclick="alert('Contact information coming soon!')">Contact</a>
+      </div>
+    </div>
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0;">
+      &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    </div>
   </footer>
+  <script>
+    function toggleFocusMode() {
+      const body = document.body;
+      const footer = document.querySelector('footer');
+      if (body.classList.contains('focus-mode')) {
+        body.classList.remove('focus-mode');
+        if (footer) footer.classList.remove('focus-mode');
+      } else {
+        body.classList.add('focus-mode');
+        if (footer) footer.classList.add('focus-mode');
+      }
+    }
+  </script>
 </body>
 </html> 

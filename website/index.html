@@ -7,93 +7,82 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
   <style>
     :root {
-      --primary-gradient: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
-      --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --card-bg: rgba(0,0,0,0.15);
-      --card-hover: rgba(0,0,0,0.25);
-      --accent-color: #4CAF50;
-      --text-primary: #fff;
-      --text-secondary: #e0e0e0;
-      --shadow: 0 4px 16px rgba(0,0,0,0.1);
+      --primary-bg: #f7f8fa;
+      --card-bg: #fff;
+      --card-hover: #f0f4f8;
+      --accent-color: #3b82f6;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --shadow: 0 2px 8px rgba(0,0,0,0.04);
       --border-radius: 1rem;
-    }
-
-    * {
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--primary-gradient);
+      background: var(--primary-bg);
       color: var(--text-primary);
       margin: 0;
       min-height: 100vh;
-      line-height: 1.6;
+      line-height: 1.8;
+      font-size: 1.15rem;
+      transition: background 0.3s;
     }
 
-    /* Header & Navigation */
+    .focus-mode body {
+      background: #fff;
+    }
+
     header {
       padding: 2rem 1rem 1rem 1rem;
       text-align: center;
-      position: relative;
+      background: none;
+      box-shadow: none;
     }
-
     .header-content {
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
     }
-
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(45deg, #fff, #4CAF50);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: glow 2s ease-in-out infinite alternate;
+      color: var(--accent-color);
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+      animation: none;
     }
-
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.5)); }
-      to { filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.8)); }
-    }
-
     .subtitle {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
     }
-
-    /* Search Bar */
     .search-container {
       max-width: 600px;
       margin: 2rem auto;
       position: relative;
     }
-
     .search-bar {
       width: 100%;
       padding: 1rem 1.5rem;
-      border: none;
+      border: 1px solid #e0e0e0;
       border-radius: 2rem;
-      background: rgba(255,255,255,0.1);
+      background: #f7f8fa;
       color: var(--text-primary);
       font-size: 1.1rem;
-      backdrop-filter: blur(10px);
       transition: all 0.3s ease;
     }
-
     .search-bar:focus {
       outline: none;
-      background: rgba(255,255,255,0.2);
-      box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+      background: #fff;
+      box-shadow: 0 0 0 2px var(--accent-color, #3b82f6);
     }
-
     .search-bar::placeholder {
-      color: rgba(255,255,255,0.7);
+      color: #bbb;
     }
-
-    /* Navigation */
+    nav, .quick-actions, footer {
+      transition: opacity 0.3s, max-height 0.3s;
+    }
     nav {
       margin: 2rem 0;
       display: flex;
@@ -101,131 +90,100 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .nav-card {
       background: var(--card-bg);
       color: var(--text-primary);
-      padding: 1.5rem 2rem;
+      padding: 1.2rem 1.5rem;
       border-radius: var(--border-radius);
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: background 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.1);
-      position: relative;
-      overflow: hidden;
-      min-width: 200px;
+      border: 1px solid #e0e0e0;
+      min-width: 180px;
       text-align: center;
     }
-
-    .nav-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .nav-card:hover::before {
-      left: 100%;
-    }
-
     .nav-card:hover {
       background: var(--card-hover);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.08);
       border-color: var(--accent-color);
     }
-
     .nav-card h3 {
       margin: 0 0 0.5rem 0;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      color: var(--accent-color);
     }
-
     .nav-card p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--text-secondary);
     }
-
-    /* Progress Section */
     .progress-section {
-      max-width: 800px;
-      margin: 3rem auto;
+      max-width: 700px;
+      margin: 2rem auto;
       background: var(--card-bg);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
     }
-
     .progress-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
-
     .progress-bar {
       width: 100%;
       height: 8px;
-      background: rgba(255,255,255,0.1);
+      background: #e0e0e0;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 1rem;
     }
-
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-color), #66dfea);
+      background: var(--accent-color);
       width: 0%;
       transition: width 1s ease;
       border-radius: 4px;
     }
-
     .progress-stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
     }
-
     .stat-card {
-      background: rgba(255,255,255,0.05);
+      background: #f7f8fa;
       padding: 1rem;
       border-radius: 0.5rem;
       text-align: center;
+      border: 1px solid #e0e0e0;
     }
-
     .stat-number {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: var(--accent-color);
     }
-
     .stat-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--text-secondary);
     }
-
-    /* Interactive Example */
     .interactive-example {
-      max-width: 900px;
-      margin: 3rem auto;
+      max-width: 800px;
+      margin: 2.5rem auto;
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
     }
-
     .example-tabs {
       display: flex;
       margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid #e0e0e0;
     }
-
     .tab-button {
       background: none;
       border: none;
@@ -234,103 +192,90 @@
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: all 0.3s ease;
+      font-size: 1rem;
     }
-
     .tab-button.active {
-      color: var(--text-primary);
+      color: var(--accent-color);
       border-bottom-color: var(--accent-color);
     }
-
     .tab-content {
       display: none;
     }
-
     .tab-content.active {
       display: block;
     }
-
     .math-display {
-      background: rgba(0,0,0,0.2);
-      padding: 1.5rem;
+      background: #f7f8fa;
+      padding: 1.2rem;
       border-radius: 0.5rem;
       margin: 1rem 0;
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      border: 1px solid #e0e0e0;
     }
-
     .code-block {
-      background: #1e1e1e;
+      background: #23272e;
       border-radius: 0.5rem;
       margin: 1rem 0;
       overflow-x: auto;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid #e0e0e0;
     }
-
     .code-block pre {
       margin: 0;
       padding: 1rem;
     }
-
     .code-block code {
       font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e0e0e0;
     }
-
-    /* Quick Actions */
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
-      margin: 3rem auto;
-      max-width: 1000px;
+      margin: 2.5rem auto;
+      max-width: 900px;
     }
-
     .action-card {
       background: var(--card-bg);
-      padding: 1.5rem;
+      padding: 1.2rem;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+      transition: background 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
-
     .action-card:hover {
       background: var(--card-hover);
-      transform: translateY(-3px);
       border-color: var(--accent-color);
     }
-
     .action-icon {
       font-size: 2rem;
       margin-bottom: 1rem;
       display: block;
+      color: var(--accent-color);
     }
-
-    /* Footer */
     footer {
-      margin-top: 4rem;
+      margin-top: 3rem;
       padding: 2rem;
       text-align: center;
-      background: rgba(0,0,0,0.1);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      background: #f7f8fa;
+      border-top: 1px solid #e0e0e0;
+      color: var(--text-secondary);
     }
-
     .footer-content {
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
       text-align: left;
     }
-
     .footer-section h4 {
       color: var(--accent-color);
       margin-bottom: 1rem;
     }
-
     .footer-section a {
       color: var(--text-secondary);
       text-decoration: none;
@@ -338,34 +283,43 @@
       margin-bottom: 0.5rem;
       transition: color 0.3s ease;
     }
-
     .footer-section a:hover {
-      color: var(--text-primary);
+      color: var(--accent-color);
     }
-
-    /* Responsive Design */
+    /* Focus Mode */
+    .focus-mode nav,
+    .focus-mode .quick-actions,
+    .focus-mode footer,
+    .focus-mode .progress-section {
+      opacity: 0;
+      max-height: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .focus-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      transition: background 0.2s;
+    }
+    .focus-toggle:active {
+      background: #2563eb;
+    }
     @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      .nav-card { min-width: 150px; padding: 1rem; }
+      h1 { font-size: 1.5rem; }
+      .nav-card { min-width: 120px; padding: 0.7rem; }
       .progress-stats { grid-template-columns: repeat(2, 1fr); }
       .quick-actions { grid-template-columns: 1fr; }
       .footer-content { grid-template-columns: 1fr; text-align: center; }
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in {
-      animation: fadeInUp 0.6s ease-out;
     }
   </style>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -559,6 +513,8 @@
     </div>
   </footer>
 
+  <button class="focus-toggle" onclick="toggleFocusMode()" title="Toggle Focus Mode">🛏️ Focus Mode</button>
+
   <script>
     // Initialize
     window.onload = function() {
@@ -674,6 +630,26 @@
       const currentProgress = parseInt(localStorage.getItem('prepmeProgress') || 0);
       const newProgress = Math.min(currentProgress + 10, 100);
       saveProgress(newProgress);
+    }
+
+    // Focus Mode functionality
+    function toggleFocusMode() {
+      const nav = document.querySelector('nav');
+      const quickActions = document.querySelector('.quick-actions');
+      const footer = document.querySelector('footer');
+      const progressSection = document.querySelector('.progress-section');
+
+      if (nav.classList.contains('focus-mode')) {
+        nav.classList.remove('focus-mode');
+        quickActions.classList.remove('focus-mode');
+        footer.classList.remove('focus-mode');
+        progressSection.classList.remove('focus-mode');
+      } else {
+        nav.classList.add('focus-mode');
+        quickActions.classList.add('focus-mode');
+        footer.classList.add('focus-mode');
+        progressSection.classList.add('focus-mode');
+      }
     }
   </script>
 </body>
