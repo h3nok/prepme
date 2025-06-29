@@ -15,6 +15,19 @@
       --text-secondary: #555;
       --shadow: 0 2px 8px rgba(0,0,0,0.04);
       --border-radius: 1rem;
+      --code-bg: #23272e;
+      --code-text: #e0e0e0;
+    }
+    body.dark-theme {
+      --primary-bg: #181a1b;
+      --card-bg: #23272e;
+      --card-hover: #23272e;
+      --accent-color: #60a5fa;
+      --text-primary: #f3f4f6;
+      --text-secondary: #bdbdbd;
+      --shadow: 0 2px 8px rgba(0,0,0,0.5);
+      --code-bg: #181a1b;
+      --code-text: #e0e0e0;
     }
 
     body {
@@ -459,6 +472,27 @@
 
     .focus-toggle:active {
       background: #2563eb;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 5.5rem;
+      z-index: 1001;
+      background: var(--card-bg);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      border-radius: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .theme-toggle:active {
+      background: var(--accent-color);
+      color: var(--card-bg);
     }
   </style>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -1168,6 +1202,7 @@
     </div>
   </footer>
 
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Theme">🌙/☀️</button>
   <button class="focus-toggle" onclick="toggleFocusMode()" title="Toggle Focus Mode">🛏️ Focus Mode</button>
 
   <script>
@@ -1390,6 +1425,26 @@
       originalToggleSlide(header);
       saveExpandedState();
     };
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+      localStorage.setItem('prepmeTheme', theme);
+    }
+
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('prepmeTheme', isDark ? 'dark' : 'light');
+    }
+
+    (function() {
+      const saved = localStorage.getItem('prepmeTheme');
+      if (saved === 'dark') setTheme('dark');
+      else setTheme('light');
+    })();
   </script>
 </body>
 </html> 
