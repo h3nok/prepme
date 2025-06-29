@@ -1,0 +1,244 @@
+/* Global Theme Variables */
+:root {
+  --primary-bg: #f7f8fa;
+  --card-bg: #fff;
+  --card-hover: #f0f4f8;
+  --accent-color: #3b82f6;
+  --text-primary: #222;
+  --text-secondary: #555;
+  --shadow: 0 2px 8px rgba(0,0,0,0.04);
+  --border-radius: 1rem;
+  --code-bg: #23272e;
+  --code-text: #e0e0e0;
+}
+body.dark-theme {
+  --primary-bg: #181a1b;
+  --card-bg: #23272e;
+  --card-hover: #23272e;
+  --accent-color: #60a5fa;
+  --text-primary: #f3f4f6;
+  --text-secondary: #bdbdbd;
+  --shadow: 0 2px 8px rgba(0,0,0,0.5);
+  --code-bg: #181a1b;
+  --code-text: #e0e0e0;
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+  line-height: 1.8;
+  font-size: 1.15rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.card, .code-section, .resources-section, .pdf-section, .interactive-example, .slide, .progress-section {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid #e0e0e0;
+  color: var(--text-primary);
+  transition: background 0.3s, color 0.3s;
+}
+
+.card:hover, .code-section:hover, .resources-section:hover, .slide:hover {
+  background: var(--card-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--accent-color);
+}
+
+a {
+  color: var(--accent-color);
+  transition: color 0.2s;
+}
+a:hover {
+  color: #2563eb;
+}
+
+.code-block, pre, code {
+  background: var(--code-bg) !important;
+  color: var(--code-text) !important;
+  border-radius: 0.5rem;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+}
+
+input, textarea, select {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.theme-toggle, .focus-toggle {
+  position: fixed;
+  top: 1.5rem;
+  z-index: 1001;
+  background: var(--card-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 2rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.2s, color 0.2s;
+}
+.theme-toggle { right: 5.5rem; }
+.focus-toggle { right: 1.5rem; }
+.theme-toggle:active, .focus-toggle:active {
+  background: var(--accent-color);
+  color: var(--card-bg);
+}
+
+footer {
+  background: var(--primary-bg);
+  color: var(--text-secondary);
+  border-top: 1px solid #e0e0e0;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Utility classes for explanations, tooltips, etc. */
+.explanation, .key-point, .math-example, .quiz-question {
+  background: var(--primary-bg);
+  color: var(--text-primary);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+.tooltip .tooltiptext {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.5rem; }
+  .footer-content { grid-template-columns: 1fr; text-align: center; }
+  .card, .code-section, .resources-section, .pdf-section, .interactive-example, .slide, .progress-section { padding: 1rem; }
+  .theme-toggle { right: 5.5rem; }
+  .focus-toggle { right: 1.5rem; }
+}
+
+.toolbar {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  gap: 1rem;
+  background: var(--card-bg);
+  border-radius: 2rem;
+  box-shadow: var(--shadow);
+  padding: 0.3rem 1.2rem;
+  align-items: center;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.toolbar button {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1.3rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+.toolbar button:focus {
+  background: var(--card-hover);
+  outline: 2px solid var(--accent-color);
+}
+.toolbar button[aria-pressed="true"] {
+  background: var(--accent-color);
+  color: var(--card-bg);
+}
+.toolbar .tooltip {
+  position: relative;
+  display: inline-block;
+}
+.toolbar .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1200;
+  bottom: 130%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: var(--shadow);
+  border: 1px solid #e0e0e0;
+}
+.toolbar .tooltip:hover .tooltiptext,
+.toolbar .tooltip:focus-within .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.focus-mode-indicator {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 1200;
+  background: var(--accent-color);
+  color: var(--card-bg);
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  box-shadow: var(--shadow);
+  opacity: 0.95;
+  letter-spacing: 0.05em;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.5s;
+}
+body.focus-mode .focus-mode-indicator {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 0.95; transform: translateY(0); }
+}
+
+body.focus-mode nav,
+body.focus-mode .quick-actions,
+body.focus-mode footer,
+body.focus-mode .toolbar,
+body.focus-mode .progress-section {
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 0.4s, max-height 0.4s;
+}
+body.focus-mode .toolbar {
+  transition: opacity 0.4s, max-height 0.4s;
+}
+body.focus-mode .focus-toggle {
+  display: none !important;
+} 

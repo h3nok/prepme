@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Large Language Models | PrepMe</title>
+  <title>Large Language Models (LLMs) | PrepMe</title>
   <link rel="stylesheet" href="theme.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 </head>
 <body>
   <header>
     <div class="header-content">
       <h1>🦾 Large Language Models (LLMs)</h1>
-      <p class="subtitle">Explore the architecture, training, and applications of LLMs.</p>
+      <p class="subtitle">A deep, intuitive, and expert-level guide to the models powering the AI revolution.</p>
     </div>
   </header>
   <div class="toolbar" role="toolbar" aria-label="Site controls">
@@ -33,64 +36,353 @@
   </div>
   <main>
     <section class="card fade-in">
-      <h2>What is an LLM?</h2>
-      <p>Large Language Models are deep neural networks trained on massive text corpora to generate, summarize, and reason about language.</p>
+      <h2>🎯 Learning Objectives</h2>
+      <ul>
+        <li>Understand LLM training phases and methodologies</li>
+        <li>Master scaling laws and emergent abilities</li>
+        <li>Know RLHF and alignment techniques</li>
+        <li>Understand different LLM architectures and their trade-offs</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>🏗️ LLM Foundation</h2>
       <div class="explanation">
-        <strong>Key features:</strong>
+        <b>What Makes a Model "Large"?</b><br>
         <ul>
-          <li>Billions of parameters</li>
-          <li>Transformer-based architecture</li>
-          <li>Pre-training + fine-tuning</li>
+          <li><b>Parameters:</b> 1B+ (GPT-3: 175B, GPT-4: ~1.7T)</li>
+          <li><b>Training data:</b> 100B+ tokens</li>
+          <li><b>Compute:</b> 1000+ GPU-days</li>
+          <li><b>Emergent abilities:</b> New capabilities at scale</li>
         </ul>
+      </div>
+      <div class="explanation">
+        <b>Decoder-Only Architecture (GPT-style):</b><br>
+        <code>[BOS] token₁ token₂ ... tokenₙ [EOS]</code><br>
+        <b>Why Decoder-Only Won:</b> Simplicity, scaling, flexibility, efficient autoregressive generation
+      </div>
+      <div class="code-block"><pre><code class="language-python"># Pre-norm (modern, more stable)
+def transformer_block_pre_norm(x):
+    x = x + attention(layer_norm(x))
+    x = x + ffn(layer_norm(x))
+    return x
+
+# Post-norm (original, less stable at scale)
+def transformer_block_post_norm(x):
+    x = layer_norm(x + attention(x))
+    x = layer_norm(x + ffn(x))
+    return x
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python"># LayerNorm (traditional)
+def layer_norm(x):
+    mean = x.mean(dim=-1, keepdim=True)
+    std = x.std(dim=-1, keepdim=True)
+    return (x - mean) / (std + eps)
+
+# RMSNorm (more efficient, used in LLaMA)
+def rms_norm(x):
+    rms = x.norm(dim=-1, keepdim=True) / math.sqrt(x.size(-1))
+    return x / (rms + eps)
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python"># SwiGLU (used in LLaMA, PaLM)
+def swiglu(x):
+    x, gate = x.chunk(2, dim=-1)
+    return F.silu(gate) * x
+
+# GeGLU (used in some T5 variants)
+def geglu(x):
+    x, gate = x.chunk(2, dim=-1)
+    return F.gelu(gate) * x
+</code></pre></div>
+    </section>
+    <section class="card fade-in">
+      <h2>🎓 Training Phases</h2>
+      <h3>Phase 1: Pre-training</h3>
+      <div class="math-example">$$P(x_1, x_2, ..., x_n) = \prod_i P(x_i | x_1, ..., x_{i-1})$$</div>
+      <div class="code-block"><pre><code class="language-python">def next_token_loss(logits, targets):
+    # Cross-entropy loss for each position
+    loss = F.cross_entropy(
+        logits.view(-1, vocab_size), 
+        targets.view(-1), 
+        ignore_index=pad_token_id
+    )
+    return loss
+</code></pre></div>
+      <div class="explanation">
+        <b>Data Sources:</b> Web crawls, books, news, Wikipedia, code, academic papers<br>
+        <b>Data Quality Filters:</b> Length, language, spam, toxicity, perplexity
+      </div>
+      <div class="code-block"><pre><code class="language-python">def quality_filters(text):
+    filters = [
+        lambda x: len(x.split()) > 10,  # Minimum length
+        lambda x: detect_language(x) == 'en',  # Language filter
+        lambda x: not is_spam(x),  # Spam detection
+        lambda x: toxicity_score(x) < 0.5,  # Toxicity filter
+        lambda x: perplexity(x) < threshold,  # Quality via perplexity
+    ]
+    return all(f(text) for f in filters)
+</code></pre></div>
+      <div class="explanation">
+        <b>Learning Rate Schedule:</b> Warmup, cosine decay<br>
+        <b>Batch Size Scaling:</b> Start small, increase, dynamic batching
+      </div>
+      <h3>Phase 2: Supervised Fine-Tuning (SFT)</h3>
+      <div class="code-block"><pre><code class="language-json">{
+  "instruction": "Explain quantum computing to a 5-year-old",
+  "input": "",
+  "output": "Quantum computing is like having a super special computer that can think about many different answers to a problem all at the same time..."
+}
+</code></pre></div>
+      <div class="explanation">
+        <b>Instruction Datasets:</b> Alpaca, Dolly, FLAN, ShareGPT<br>
+        <b>Training Process:</b> Only compute loss on output tokens
+      </div>
+      <div class="code-block"><pre><code class="language-python">def sft_loss(model, batch):
+    # Only compute loss on the output tokens
+    input_ids = batch['input_ids']
+    labels = batch['labels']  # -100 for input tokens, real tokens for output
+    logits = model(input_ids).logits
+    loss = F.cross_entropy(
+        logits.view(-1, vocab_size),
+        labels.view(-1),
+        ignore_index=-100  # Don't compute loss on input tokens
+    )
+    return loss
+</code></pre></div>
+      <h3>Phase 3: Reinforcement Learning from Human Feedback (RLHF)</h3>
+      <div class="code-block"><pre><code class="language-python">class RewardModel(nn.Module):
+    def __init__(self, base_model):
+        super().__init__()
+        self.transformer = base_model.transformer
+        self.reward_head = nn.Linear(hidden_size, 1)
+    
+    def forward(self, input_ids, attention_mask):
+        outputs = self.transformer(input_ids, attention_mask)
+        # Take last non-padded token
+        sequence_lengths = attention_mask.sum(dim=1) - 1
+        rewards = self.reward_head(outputs.last_hidden_state)
+        return rewards[range(len(rewards)), sequence_lengths]
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">def preference_loss(reward_a, reward_b, preference):
+    if preference == "a":
+        return -F.logsigmoid(reward_a - reward_b)
+    else:
+        return -F.logsigmoid(reward_b - reward_a)
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">def ppo_loss(policy_logprobs, old_logprobs, advantages, rewards, kl_penalty):
+    # Policy gradient loss
+    ratio = torch.exp(policy_logprobs - old_logprobs)
+    clipped_ratio = torch.clamp(ratio, 1 - clip_eps, 1 + clip_eps)
+    policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages)
+    
+    # Value loss (critic)
+    value_loss = F.mse_loss(values, rewards)
+    
+    # KL divergence penalty to prevent too much deviation
+    kl_loss = kl_penalty * (policy_logprobs - old_logprobs).mean()
+    
+    return policy_loss + value_loss + kl_loss
+</code></pre></div>
+      <div class="explanation">
+        <b>RLHF Training Loop:</b> Generate → Score → Optimize → Repeat
       </div>
     </section>
     <section class="card fade-in">
-      <h2>Applications</h2>
+      <h2>📈 Scaling Laws & Emergent Abilities</h2>
+      <div class="math-example">N* ≈ (C/6)<sup>0.5</sup>  &nbsp;&nbsp; D* ≈ (C/6)<sup>0.5</sup> <br>where C = total compute budget (FLOPs)</div>
+      <div class="explanation">
+        <b>20:1 ratio:</b> ~20 tokens per parameter for optimal training<br>
+        <b>Emergent Abilities:</b> Few-shot learning, chain-of-thought, complex reasoning at scale
+      </div>
+      <div class="code-block"><pre><code class="language-python"># Few-shot in-context learning (emerges ~1B params)
+prompt = """
+Translate English to French:
+English: Hello
+French: Bonjour
+
+English: Goodbye  
+French: Au revoir
+
+English: Thank you
+French: """
+# Model outputs: "Merci"
+
+# Chain-of-thought reasoning (emerges ~100B params)
+prompt = """
+Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. 
+Each can has 3 tennis balls. How many tennis balls does he have now?
+
+A: Let me think step by step.
+Roger starts with 5 tennis balls.
+He buys 2 cans, each with 3 balls.
+So he gets 2 × 3 = 6 more balls.
+Total: 5 + 6 = 11 tennis balls.
+"""
+</code></pre></div>
+    </section>
+    <section class="card fade-in">
+      <h2>🏛️ Major LLM Architectures</h2>
+      <div class="explanation">
+        <b>GPT Family:</b> GPT-1, GPT-2, GPT-3, GPT-4 (scaling, few-shot, multimodal, alignment)<br>
+        <b>LLaMA Family:</b> RMSNorm, SwiGLU, RoPE, efficient inference, multiple sizes<br>
+        <b>PaLM:</b> Pathways, 540B params, high-quality data, strong reasoning<br>
+        <b>Claude:</b> Constitutional AI, self-improvement, harmlessness
+      </div>
+    </section>
+    <section class="card fade-in">
+      <h2>🎯 Advanced Training Techniques</h2>
+      <div class="code-block"><pre><code class="language-python">def curriculum_schedule(epoch, total_epochs):
+    # Start with shorter sequences, gradually increase
+    if epoch < total_epochs * 0.2:
+        max_length = 512
+    elif epoch < total_epochs * 0.5:
+        max_length = 1024
+    else:
+        max_length = 2048
+    return max_length
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python"># Trade computation for memory
+def gradient_checkpointing_forward(model, x):
+    # Only store activations at checkpoints
+    # Recompute intermediate activations during backward
+    with torch.utils.checkpoint.checkpoint(model.layer1, x) as x1:
+        with torch.utils.checkpoint.checkpoint(model.layer2, x1) as x2:
+            return model.layer3(x2)
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python"># Use FP16 for forward pass, FP32 for gradients
+scaler = torch.cuda.amp.GradScaler()
+
+with torch.cuda.amp.autocast():
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+
+scaler.scale(loss).backward()
+scaler.step(optimizer)
+scaler.update()
+</code></pre></div>
+    </section>
+    <section class="card fade-in">
+      <h2>🔧 Production Optimization</h2>
+      <div class="code-block"><pre><code class="language-python"># INT8 quantization
+def quantize_weights(weights, scale, zero_point):
+    return torch.clamp(
+        torch.round(weights / scale + zero_point),
+        0, 255
+    ).to(torch.uint8)
+
+# Dynamic quantization (inference time)
+quantized_model = torch.quantization.quantize_dynamic(
+    model, {nn.Linear}, dtype=torch.qint8
+)
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">def distillation_loss(student_logits, teacher_logits, labels, temperature=3.0):
+    # Soft targets from teacher
+    soft_loss = F.kl_div(
+        F.log_softmax(student_logits / temperature, dim=1),
+        F.softmax(teacher_logits / temperature, dim=1),
+        reduction='batchmean'
+    ) * (temperature ** 2)
+    
+    # Hard targets (original labels)
+    hard_loss = F.cross_entropy(student_logits, labels)
+    
+    return 0.7 * soft_loss + 0.3 * hard_loss
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">class KVCache:
+    def __init__(self, max_batch_size, max_seq_len, num_heads, head_dim):
+        self.cache_k = torch.zeros(max_batch_size, num_heads, max_seq_len, head_dim)
+        self.cache_v = torch.zeros(max_batch_size, num_heads, max_seq_len, head_dim)
+    
+    def update(self, xk, xv, start_pos):
+        self.cache_k[:, :, start_pos:start_pos+xk.size(2)] = xk
+        self.cache_v[:, :, start_pos:start_pos+xv.size(2)] = xv
+        return self.cache_k, self.cache_v
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">def speculative_decoding(large_model, small_model, input_ids, num_lookahead=4):
+    # Small model generates multiple tokens quickly
+    candidates = small_model.generate(input_ids, max_new_tokens=num_lookahead)
+    
+    # Large model verifies candidates in parallel
+    logits = large_model(candidates)
+    
+    # Accept/reject based on probability ratios
+    accepted_tokens = []
+    for i, candidate in enumerate(candidates[len(input_ids):]):
+        if should_accept(logits[i], candidate):
+            accepted_tokens.append(candidate)
+        else:
+            break
+    
+    return accepted_tokens
+</code></pre></div>
+    </section>
+    <section class="card fade-in">
+      <h2>🎯 Interview Q&A</h2>
+      <div class="quiz-question"><b>Q1:</b> What are the key differences between training GPT and BERT?<br><b>A:</b> GPT: autoregressive, decoder-only, generation; BERT: masked LM, encoder-only, classification/QA.</div>
+      <div class="quiz-question"><b>Q2:</b> Explain the intuition behind RLHF. Why is it necessary?<br><b>A:</b> Standard training doesn't optimize for human preferences; RLHF aligns models with what humans want.</div>
+      <div class="quiz-question"><b>Q3:</b> How would you scale LLM training to 1 trillion parameters?<br><b>A:</b> 3D parallelism, ZeRO, gradient checkpointing, mixed precision, high-bandwidth infra, careful optimization.</div>
+      <div class="quiz-question"><b>Q4:</b> What are the current limitations of LLMs and how might we address them?<br><b>A:</b> Hallucination, context length, reasoning, efficiency, alignment; solutions: retrieval, memory, chain-of-thought, distillation, safety research.</div>
+    </section>
+    <section class="card fade-in">
+      <h2>🚀 Research Frontiers</h2>
       <ul>
-        <li>Text generation (e.g., ChatGPT, Claude)</li>
-        <li>Summarization</li>
-        <li>Translation</li>
-        <li>Code generation</li>
+        <li><b>Emerging Architectures:</b> MoE, retrieval-augmented, multimodal, efficient attention</li>
+        <li><b>Training Innovations:</b> Constitutional AI, chain-of-thought, tool-augmented, federated learning</li>
+        <li><b>Evaluation & Safety:</b> Truthfulness, alignment, robustness, interpretability</li>
       </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>📝 Study Checklist</h2>
+      <ul>
+        <li>Understand the three phases of LLM training (pre-training, SFT, RLHF)</li>
+        <li>Can explain scaling laws and emergent abilities</li>
+        <li>Know architectural choices and their trade-offs</li>
+        <li>Understand RLHF process and why it's important</li>
+        <li>Can discuss production optimization techniques</li>
+        <li>Know current limitations and research directions</li>
+        <li>Familiar with major LLM families (GPT, LLaMA, PaLM, etc.)</li>
+        <li>Can design training pipeline for large-scale LLM</li>
+      </ul>
+      <div class="explanation">Next: <a href="diffusion-models.html">Diffusion Models →</a></div>
     </section>
   </main>
   <script>
-  // Enhanced toolbar and focus mode logic
-  const themeToggle = document.getElementById('theme-toggle');
-  const focusToggle = document.getElementById('focus-toggle');
-  const focusIndicator = document.querySelector('.focus-mode-indicator');
-  const exitFocusBtn = document.getElementById('exit-focus');
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
-  }
-  function getTheme() {
-    return localStorage.getItem('theme') || 'dark';
-  }
-  themeToggle.addEventListener('click', () => {
-    const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  });
-  setTheme(getTheme());
-  function setFocusMode(active) {
-    document.body.classList.toggle('focus-mode', active);
-    focusIndicator.style.display = active ? 'flex' : 'none';
-    if (active) {
-      focusToggle.setAttribute('aria-pressed', 'true');
-    } else {
-      focusToggle.setAttribute('aria-pressed', 'false');
+    document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+    // Enhanced toolbar and focus mode logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const focusToggle = document.getElementById('focus-toggle');
+    const focusIndicator = document.querySelector('.focus-mode-indicator');
+    const exitFocusBtn = document.getElementById('exit-focus');
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
     }
-  }
-  focusToggle.addEventListener('click', () => {
-    setFocusMode(!document.body.classList.contains('focus-mode'));
-  });
-  exitFocusBtn.addEventListener('click', () => setFocusMode(false));
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
-      setFocusMode(false);
+    function getTheme() {
+      return localStorage.getItem('theme') || 'dark';
     }
-  });
+    themeToggle.addEventListener('click', () => {
+      const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+    setTheme(getTheme());
+    function setFocusMode(active) {
+      document.body.classList.toggle('focus-mode', active);
+      focusIndicator.style.display = active ? 'flex' : 'none';
+      if (active) {
+        focusToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        focusToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+    focusToggle.addEventListener('click', () => {
+      setFocusMode(!document.body.classList.contains('focus-mode'));
+    });
+    exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+        setFocusMode(false);
+      }
+    });
   </script>
 </body>
 </html>

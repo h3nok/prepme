@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Core Concepts | PrepMe</title>
+  <title>Core Concepts: Transformer Architecture | PrepMe</title>
   <link rel="stylesheet" href="theme.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 </head>
 <body>
   <header>
     <div class="header-content">
-      <h1>🧠 Core Concepts in Generative AI</h1>
-      <p class="subtitle">Master the foundations: attention, embeddings, optimization, and more.</p>
+      <h1>🧠 Transformer Architecture Deep Dive</h1>
+      <p class="subtitle">A comprehensive, intuitive, and expert-level guide to the architecture that revolutionized AI.</p>
     </div>
   </header>
   <div class="toolbar" role="toolbar" aria-label="Site controls">
@@ -33,72 +36,210 @@
   </div>
   <main>
     <section class="card fade-in">
-      <h2>Transformer Attention</h2>
-      <p><strong>Self-attention</strong> enables each token to attend to every other token in a sequence, allowing for rich contextual representations. This is the core of modern LLMs.</p>
-      <div class="math-example">
-        $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
-      </div>
-      <div class="code-block">
-        <pre><code class="language-python">def scaled_dot_product_attention(Q, K, V, mask=None):
-    scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
-    if mask is not None:
-        scores = scores.masked_fill(mask == 0, -1e9)
-    attention_weights = F.softmax(scores, dim=-1)
-    output = torch.matmul(attention_weights, V)
-    return output, attention_weights</code></pre>
-      </div>
+      <h2>🎯 Learning Objectives</h2>
+      <ul>
+        <li>Explain the transformer architecture from memory</li>
+        <li>Understand why transformers revolutionized NLP and beyond</li>
+        <li>Compare different transformer variants and their use cases</li>
+        <li>Implement key components of a transformer</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>🏗️ Architecture Overview</h2>
+      <div class="math-example">Input → Embedding → Positional Encoding → Encoder/Decoder Layers → Output</div>
+      <div class="explanation"><strong>Key Innovation:</strong> Self-attention mechanism allows parallel processing and captures long-range dependencies better than RNNs.</div>
+    </section>
+    <section class="card fade-in">
+      <h2>🔍 Self-Attention Mechanism</h2>
+      <div class="math-example">$$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$</div>
+      <ul>
+        <li><b>Q (Query):</b> "What am I looking for?" - represents the current position/token</li>
+        <li><b>K (Key):</b> "What information is available?" - all positions in the sequence</li>
+        <li><b>V (Value):</b> "What is the actual information?" - the content to be retrieved</li>
+        <li><b>√d<sub>k</sub> scaling:</b> Prevents softmax saturation in high dimensions</li>
+      </ul>
       <div class="explanation">
-        <strong>Why it matters:</strong> Attention allows models to dynamically focus on relevant parts of the input, improving performance on tasks like translation, summarization, and question answering.
+        <b>Intuitive Understanding:</b> Think of attention as a <b>soft database lookup</b>:
+        <ol>
+          <li>Query: Your search term</li>
+          <li>Keys: Database indices</li>
+          <li>Values: Actual data stored</li>
+          <li>Attention weights: How relevant each database entry is to your query</li>
+        </ol>
+      </div>
+      <ol>
+        <li>Linear Transformations: Input embeddings → Q, K, V matrices</li>
+        <li>Attention Scores: Compute QK<sup>T</sup> (how much each position attends to others)</li>
+        <li>Scaling: Divide by √d<sub>k</sub> to prevent gradient vanishing</li>
+        <li>Softmax: Convert scores to probabilities (attention weights)</li>
+        <li>Weighted Sum: Multiply attention weights by values</li>
+      </ol>
+    </section>
+    <section class="card fade-in">
+      <h2>🎯 Multi-Head Attention</h2>
+      <div class="explanation">
+        <b>Why Multiple Heads?</b> Single attention head might focus on one type of relationship. Multiple heads can capture:
+        <ul>
+          <li>Syntactic relationships (subject-verb agreement)</li>
+          <li>Semantic relationships (word meanings)</li>
+          <li>Positional relationships (nearby vs distant words)</li>
+          <li>Different abstraction levels</li>
+        </ul>
+      </div>
+      <div class="math-example">$$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, ..., \text{head}_h)W^O$$<br>where <b>head<sub>i</sub></b> = Attention(QW<sub>i</sub><sup>Q</sup>, KW<sub>i</sub><sup>K</sup>, VW<sub>i</sub><sup>V</sup>)</div>
+      <ul>
+        <li>Typical setup: 8-16 heads for base models, 32+ for large models</li>
+        <li>Dimension per head: d<sub>model</sub> / h (e.g., 768/12 = 64 for BERT-base)</li>
+        <li>Parameter sharing: Each head has its own W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup> matrices</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>📍 Positional Encoding</h2>
+      <div class="explanation">
+        <b>The Problem:</b> Transformers process all positions simultaneously → <b>no inherent sequence understanding</b>
+      </div>
+      <div class="math-example">$$PE(pos, 2i) = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$<br>$$PE(pos, 2i+1) = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$</div>
+      <ul>
+        <li><b>Sinusoidal Encoding:</b> Deterministic, relative distances, extrapolation</li>
+        <li><b>Learned Positional Embeddings:</b> Trainable, better for fixed-length, no extrapolation</li>
+        <li><b>Rotary Position Embedding (RoPE):</b> Encodes positions as rotations in complex space, better extrapolation (LLaMA, GPT-NeoX)</li>
+        <li><b>Alibi:</b> Adds position-dependent bias, very good extrapolation</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>🏗️ Transformer Variants</h2>
+      <div class="explanation">
+        <b>Encoder-Only (BERT-style):</b> Bidirectional context, masked language modeling, classification/NER/QA<br>
+        <b>Decoder-Only (GPT-style):</b> Causal masking, autoregressive generation, text generation/completion/dialogue<br>
+        <b>Encoder-Decoder (T5-style):</b> Separate encoding/decoding, cross-attention, translation/summarization/seq2seq
+      </div>
+      <ul>
+        <li>Choose encoder-only for classification and full-context tasks</li>
+        <li>Choose decoder-only for text generation and streaming</li>
+        <li>Choose encoder-decoder for translation, summarization, and complex outputs</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>🔧 Key Architectural Components</h2>
+      <ul>
+        <li><b>Layer Normalization:</b> $$\text{LayerNorm}(x) = \gamma \frac{x - \mu}{\sigma} + \beta$$ (Pre-norm: more stable, Post-norm: original design, RMSNorm: used in LLaMA)</li>
+        <li><b>Feed-Forward Networks:</b> $$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$ (SwiGLU, GeGLU, typically 4x wider)</li>
+        <li><b>Residual Connections:</b> $$\text{output} = \text{LayerNorm}(x + \text{SubLayer}(x))$$ (enables deep networks, stability)</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>📊 Scaling Laws & Model Sizes</h2>
+      <table>
+        <tr><th>Model</th><th>Parameters</th><th>Layers</th><th>Hidden Size</th><th>Attention Heads</th></tr>
+        <tr><td>BERT-base</td><td>110M</td><td>12</td><td>768</td><td>12</td></tr>
+        <tr><td>BERT-large</td><td>340M</td><td>24</td><td>1024</td><td>16</td></tr>
+        <tr><td>GPT-3</td><td>175B</td><td>96</td><td>12288</td><td>96</td></tr>
+        <tr><td>GPT-4</td><td>~1.7T</td><td>~120</td><td>~18432</td><td>~128</td></tr>
+      </table>
+      <div class="explanation">
+        <b>Compute Scaling:</b> Training FLOPs ≈ 6 × Parameters × Tokens<br>
+        Inference FLOPs ≈ 2 × Parameters × Generated tokens<br>
+        <b>Memory:</b> Training: 4 × Parameters; Inference: 2 × Parameters
       </div>
     </section>
     <section class="card fade-in">
-      <h2>Embeddings</h2>
-      <p>Embeddings map discrete tokens (words, subwords) to continuous vectors, capturing semantic and syntactic information.</p>
-      <div class="math-example">
-        $$\text{Embedding}: \mathbb{N} \to \mathbb{R}^d$$
-      </div>
-      <div class="explanation">
-        <strong>Tip:</strong> Use pre-trained embeddings (e.g., GloVe, FastText) for faster convergence and better generalization.
-      </div>
+      <h2>🎯 Interview Q&A</h2>
+      <div class="quiz-question"><b>Q1:</b> Why did transformers replace RNNs for many NLP tasks?<br><b>A:</b> Parallelization, long-range dependencies, training efficiency, scalability, transfer learning.</div>
+      <div class="quiz-question"><b>Q2:</b> Explain the intuition behind attention weights.<br><b>A:</b> Relevance scoring, soft selection, context aggregation, learned associations.</div>
+      <div class="quiz-question"><b>Q3:</b> What are the computational bottlenecks in transformers?<br><b>A:</b> O(n²) attention, memory bandwidth, sequence length scaling, solutions: sparse/linear/flash attention.</div>
+      <div class="quiz-question"><b>Q4:</b> How would you modify a transformer for very long sequences?<br><b>A:</b> Sparse/sliding/ hierarchical attention, memory mechanisms, retrieval augmentation.</div>
+    </section>
+    <section class="card fade-in">
+      <h2>🔨 Implementation Insights</h2>
+      <div class="code-block"><pre><code class="language-python"># Flash Attention insight: recompute attention on-the-fly to save memory
+def flash_attention(Q, K, V, block_size):
+    # Process in blocks to fit in SRAM
+    # Recompute attention weights instead of storing them
+    # Achieves O(n²) compute but O(n) memory
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python"># Parallel computation of all heads
+def multi_head_attention(x, W_qkv, W_o, num_heads):
+    # Single matrix multiplication for all Q, K, V
+    qkv = x @ W_qkv  # [batch, seq, 3 * hidden]
+    # Reshape and transpose for parallel head computation
+    q, k, v = qkv.chunk(3, dim=-1)
+    q = q.view(batch, seq, num_heads, head_dim).transpose(1, 2)
+    # ... similar for k, v
+</code></pre></div>
+      <div class="code-block"><pre><code class="language-python">def sinusoidal_pos_encoding(seq_len, d_model):
+    position = torch.arange(seq_len).unsqueeze(1)
+    div_term = torch.exp(torch.arange(0, d_model, 2) * 
+                        -(math.log(10000.0) / d_model))
+    pe = torch.zeros(seq_len, d_model)
+    pe[:, 0::2] = torch.sin(position * div_term)  # even indices
+    pe[:, 1::2] = torch.cos(position * div_term)  # odd indices
+    return pe
+</code></pre></div>
+    </section>
+    <section class="card fade-in">
+      <h2>🚀 Advanced Topics for Senior Roles</h2>
+      <ul>
+        <li><b>Mixture of Experts (MoE):</b> Sparse activation of expert networks</li>
+        <li><b>Switch Transformer:</b> Simple and efficient MoE routing</li>
+        <li><b>GLaM:</b> Sparsely activated language model</li>
+        <li><b>PaLM:</b> Pathways Language Model with improved training</li>
+        <li><b>Optimization:</b> Gradient checkpointing, mixed precision, ZeRO, 3D parallelism</li>
+        <li><b>Research:</b> Linear attention, retrieval augmentation, multimodal transformers, efficient architectures</li>
+      </ul>
+    </section>
+    <section class="card fade-in">
+      <h2>📝 Study Checklist</h2>
+      <ul>
+        <li>Can draw transformer architecture from memory</li>
+        <li>Understand attention mechanism mathematically and intuitively</li>
+        <li>Know when to use encoder-only vs decoder-only vs encoder-decoder</li>
+        <li>Understand positional encoding options and trade-offs</li>
+        <li>Can discuss scaling laws and computational requirements</li>
+        <li>Know recent architectural innovations and optimizations</li>
+        <li>Can implement basic transformer components</li>
+        <li>Understand production deployment considerations</li>
+      </ul>
+      <div class="explanation">Next: <a href="large-language-models.html">Large Language Models →</a></div>
     </section>
   </main>
   <script>
-  // Enhanced toolbar and focus mode logic
-  const themeToggle = document.getElementById('theme-toggle');
-  const focusToggle = document.getElementById('focus-toggle');
-  const focusIndicator = document.querySelector('.focus-mode-indicator');
-  const exitFocusBtn = document.getElementById('exit-focus');
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
-  }
-  function getTheme() {
-    return localStorage.getItem('theme') || 'dark';
-  }
-  themeToggle.addEventListener('click', () => {
-    const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  });
-  setTheme(getTheme());
-  function setFocusMode(active) {
-    document.body.classList.toggle('focus-mode', active);
-    focusIndicator.style.display = active ? 'flex' : 'none';
-    if (active) {
-      focusToggle.setAttribute('aria-pressed', 'true');
-    } else {
-      focusToggle.setAttribute('aria-pressed', 'false');
+    document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+    // Enhanced toolbar and focus mode logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const focusToggle = document.getElementById('focus-toggle');
+    const focusIndicator = document.querySelector('.focus-mode-indicator');
+    const exitFocusBtn = document.getElementById('exit-focus');
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.getElementById('theme-icon').textContent = theme === 'dark' ? '🌙' : '☀️';
     }
-  }
-  focusToggle.addEventListener('click', () => {
-    setFocusMode(!document.body.classList.contains('focus-mode'));
-  });
-  exitFocusBtn.addEventListener('click', () => setFocusMode(false));
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
-      setFocusMode(false);
+    function getTheme() {
+      return localStorage.getItem('theme') || 'dark';
     }
-  });
+    themeToggle.addEventListener('click', () => {
+      const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+    setTheme(getTheme());
+    function setFocusMode(active) {
+      document.body.classList.toggle('focus-mode', active);
+      focusIndicator.style.display = active ? 'flex' : 'none';
+      if (active) {
+        focusToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        focusToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+    focusToggle.addEventListener('click', () => {
+      setFocusMode(!document.body.classList.contains('focus-mode'));
+    });
+    exitFocusBtn.addEventListener('click', () => setFocusMode(false));
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+        setFocusMode(false);
+      }
+    });
   </script>
 </body>
 </html>
