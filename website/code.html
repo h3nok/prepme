@@ -5,19 +5,869 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Samples | PrepMe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-  <style>body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;}header{padding:2rem 1rem 1rem 1rem;text-align:center;}nav{margin:2rem 0;display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}nav a{background:rgba(255,255,255,0.1);color:#fff;padding:1rem 2rem;border-radius:1.5rem;text-decoration:none;font-weight:600;transition:background 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}nav a:hover{background:rgba(255,255,255,0.25);}main{max-width:700px;margin:2rem auto;background:rgba(0,0,0,0.15);padding:2rem;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);}footer{margin-top:auto;padding:1rem;font-size:0.95rem;color:#eee;text-align:center;}@media (max-width:600px){nav a{padding:0.7rem 1rem;font-size:1rem;}}</style>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .code-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .code-section {
+      background: rgba(0,0,0,0.15);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .code-section h2 {
+      color: #fff;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .code-section h3 {
+      color: #e0e0e0;
+      margin-top: 1.5rem;
+    }
+    .code-block {
+      background: #1e1e1e;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 1rem;
+    }
+    .code-block code {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .explanation {
+      background: rgba(255,255,255,0.1);
+      border-left: 4px solid #4CAF50;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+    .complexity {
+      background: rgba(255,255,255,0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
+    .interview-tip {
+      background: rgba(255,193,7,0.2);
+      border-left: 4px solid #FFC107;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #eee;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .code-container { padding: 1rem; }
+      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+      .code-block pre { padding: 0.5rem; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>window.onload = () => { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); };</script>
 </head>
 <body>
   <header>
-    <h1>💻 Code Samples</h1>
+    <h1>💻 Code Samples & Implementations</h1>
     <nav>
       <a href="index.html">🏠 Home</a>
+      <a href="#attention">Multi-Head Attention</a>
+      <a href="#training">Training Loops</a>
+      <a href="#sagemaker">AWS SageMaker</a>
+      <a href="#evaluation">Evaluation</a>
     </nav>
   </header>
-  <main>
-    <h2>Coming Soon!</h2>
-    <p>Hands-on code samples and cheat sheets will appear here. Stay tuned!</p>
-  </main>
+
+  <div class="code-container">
+    
+    <!-- Multi-Head Attention Implementation -->
+    <div id="attention" class="code-section">
+      <h2>🎯 Multi-Head Attention Implementation</h2>
+      
+      <div class="explanation">
+        <strong>Interview Ready:</strong> This is a common coding question for ML engineer/scientist roles. Understand the implementation details and be able to explain each component.
+      </div>
+
+      <h3>Complete PyTorch Implementation</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math
+
+class MultiHeadAttention(nn.Module):
+    """
+    Multi-Head Attention mechanism as described in "Attention is All You Need"
+    
+    Args:
+        d_model: Dimension of the model (embedding size)
+        num_heads: Number of attention heads
+        dropout: Dropout probability
+    """
+    
+    def __init__(self, d_model: int, num_heads: int, dropout: float = 0.1):
+        super().__init__()
+        
+        # Ensure d_model is divisible by num_heads
+        assert d_model % num_heads == 0
+        
+        self.d_model = d_model
+        self.num_heads = num_heads
+        self.d_k = d_model // num_heads  # Dimension per head
+        
+        # Linear projections for Q, K, V
+        self.w_q = nn.Linear(d_model, d_model, bias=False)
+        self.w_k = nn.Linear(d_model, d_model, bias=False)
+        self.w_v = nn.Linear(d_model, d_model, bias=False)
+        
+        # Output projection
+        self.w_o = nn.Linear(d_model, d_model)
+        
+        self.dropout = nn.Dropout(dropout)
+        
+    def scaled_dot_product_attention(self, q, k, v, mask=None):
+        """
+        Compute scaled dot-product attention
+        
+        Args:
+            q: Query tensor [batch_size, num_heads, seq_len, d_k]
+            k: Key tensor [batch_size, num_heads, seq_len, d_k]
+            v: Value tensor [batch_size, num_heads, seq_len, d_k]
+            mask: Optional mask tensor
+            
+        Returns:
+            attention_output: [batch_size, num_heads, seq_len, d_k]
+            attention_weights: [batch_size, num_heads, seq_len, seq_len]
+        """
+        
+        # Calculate attention scores
+        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.d_k)
+        
+        # Apply mask if provided (set masked positions to large negative value)
+        if mask is not None:
+            scores = scores.masked_fill(mask == 0, -1e9)
+        
+        # Apply softmax
+        attention_weights = F.softmax(scores, dim=-1)
+        attention_weights = self.dropout(attention_weights)
+        
+        # Apply attention to values
+        attention_output = torch.matmul(attention_weights, v)
+        
+        return attention_output, attention_weights
+    
+    def forward(self, query, key, value, mask=None):
+        """
+        Forward pass
+        
+        Args:
+            query: [batch_size, seq_len, d_model]
+            key: [batch_size, seq_len, d_model] 
+            value: [batch_size, seq_len, d_model]
+            mask: Optional attention mask
+            
+        Returns:
+            output: [batch_size, seq_len, d_model]
+            attention_weights: [batch_size, num_heads, seq_len, seq_len]
+        """
+        batch_size, seq_len, d_model = query.size()
+        
+        # 1. Linear projections
+        Q = self.w_q(query)  # [batch_size, seq_len, d_model]
+        K = self.w_k(key)    # [batch_size, seq_len, d_model]
+        V = self.w_v(value)  # [batch_size, seq_len, d_model]
+        
+        # 2. Reshape for multi-head attention
+        # [batch_size, seq_len, d_model] -> [batch_size, num_heads, seq_len, d_k]
+        Q = Q.view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        K = K.view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        V = V.view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        
+        # 3. Apply attention
+        attention_output, attention_weights = self.scaled_dot_product_attention(
+            Q, K, V, mask
+        )
+        
+        # 4. Concatenate heads
+        # [batch_size, num_heads, seq_len, d_k] -> [batch_size, seq_len, d_model]
+        attention_output = attention_output.transpose(1, 2).contiguous().view(
+            batch_size, seq_len, d_model
+        )
+        
+        # 5. Final linear projection
+        output = self.w_o(attention_output)
+        
+        return output, attention_weights
+
+# Example usage and testing
+if __name__ == "__main__":
+    # Test the implementation
+    batch_size = 2
+    seq_len = 10
+    d_model = 512
+    num_heads = 8
+    
+    # Create random input
+    x = torch.randn(batch_size, seq_len, d_model)
+    
+    # Initialize attention layer
+    attention = MultiHeadAttention(d_model, num_heads)
+    
+    # Forward pass
+    output, weights = attention(x, x, x)  # Self-attention
+    
+    print(f"Input shape: {x.shape}")
+    print(f"Output shape: {output.shape}")
+    print(f"Attention weights shape: {weights.shape}")
+    
+    # Verify output shape
+    assert output.shape == x.shape
+    assert weights.shape == (batch_size, num_heads, seq_len, seq_len)
+    
+    print("✅ Multi-head attention implementation test passed!")</code></pre>
+      </div>
+
+      <div class="complexity">
+        <strong>Time Complexity:</strong> O(n²d) where n=seq_len, d=d_model<br>
+        <strong>Space Complexity:</strong> O(n²) for attention matrix
+      </div>
+
+      <div class="interview-tip">
+        <strong>Interview Tips:</strong>
+        <ul>
+          <li>Explain why we divide by √d_k (prevents softmax saturation)</li>
+          <li>Discuss the purpose of multiple heads (capture different relationships)</li>
+          <li>Know how to implement causal masking for autoregressive models</li>
+          <li>Understand memory optimization techniques (Flash Attention)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Training Loops -->
+    <div id="training" class="code-section">
+      <h2>🔄 Training Loops & Optimization</h2>
+      
+      <h3>Basic Training Loop with Gradient Accumulation</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+import wandb
+
+class TrainingLoop:
+    def __init__(self, model, train_dataloader, val_dataloader, 
+                 optimizer, scheduler, device, accumulation_steps=4):
+        self.model = model.to(device)
+        self.train_dataloader = train_dataloader
+        self.val_dataloader = val_dataloader
+        self.optimizer = optimizer
+        self.scheduler = scheduler
+        self.device = device
+        self.accumulation_steps = accumulation_steps
+        
+    def train_epoch(self, epoch):
+        self.model.train()
+        total_loss = 0
+        num_batches = 0
+        
+        # Initialize wandb logging
+        wandb.init(project="llm-training", name=f"epoch_{epoch}")
+        
+        progress_bar = tqdm(self.train_dataloader, desc=f"Epoch {epoch}")
+        
+        for batch_idx, (input_ids, attention_mask, labels) in enumerate(progress_bar):
+            # Move to device
+            input_ids = input_ids.to(self.device)
+            attention_mask = attention_mask.to(self.device)
+            labels = labels.to(self.device)
+            
+            # Forward pass
+            outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+            loss = outputs.loss / self.accumulation_steps  # Scale loss
+            
+            # Backward pass
+            loss.backward()
+            
+            # Gradient accumulation
+            if (batch_idx + 1) % self.accumulation_steps == 0:
+                # Gradient clipping
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+                
+                # Optimizer step
+                self.optimizer.step()
+                self.scheduler.step()
+                self.optimizer.zero_grad()
+            
+            total_loss += loss.item() * self.accumulation_steps
+            num_batches += 1
+            
+            # Update progress bar
+            progress_bar.set_postfix({
+                'loss': f'{loss.item() * self.accumulation_steps:.4f}',
+                'lr': f'{self.scheduler.get_last_lr()[0]:.2e}'
+            })
+            
+            # Log to wandb
+            wandb.log({
+                'train_loss': loss.item() * self.accumulation_steps,
+                'learning_rate': self.scheduler.get_last_lr()[0],
+                'batch': batch_idx
+            })
+        
+        return total_loss / num_batches
+    
+    def validate(self):
+        self.model.eval()
+        total_loss = 0
+        num_batches = 0
+        
+        with torch.no_grad():
+            for input_ids, attention_mask, labels in tqdm(self.val_dataloader, desc="Validation"):
+                input_ids = input_ids.to(self.device)
+                attention_mask = attention_mask.to(self.device)
+                labels = labels.to(self.device)
+                
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+                loss = outputs.loss
+                
+                total_loss += loss.item()
+                num_batches += 1
+        
+        return total_loss / num_batches
+    
+    def train(self, num_epochs):
+        best_val_loss = float('inf')
+        
+        for epoch in range(num_epochs):
+            # Training
+            train_loss = self.train_epoch(epoch)
+            
+            # Validation
+            val_loss = self.validate()
+            
+            # Logging
+            print(f"Epoch {epoch}: Train Loss = {train_loss:.4f}, Val Loss = {val_loss:.4f}")
+            wandb.log({
+                'epoch': epoch,
+                'train_loss_epoch': train_loss,
+                'val_loss': val_loss
+            })
+            
+            # Save best model
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                torch.save(self.model.state_dict(), 'best_model.pth')
+                print(f"New best model saved! Val Loss: {val_loss:.4f}")
+
+# Example usage
+if __name__ == "__main__":
+    # Initialize components
+    model = YourModel()  # Your model here
+    train_dataloader = DataLoader(train_dataset, batch_size=8, shuffle=True)
+    val_dataloader = DataLoader(val_dataset, batch_size=8, shuffle=False)
+    
+    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1000)
+    
+    # Training loop
+    trainer = TrainingLoop(model, train_dataloader, val_dataloader, 
+                          optimizer, scheduler, device='cuda')
+    trainer.train(num_epochs=10)</code></pre>
+      </div>
+
+      <h3>Advanced Training Techniques</h3>
+      <div class="code-block">
+        <pre><code class="language-python"># Mixed Precision Training
+from torch.cuda.amp import autocast, GradScaler
+
+def train_with_mixed_precision(model, dataloader, optimizer):
+    scaler = GradScaler()
+    
+    for batch in dataloader:
+        optimizer.zero_grad()
+        
+        # Forward pass with autocast
+        with autocast():
+            outputs = model(batch)
+            loss = outputs.loss
+        
+        # Backward pass with scaler
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
+
+# Gradient Checkpointing (Memory Optimization)
+from torch.utils.checkpoint import checkpoint
+
+class MemoryEfficientModel(nn.Module):
+    def forward(self, x):
+        # Use gradient checkpointing for memory efficiency
+        return checkpoint(self.expensive_layer, x)
+
+# Learning Rate Scheduling
+def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_steps):
+    def lr_lambda(current_step):
+        if current_step < num_warmup_steps:
+            return float(current_step) / float(max(1, num_warmup_steps))
+        progress = float(current_step - num_warmup_steps) / float(max(1, num_training_steps - num_warmup_steps))
+        return max(0.0, 0.5 * (1.0 + math.cos(math.pi * progress)))
+    
+    return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)</code></pre>
+      </div>
+    </div>
+
+    <!-- AWS SageMaker -->
+    <div id="sagemaker" class="code-section">
+      <h2>☁️ AWS SageMaker Implementation</h2>
+      
+      <h3>SageMaker Training Script</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import sagemaker
+from sagemaker.pytorch import PyTorch
+from sagemaker import get_execution_role
+import boto3
+
+def setup_sagemaker_training():
+    # Initialize SageMaker session
+    sagemaker_session = sagemaker.Session()
+    role = get_execution_role()
+    
+    # Define training job
+    pytorch_estimator = PyTorch(
+        entry_point='train.py',  # Your training script
+        role=role,
+        instance_count=2,  # Number of instances
+        instance_type='ml.p3.2xlarge',  # GPU instance
+        framework_version='2.0.0',
+        py_version='py310',
+        hyperparameters={
+            'epochs': 10,
+            'batch-size': 32,
+            'learning-rate': 1e-4,
+            'model-name': 'bert-base-uncased'
+        },
+        output_path='s3://your-bucket/model-outputs/',
+        code_location='s3://your-bucket/code/',
+        sagemaker_session=sagemaker_session
+    )
+    
+    return pytorch_estimator
+
+# Training script (train.py)
+import argparse
+import os
+import torch
+from transformers import AutoModelForMaskedLM, AutoTokenizer, Trainer, TrainingArguments
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--epochs', type=int, default=10)
+    parser.add_argument('--batch-size', type=int, default=32)
+    parser.add_argument('--learning-rate', type=float, default=1e-4)
+    parser.add_argument('--model-name', type=str, default='bert-base-uncased')
+    args = parser.parse_args()
+    
+    # Load model and tokenizer
+    model = AutoModelForMaskedLM.from_pretrained(args.model_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+    
+    # Prepare dataset
+    # ... dataset preparation code ...
+    
+    # Training arguments
+    training_args = TrainingArguments(
+        output_dir='/opt/ml/model',
+        num_train_epochs=args.epochs,
+        per_device_train_batch_size=args.batch_size,
+        learning_rate=args.learning_rate,
+        save_steps=1000,
+        save_total_limit=2,
+        logging_steps=100,
+        evaluation_strategy="steps",
+        eval_steps=500,
+        load_best_model_at_end=True,
+        metric_for_best_model="eval_loss",
+        greater_is_better=False,
+    )
+    
+    # Initialize trainer
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=eval_dataset,
+        tokenizer=tokenizer,
+    )
+    
+    # Train
+    trainer.train()
+    
+    # Save model
+    trainer.save_model()
+    tokenizer.save_pretrained('/opt/ml/model')
+
+if __name__ == "__main__":
+    main()</code></pre>
+      </div>
+
+      <h3>SageMaker Inference Endpoint</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import sagemaker
+from sagemaker.pytorch import PyTorchModel
+from sagemaker.predictor import Predictor
+
+class CustomPredictor(Predictor):
+    def __init__(self, endpoint_name, sagemaker_session=None):
+        super().__init__(endpoint_name, sagemaker_session)
+        self.content_type = "application/json"
+        self.accept = "application/json"
+    
+    def predict(self, data):
+        # Custom prediction logic
+        response = super().predict(data)
+        return response
+
+def deploy_model(model_data, role):
+    # Create model
+    pytorch_model = PyTorchModel(
+        model_data=model_data,
+        role=role,
+        entry_point='inference.py',
+        framework_version='2.0.0',
+        py_version='py310'
+    )
+    
+    # Deploy endpoint
+    predictor = pytorch_model.deploy(
+        initial_instance_count=1,
+        instance_type='ml.m5.large',
+        endpoint_name='my-llm-endpoint'
+    )
+    
+    return predictor
+
+# Inference script (inference.py)
+import json
+import torch
+from transformers import AutoTokenizer, AutoModelForMaskedLM
+
+def model_fn(model_dir):
+    # Load model and tokenizer
+    model = AutoModelForMaskedLM.from_pretrained(model_dir)
+    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    return model, tokenizer
+
+def input_fn(request_body, request_content_type):
+    if request_content_type == "application/json":
+        input_data = json.loads(request_body)
+        return input_data
+    else:
+        raise ValueError(f"Unsupported content type: {request_content_type}")
+
+def predict_fn(input_data, model_tokenizer):
+    model, tokenizer = model_tokenizer
+    
+    # Process input
+    text = input_data['text']
+    inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
+    
+    # Generate predictions
+    with torch.no_grad():
+        outputs = model(**inputs)
+        predictions = outputs.logits.argmax(dim=-1)
+    
+    return predictions
+
+def output_fn(prediction, accept):
+    if accept == "application/json":
+        return json.dumps(prediction.tolist())
+    else:
+        raise ValueError(f"Unsupported accept type: {accept}")</code></pre>
+      </div>
+    </div>
+
+    <!-- Evaluation Metrics -->
+    <div id="evaluation" class="code-section">
+      <h2>📊 Evaluation Metrics & Analysis</h2>
+      
+      <h3>Language Model Evaluation</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import numpy as np
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import torch
+from torch.nn import functional as F
+
+class LanguageModelEvaluator:
+    def __init__(self, model, tokenizer, device='cuda'):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.device = device
+        
+    def compute_perplexity(self, test_dataloader):
+        """Compute perplexity on test set"""
+        self.model.eval()
+        total_loss = 0
+        total_tokens = 0
+        
+        with torch.no_grad():
+            for batch in test_dataloader:
+                input_ids = batch['input_ids'].to(self.device)
+                attention_mask = batch['attention_mask'].to(self.device)
+                labels = batch['labels'].to(self.device)
+                
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+                loss = outputs.loss
+                
+                # Count non-padding tokens
+                num_tokens = attention_mask.sum().item()
+                
+                total_loss += loss.item() * num_tokens
+                total_tokens += num_tokens
+        
+        avg_loss = total_loss / total_tokens
+        perplexity = np.exp(avg_loss)
+        
+        return perplexity
+    
+    def compute_accuracy(self, test_dataloader):
+        """Compute accuracy on masked language modeling task"""
+        self.model.eval()
+        all_predictions = []
+        all_labels = []
+        
+        with torch.no_grad():
+            for batch in test_dataloader:
+                input_ids = batch['input_ids'].to(self.device)
+                attention_mask = batch['attention_mask'].to(self.device)
+                labels = batch['labels'].to(self.device)
+                
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+                logits = outputs.logits
+                
+                # Get predictions for masked tokens only
+                mask_indices = (labels != -100)
+                masked_logits = logits[mask_indices]
+                masked_labels = labels[mask_indices]
+                
+                predictions = masked_logits.argmax(dim=-1)
+                
+                all_predictions.extend(predictions.cpu().numpy())
+                all_labels.extend(masked_labels.cpu().numpy())
+        
+        accuracy = accuracy_score(all_labels, all_predictions)
+        precision, recall, f1, _ = precision_recall_fscore_support(
+            all_labels, all_predictions, average='weighted'
+        )
+        
+        return {
+            'accuracy': accuracy,
+            'precision': precision,
+            'recall': recall,
+            'f1': f1
+        }
+    
+    def compute_bleu_score(self, references, hypotheses):
+        """Compute BLEU score for text generation"""
+        from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+        
+        smoothie = SmoothingFunction().method1
+        bleu_scores = []
+        
+        for ref, hyp in zip(references, hypotheses):
+            # Tokenize
+            ref_tokens = ref.split()
+            hyp_tokens = hyp.split()
+            
+            # Compute BLEU
+            score = sentence_bleu([ref_tokens], hyp_tokens, smoothing_function=smoothie)
+            bleu_scores.append(score)
+        
+        return np.mean(bleu_scores)
+    
+    def analyze_attention_weights(self, text, layer_idx=0, head_idx=0):
+        """Analyze attention weights for interpretability"""
+        self.model.eval()
+        
+        # Tokenize input
+        inputs = self.tokenizer(text, return_tensors="pt")
+        input_ids = inputs['input_ids'].to(self.device)
+        attention_mask = inputs['attention_mask'].to(self.device)
+        
+        with torch.no_grad():
+            outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, output_attentions=True)
+            attentions = outputs.attentions
+            
+            # Get attention weights for specific layer and head
+            attention_weights = attentions[layer_idx][0, head_idx].cpu().numpy()
+            
+            # Get tokens for visualization
+            tokens = self.tokenizer.convert_ids_to_tokens(input_ids[0])
+            
+            return attention_weights, tokens
+
+# Usage example
+if __name__ == "__main__":
+    # Initialize evaluator
+    evaluator = LanguageModelEvaluator(model, tokenizer)
+    
+    # Compute metrics
+    perplexity = evaluator.compute_perplexity(test_dataloader)
+    metrics = evaluator.compute_accuracy(test_dataloader)
+    
+    print(f"Perplexity: {perplexity:.2f}")
+    print(f"Accuracy: {metrics['accuracy']:.4f}")
+    print(f"F1 Score: {metrics['f1']:.4f}")
+    
+    # Analyze attention
+    attention_weights, tokens = evaluator.analyze_attention_weights(
+        "The cat sat on the mat", layer_idx=0, head_idx=0
+    )
+    print("Attention weights shape:", attention_weights.shape)
+    print("Tokens:", tokens)</code></pre>
+      </div>
+
+      <h3>Model Performance Monitoring</h3>
+      <div class="code-block">
+        <pre><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.manifold import TSNE
+import pandas as pd
+
+class ModelAnalyzer:
+    def __init__(self, model, tokenizer):
+        self.model = model
+        self.tokenizer = tokenizer
+    
+    def plot_training_curves(self, train_losses, val_losses, save_path=None):
+        """Plot training and validation loss curves"""
+        plt.figure(figsize=(10, 6))
+        plt.plot(train_losses, label='Training Loss', color='blue')
+        plt.plot(val_losses, label='Validation Loss', color='red')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.title('Training and Validation Loss')
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.show()
+    
+    def visualize_attention_heatmap(self, attention_weights, tokens, save_path=None):
+        """Create attention heatmap visualization"""
+        plt.figure(figsize=(12, 8))
+        sns.heatmap(attention_weights, 
+                   xticklabels=tokens, 
+                   yticklabels=tokens,
+                   cmap='Blues',
+                   annot=True,
+                   fmt='.2f')
+        plt.title('Attention Weights Heatmap')
+        plt.xlabel('Key Tokens')
+        plt.ylabel('Query Tokens')
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.show()
+    
+    def analyze_embedding_space(self, words, save_path=None):
+        """Analyze word embeddings using t-SNE"""
+        embeddings = []
+        word_list = []
+        
+        for word in words:
+            inputs = self.tokenizer(word, return_tensors="pt")
+            with torch.no_grad():
+                outputs = self.model(**inputs)
+                embedding = outputs.last_hidden_state[0, 0].cpu().numpy()  # [CLS] token
+                embeddings.append(embedding)
+                word_list.append(word)
+        
+        # Apply t-SNE
+        tsne = TSNE(n_components=2, random_state=42)
+        embeddings_2d = tsne.fit_transform(embeddings)
+        
+        # Plot
+        plt.figure(figsize=(12, 8))
+        plt.scatter(embeddings_2d[:, 0], embeddings_2d[:, 1])
+        
+        for i, word in enumerate(word_list):
+            plt.annotate(word, (embeddings_2d[i, 0], embeddings_2d[i, 1]))
+        
+        plt.title('Word Embeddings Visualization (t-SNE)')
+        plt.xlabel('t-SNE 1')
+        plt.ylabel('t-SNE 2')
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.show()
+
+# Example usage
+analyzer = ModelAnalyzer(model, tokenizer)
+
+# Plot training curves
+analyzer.plot_training_curves(train_losses, val_losses, 'training_curves.png')
+
+# Visualize attention
+attention_weights, tokens = evaluator.analyze_attention_weights("The cat sat on the mat")
+analyzer.visualize_attention_heatmap(attention_weights, tokens, 'attention_heatmap.png')
+
+# Analyze embeddings
+words = ['cat', 'dog', 'computer', 'algorithm', 'neural', 'network']
+analyzer.analyze_embedding_space(words, 'embeddings.png')</code></pre>
+      </div>
+    </div>
+
+  </div>
+
   <footer>
     &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
   </footer>

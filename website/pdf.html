@@ -4,20 +4,177 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Full PDF Guide | PrepMe</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-  <style>body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;}header{padding:2rem 1rem 1rem 1rem;text-align:center;}nav{margin:2rem 0;display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}nav a{background:rgba(255,255,255,0.1);color:#fff;padding:1rem 2rem;border-radius:1.5rem;text-decoration:none;font-weight:600;transition:background 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}nav a:hover{background:rgba(255,255,255,0.25);}main{max-width:700px;margin:2rem auto;background:rgba(0,0,0,0.15);padding:2rem;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);}footer{margin-top:auto;padding:1rem;font-size:0.95rem;color:#eee;text-align:center;}@media (max-width:600px){nav a{padding:0.7rem 1rem;font-size:1rem;}}</style>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .pdf-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .pdf-section {
+      background: rgba(0,0,0,0.15);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .pdf-section h2 {
+      color: #fff;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .pdf-embed {
+      width: 100%;
+      height: 800px;
+      border: none;
+      border-radius: 0.5rem;
+      background: #fff;
+    }
+    .download-section {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .download-btn {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0.5rem;
+      transition: background 0.2s;
+    }
+    .download-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .description {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+      line-height: 1.6;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #eee;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .pdf-container { padding: 1rem; }
+      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+      .pdf-embed { height: 500px; }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>📄 Full PDF Guide</h1>
     <nav>
       <a href="index.html">🏠 Home</a>
+      <a href="slides.html">📊 Slide Decks</a>
+      <a href="code.html">💻 Code Samples</a>
+      <a href="resources.html">🌐 External Resources</a>
     </nav>
   </header>
-  <main>
-    <h2>Coming Soon!</h2>
-    <p>The full PDF guide will be viewable here soon. Stay tuned!</p>
-  </main>
+
+  <div class="pdf-container">
+    
+    <div class="pdf-section">
+      <h2>📚 Generative AI and Applied Science at AWS: A Comprehensive Preparation Guide</h2>
+      
+      <div class="description">
+        <p><strong>Complete Reference:</strong> This comprehensive PDF guide contains all the detailed content, mathematical formulations, implementation details, and interview preparation materials for Generative AI and Applied Science roles at AWS.</p>
+        
+        <p><strong>What's Included:</strong></p>
+        <ul>
+          <li>🏗️ <strong>Transformer Architecture:</strong> Complete mathematical foundations and implementation details</li>
+          <li>🧠 <strong>Large Language Models:</strong> Training, scaling, and optimization techniques</li>
+          <li>🎨 <strong>Diffusion Models:</strong> Theory and practical implementations</li>
+          <li>🖼️ <strong>Multimodal AI:</strong> Cross-modal learning and applications</li>
+          <li>☁️ <strong>AWS Services:</strong> SageMaker, Bedrock, and production deployment</li>
+          <li>📊 <strong>Research & Evaluation:</strong> Metrics, methodologies, and best practices</li>
+          <li>🎯 <strong>Interview Preparation:</strong> Technical questions, coding challenges, and behavioral guidance</li>
+        </ul>
+      </div>
+
+      <div class="download-section">
+        <a href="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf" 
+           class="download-btn" download>
+           📥 Download PDF Guide
+        </a>
+        <a href="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf" 
+           class="download-btn" target="_blank">
+           🔗 Open in New Tab
+        </a>
+      </div>
+
+      <iframe 
+        src="../Generative AI and Applied Science at AWS_ A Comprehensive Preparation Guide.pdf#toolbar=1&navpanes=1&scrollbar=1" 
+        class="pdf-embed"
+        title="Generative AI and Applied Science at AWS Preparation Guide">
+      </iframe>
+    </div>
+
+    <div class="pdf-section">
+      <h2>📖 How to Use This Guide</h2>
+      
+      <div class="description">
+        <p><strong>Study Strategy:</strong></p>
+        <ol>
+          <li><strong>Start with the interactive slides</strong> for visual learning and quick concepts</li>
+          <li><strong>Practice with code samples</strong> to understand implementations</li>
+          <li><strong>Use this PDF as your reference</strong> for detailed explanations and formulas</li>
+          <li><strong>Explore external resources</strong> for deeper understanding</li>
+          <li><strong>Practice explaining concepts</strong> out loud as if in an interview</li>
+        </ol>
+        
+        <p><strong>Interview Tips:</strong></p>
+        <ul>
+          <li>📝 <strong>Take notes</strong> while reading the PDF</li>
+          <li>💻 <strong>Implement key algorithms</strong> from the code samples</li>
+          <li>🎯 <strong>Focus on AWS-specific sections</strong> for applied science roles</li>
+          <li>📊 <strong>Understand scaling laws</strong> and optimization techniques</li>
+          <li>🤝 <strong>Practice behavioral questions</strong> about collaboration and leadership</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
   <footer>
     &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
   </footer>

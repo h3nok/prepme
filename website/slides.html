@@ -5,19 +5,386 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slide Decks | PrepMe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-  <style>body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;}header{padding:2rem 1rem 1rem 1rem;text-align:center;}nav{margin:2rem 0;display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}nav a{background:rgba(255,255,255,0.1);color:#fff;padding:1rem 2rem;border-radius:1.5rem;text-decoration:none;font-weight:600;transition:background 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}nav a:hover{background:rgba(255,255,255,0.25);}main{max-width:700px;margin:2rem auto;background:rgba(0,0,0,0.15);padding:2rem;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);}footer{margin-top:auto;padding:1rem;font-size:0.95rem;color:#eee;text-align:center;}@media (max-width:600px){nav a{padding:0.7rem 1rem;font-size:1rem;}}</style>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .slide-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .slide {
+      background: rgba(0,0,0,0.15);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .slide h2 {
+      color: #fff;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .slide h3 {
+      color: #e0e0e0;
+      margin-top: 1.5rem;
+    }
+    .math-example {
+      background: rgba(0,0,0,0.2);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .code-example {
+      background: #1e1e1e;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+    .key-point {
+      background: rgba(255,255,255,0.1);
+      border-left: 4px solid #4CAF50;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: rgba(0,0,0,0.2);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .comparison-table th {
+      background: rgba(255,255,255,0.1);
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #eee;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .slide-container { padding: 1rem; }
+      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>window.onload = () => { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); };</script>
 </head>
 <body>
   <header>
-    <h1>📊 Slide Decks</h1>
+    <h1>📊 Interactive Slide Decks</h1>
     <nav>
       <a href="index.html">🏠 Home</a>
+      <a href="#transformers">Transformers</a>
+      <a href="#llms">LLMs</a>
+      <a href="#diffusion">Diffusion</a>
+      <a href="#multimodal">Multimodal</a>
     </nav>
   </header>
-  <main>
-    <h2>Coming Soon!</h2>
-    <p>Interactive slide decks for all core concepts will appear here. Stay tuned!</p>
-  </main>
+
+  <div class="slide-container">
+    
+    <!-- Transformer Architecture -->
+    <div id="transformers" class="slide">
+      <h2>🏗️ Transformer Architecture Deep Dive</h2>
+      
+      <div class="key-point">
+        <strong>Key Innovation:</strong> Self-attention mechanism allows parallel processing and captures long-range dependencies better than RNNs.
+      </div>
+
+      <h3>🔍 Self-Attention Mechanism</h3>
+      <p>The core of the Transformer is the self-attention mechanism:</p>
+      
+      <div class="math-example">
+        $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+      </div>
+
+      <p><strong>Intuitive Understanding:</strong> Think of attention as a soft database lookup:</p>
+      <ul>
+        <li><strong>Query (Q):</strong> "What am I looking for?" - represents the current position/token</li>
+        <li><strong>Key (K):</strong> "What information is available?" - all positions in the sequence</li>
+        <li><strong>Value (V):</strong> "What is the actual information?" - the content to be retrieved</li>
+        <li><strong>√d_k scaling:</strong> Prevents softmax saturation in high dimensions</li>
+      </ul>
+
+      <h3>🎯 Multi-Head Attention</h3>
+      <p>Multiple heads capture different types of relationships:</p>
+      <ul>
+        <li><strong>Syntactic relationships:</strong> Subject-verb agreement</li>
+        <li><strong>Semantic relationships:</strong> Word meanings</li>
+        <li><strong>Positional relationships:</strong> Nearby vs distant words</li>
+        <li><strong>Different abstraction levels:</strong> Various linguistic patterns</li>
+      </ul>
+
+      <div class="math-example">
+        $$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \text{head}_2, ..., \text{head}_h)W^O$$
+        $$\text{where } \text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
+      </div>
+
+      <h3>📍 Positional Encoding</h3>
+      <p><strong>The Problem:</strong> Transformers process all positions simultaneously → no inherent sequence understanding</p>
+      
+      <p><strong>Sinusoidal Encoding (Original Transformer):</strong></p>
+      <div class="math-example">
+        $$\text{PE}(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$$
+        $$\text{PE}(pos, 2i+1) = \cos(pos / 10000^{2i/d_{model}})$$
+      </div>
+
+      <h3>🏗️ Transformer Variants</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Architecture</th>
+            <th>Use Cases</th>
+            <th>Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Encoder-Only</strong></td>
+            <td>Bidirectional attention</td>
+            <td>Classification, NER, QA</td>
+            <td>BERT, RoBERTa</td>
+          </tr>
+          <tr>
+            <td><strong>Decoder-Only</strong></td>
+            <td>Causal attention (triangular mask)</td>
+            <td>Text generation, completion</td>
+            <td>GPT-3, GPT-4, LLaMA</td>
+          </tr>
+          <tr>
+            <td><strong>Encoder-Decoder</strong></td>
+            <td>Separate encoding/decoding</td>
+            <td>Translation, summarization</td>
+            <td>T5, BART, mT5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>📊 Scaling Laws & Model Sizes</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Parameters</th>
+            <th>Layers</th>
+            <th>Hidden Size</th>
+            <th>Attention Heads</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BERT-base</td>
+            <td>110M</td>
+            <td>12</td>
+            <td>768</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>BERT-large</td>
+            <td>340M</td>
+            <td>24</td>
+            <td>1024</td>
+            <td>16</td>
+          </tr>
+          <tr>
+            <td>GPT-3</td>
+            <td>175B</td>
+            <td>96</td>
+            <td>12288</td>
+            <td>96</td>
+          </tr>
+          <tr>
+            <td>GPT-4</td>
+            <td>~1.7T</td>
+            <td>~120</td>
+            <td>~18432</td>
+            <td>~128</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Large Language Models -->
+    <div id="llms" class="slide">
+      <h2>🧠 Large Language Models (LLMs)</h2>
+      
+      <div class="key-point">
+        <strong>Definition:</strong> Neural networks trained on massive text corpora to understand and generate human language.
+      </div>
+
+      <h3>🎯 Training Objectives</h3>
+      <ul>
+        <li><strong>Language Modeling:</strong> Predict next token given previous tokens</li>
+        <li><strong>Masked Language Modeling:</strong> Predict masked tokens in context</li>
+        <li><strong>Span Corruption:</strong> Predict corrupted spans of text</li>
+      </ul>
+
+      <h3>🔧 Key Components</h3>
+      <ul>
+        <li><strong>Tokenization:</strong> Convert text to subword units (BPE, SentencePiece)</li>
+        <li><strong>Embeddings:</strong> Learn dense vector representations</li>
+        <li><strong>Attention Layers:</strong> Capture contextual relationships</li>
+        <li><strong>Feed-Forward Networks:</strong> Process information</li>
+        <li><strong>Layer Normalization:</strong> Stabilize training</li>
+      </ul>
+
+      <h3>📈 Scaling Laws</h3>
+      <p><strong>Chinchilla Scaling Laws:</strong></p>
+      <div class="math-example">
+        $$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
+        <p>where N = number of parameters, D = dataset size</p>
+      </div>
+
+      <h3>🎭 Emergent Abilities</h3>
+      <ul>
+        <li><strong>Few-shot learning:</strong> Learn from few examples</li>
+        <li><strong>Chain-of-thought reasoning:</strong> Step-by-step problem solving</li>
+        <li><strong>Code generation:</strong> Write and debug code</li>
+        <li><strong>Mathematical reasoning:</strong> Solve complex problems</li>
+        <li><strong>Multilingual capabilities:</strong> Cross-language understanding</li>
+      </ul>
+
+      <h3>⚡ Inference Optimization</h3>
+      <ul>
+        <li><strong>KV Caching:</strong> Store key-value pairs for efficiency</li>
+        <li><strong>Attention Optimization:</strong> Flash Attention, Sparse Attention</li>
+        <li><strong>Quantization:</strong> Reduce precision (INT8, INT4)</li>
+        <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs</li>
+        <li><strong>Speculative Decoding:</strong> Predict multiple tokens ahead</li>
+      </ul>
+    </div>
+
+    <!-- Diffusion Models -->
+    <div id="diffusion" class="slide">
+      <h2>🎨 Diffusion Models</h2>
+      
+      <div class="key-point">
+        <strong>Core Idea:</strong> Learn to reverse a gradual noising process to generate high-quality samples.
+      </div>
+
+      <h3>🔄 Forward Process (Noising)</h3>
+      <p>Gradually add noise to data over T timesteps:</p>
+      <div class="math-example">
+        $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)$$
+      </div>
+
+      <h3>🔄 Reverse Process (Denoising)</h3>
+      <p>Learn to predict and remove noise:</p>
+      <div class="math-example">
+        $$p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))$$
+      </div>
+
+      <h3>🎯 Training Objective</h3>
+      <div class="math-example">
+        $$\mathcal{L} = \mathbb{E}_{t,x_0,\epsilon} \left[ \|\epsilon - \epsilon_\theta(x_t, t)\|^2 \right]$$
+      </div>
+
+      <h3>🚀 Advanced Techniques</h3>
+      <ul>
+        <li><strong>DDPM:</strong> Original diffusion paper</li>
+        <li><strong>DDIM:</strong> Deterministic sampling</li>
+        <li><strong>Classifier-Free Guidance:</strong> Control generation without classifier</li>
+        <li><strong>Latent Diffusion:</strong> Work in compressed latent space</li>
+        <li><strong>Stable Diffusion:</strong> Text-to-image generation</li>
+      </ul>
+
+      <h3>⚡ Sampling Strategies</h3>
+      <ul>
+        <li><strong>DDPM Sampling:</strong> Full T steps, stochastic</li>
+        <li><strong>DDIM Sampling:</strong> Fewer steps, deterministic</li>
+        <li><strong>DPM-Solver:</strong> Fast ODE-based sampling</li>
+        <li><strong>UniPC:</strong> Universal predictor-corrector</li>
+      </ul>
+    </div>
+
+    <!-- Multimodal AI -->
+    <div id="multimodal" class="slide">
+      <h2>🖼️ Multimodal AI</h2>
+      
+      <div class="key-point">
+        <strong>Goal:</strong> Process and understand multiple modalities (text, image, audio, video) simultaneously.
+      </div>
+
+      <h3>🔗 Modality Fusion Strategies</h3>
+      <ul>
+        <li><strong>Early Fusion:</strong> Combine at input level</li>
+        <li><strong>Late Fusion:</strong> Combine at output level</li>
+        <li><strong>Cross-Attention:</strong> Attend across modalities</li>
+        <li><strong>Shared Representations:</strong> Common embedding space</li>
+      </ul>
+
+      <h3>🎯 Key Applications</h3>
+      <ul>
+        <li><strong>Vision-Language Models:</strong> CLIP, ALIGN, CoCa</li>
+        <li><strong>Text-to-Image:</strong> DALL-E, Midjourney, Stable Diffusion</li>
+        <li><strong>Image Captioning:</strong> Describe images in natural language</li>
+        <li><strong>Visual Question Answering:</strong> Answer questions about images</li>
+        <li><strong>Video Understanding:</strong> Action recognition, video captioning</li>
+      </ul>
+
+      <h3>🏗️ Architecture Patterns</h3>
+      <ul>
+        <li><strong>Dual-Encoder:</strong> Separate encoders + similarity learning</li>
+        <li><strong>Fusion-Encoder:</strong> Combined processing</li>
+        <li><strong>Encoder-Decoder:</strong> Generate one modality from another</li>
+        <li><strong>Transformer-Based:</strong> Cross-modal attention</li>
+      </ul>
+
+      <h3>📊 Evaluation Metrics</h3>
+      <ul>
+        <li><strong>Retrieval:</strong> R@K, mAP</li>
+        <li><strong>Generation:</strong> BLEU, ROUGE, CIDEr</li>
+        <li><strong>Understanding:</strong> Accuracy, F1-score</li>
+        <li><strong>Human Evaluation:</strong> Preference, quality scores</li>
+      </ul>
+    </div>
+
+  </div>
+
   <footer>
     &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
   </footer>

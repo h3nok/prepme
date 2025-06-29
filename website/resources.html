@@ -5,19 +5,462 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>External Resources | PrepMe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-  <style>body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;}header{padding:2rem 1rem 1rem 1rem;text-align:center;}nav{margin:2rem 0;display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;}nav a{background:rgba(255,255,255,0.1);color:#fff;padding:1rem 2rem;border-radius:1.5rem;text-decoration:none;font-weight:600;transition:background 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}nav a:hover{background:rgba(255,255,255,0.25);}main{max-width:700px;margin:2rem auto;background:rgba(0,0,0,0.15);padding:2rem;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);}footer{margin-top:auto;padding:1rem;font-size:0.95rem;color:#eee;text-align:center;}@media (max-width:600px){nav a{padding:0.7rem 1rem;font-size:1rem;}}</style>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .resources-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .resource-section {
+      background: rgba(0,0,0,0.15);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .resource-section h2 {
+      color: #fff;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .resource-section h3 {
+      color: #e0e0e0;
+      margin-top: 1.5rem;
+    }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .resource-card {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      border-left: 4px solid #4CAF50;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .resource-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .resource-card h4 {
+      color: #fff;
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    .resource-card p {
+      color: #e0e0e0;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .resource-card a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    .resource-card a:hover {
+      text-decoration: underline;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      margin: 0.2rem 0.2rem 0.2rem 0;
+    }
+    .priority-high { border-left-color: #f44336; }
+    .priority-medium { border-left-color: #ff9800; }
+    .priority-low { border-left-color: #2196f3; }
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #eee;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .resources-container { padding: 1rem; }
+      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+      .resource-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>🌐 External Resources</h1>
+    <h1>🌐 External Resources & References</h1>
     <nav>
       <a href="index.html">🏠 Home</a>
+      <a href="#papers">Research Papers</a>
+      <a href="#aws">AWS Resources</a>
+      <a href="#blogs">Blogs & Tutorials</a>
+      <a href="#courses">Courses</a>
     </nav>
   </header>
-  <main>
-    <h2>Coming Soon!</h2>
-    <p>Curated links to papers, blogs, and AWS resources will appear here. Stay tuned!</p>
-  </main>
+
+  <div class="resources-container">
+    
+    <!-- Research Papers -->
+    <div id="papers" class="resource-section">
+      <h2>📚 Foundational Research Papers</h2>
+      
+      <div class="resource-grid">
+        <div class="resource-card priority-high">
+          <h4>Attention Is All You Need</h4>
+          <p><strong>Authors:</strong> Vaswani et al. (2017)</p>
+          <p><strong>Impact:</strong> Introduced the Transformer architecture that revolutionized NLP</p>
+          <div class="tag">Transformers</div>
+          <div class="tag">NLP</div>
+          <a href="https://arxiv.org/abs/1706.03762" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>BERT: Pre-training of Deep Bidirectional Transformers</h4>
+          <p><strong>Authors:</strong> Devlin et al. (2018)</p>
+          <p><strong>Impact:</strong> First large-scale bidirectional language model</p>
+          <div class="tag">BERT</div>
+          <div class="tag">Pre-training</div>
+          <a href="https://arxiv.org/abs/1810.04805" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>Language Models are Few-Shot Learners</h4>
+          <p><strong>Authors:</strong> Brown et al. (2020)</p>
+          <p><strong>Impact:</strong> GPT-3 paper showing emergent abilities at scale</p>
+          <div class="tag">GPT-3</div>
+          <div class="tag">Scaling</div>
+          <a href="https://arxiv.org/abs/2005.14165" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Denoising Diffusion Probabilistic Models</h4>
+          <p><strong>Authors:</strong> Ho et al. (2020)</p>
+          <p><strong>Impact:</strong> Foundation for modern diffusion models</p>
+          <div class="tag">Diffusion</div>
+          <div class="tag">Generation</div>
+          <a href="https://arxiv.org/abs/2006.11239" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Training language models to follow instructions</h4>
+          <p><strong>Authors:</strong> Ouyang et al. (2022)</p>
+          <p><strong>Impact:</strong> InstructGPT paper on RLHF</p>
+          <div class="tag">RLHF</div>
+          <div class="tag">Alignment</div>
+          <a href="https://arxiv.org/abs/2203.02155" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Scaling Laws for Neural Language Models</h4>
+          <p><strong>Authors:</strong> Kaplan et al. (2020)</p>
+          <p><strong>Impact:</strong> Understanding how models scale</p>
+          <div class="tag">Scaling Laws</div>
+          <div class="tag">Research</div>
+          <a href="https://arxiv.org/abs/2001.08361" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>LLaMA: Open and Efficient Foundation Language Models</h4>
+          <p><strong>Authors:</strong> Touvron et al. (2023)</p>
+          <p><strong>Impact:</strong> Efficient open-source LLM architecture</p>
+          <div class="tag">LLaMA</div>
+          <div class="tag">Efficiency</div>
+          <a href="https://arxiv.org/abs/2302.13971" target="_blank">📄 Read Paper</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>FlashAttention: Fast and Memory-Efficient Exact Attention</h4>
+          <p><strong>Authors:</strong> Dao et al. (2022)</p>
+          <p><strong>Impact:</strong> Memory-efficient attention implementation</p>
+          <div class="tag">Optimization</div>
+          <div class="tag">Memory</div>
+          <a href="https://arxiv.org/abs/2205.14135" target="_blank">📄 Read Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWS Resources -->
+    <div id="aws" class="resource-section">
+      <h2>☁️ AWS Resources & Documentation</h2>
+      
+      <div class="resource-grid">
+        <div class="resource-card priority-high">
+          <h4>AWS SageMaker Documentation</h4>
+          <p><strong>Type:</strong> Official Documentation</p>
+          <p>Complete guide to SageMaker for ML training and deployment</p>
+          <div class="tag">SageMaker</div>
+          <div class="tag">Training</div>
+          <a href="https://docs.aws.amazon.com/sagemaker/" target="_blank">📖 Read Docs</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>AWS Bedrock Documentation</h4>
+          <p><strong>Type:</strong> Official Documentation</p>
+          <p>Serverless foundation models for building generative AI applications</p>
+          <div class="tag">Bedrock</div>
+          <div class="tag">Generative AI</div>
+          <a href="https://docs.aws.amazon.com/bedrock/" target="_blank">📖 Read Docs</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>AWS AI/ML Blog</h4>
+          <p><strong>Type:</strong> Technical Blog</p>
+          <p>Latest updates and tutorials on AWS AI/ML services</p>
+          <div class="tag">Blog</div>
+          <div class="tag">Tutorials</div>
+          <a href="https://aws.amazon.com/blogs/machine-learning/" target="_blank">📝 Read Blog</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>AWS Deep Learning AMIs</h4>
+          <p><strong>Type:</strong> Documentation</p>
+          <p>Pre-configured AMIs with deep learning frameworks</p>
+          <div class="tag">AMIs</div>
+          <div class="tag">Infrastructure</div>
+          <a href="https://docs.aws.amazon.com/dlami/" target="_blank">📖 Read Docs</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>AWS Lambda for ML Inference</h4>
+          <p><strong>Type:</strong> Documentation</p>
+          <p>Serverless ML inference with Lambda</p>
+          <div class="tag">Lambda</div>
+          <div class="tag">Inference</div>
+          <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-ml.html" target="_blank">📖 Read Docs</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>AWS Cost Optimization for ML</h4>
+          <p><strong>Type:</strong> Best Practices</p>
+          <p>Guide to optimizing costs for ML workloads on AWS</p>
+          <div class="tag">Cost</div>
+          <div class="tag">Optimization</div>
+          <a href="https://aws.amazon.com/cost-optimization/" target="_blank">💰 Read Guide</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blogs & Tutorials -->
+    <div id="blogs" class="resource-section">
+      <h2>📝 Blogs & Tutorials</h2>
+      
+      <div class="resource-grid">
+        <div class="resource-card priority-high">
+          <h4>The Illustrated Transformer</h4>
+          <p><strong>Author:</strong> Jay Alammar</p>
+          <p>Visual guide to understanding Transformer architecture</p>
+          <div class="tag">Transformers</div>
+          <div class="tag">Visual</div>
+          <a href="http://jalammar.github.io/illustrated-transformer/" target="_blank">🎨 Read Article</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>Attention and Augmented Recurrent Neural Networks</h4>
+          <p><strong>Author:</strong> Chris Olah & Shan Carter</p>
+          <p>Distill.pub article on attention mechanisms</p>
+          <div class="tag">Attention</div>
+          <div class="tag">RNN</div>
+          <a href="https://distill.pub/2016/augmented-rnns/" target="_blank">🎨 Read Article</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Understanding Diffusion Models</h4>
+          <p><strong>Author:</strong> Lilian Weng</p>
+          <p>Comprehensive tutorial on diffusion models</p>
+          <div class="tag">Diffusion</div>
+          <div class="tag">Tutorial</div>
+          <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/" target="_blank">📝 Read Article</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Scaling Laws for Neural Language Models</h4>
+          <p><strong>Author:</strong> Ethan Caballero</p>
+          <p>Blog post explaining scaling laws in detail</p>
+          <div class="tag">Scaling</div>
+          <div class="tag">Research</div>
+          <a href="https://www.lesswrong.com/posts/6Fpvch8RR29qLEWNH/chinchilla-s-wild-implications" target="_blank">📝 Read Article</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Hugging Face Blog</h4>
+          <p><strong>Type:</strong> Technical Blog</p>
+          <p>Latest developments in transformers and NLP</p>
+          <div class="tag">Hugging Face</div>
+          <div class="tag">NLP</div>
+          <a href="https://huggingface.co/blog" target="_blank">📝 Read Blog</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>Papers With Code</h4>
+          <p><strong>Type:</strong> Research Platform</p>
+          <p>Latest papers with code implementations</p>
+          <div class="tag">Research</div>
+          <div class="tag">Code</div>
+          <a href="https://paperswithcode.com/" target="_blank">🔬 Browse Papers</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Courses -->
+    <div id="courses" class="resource-section">
+      <h2>🎓 Courses & Learning Paths</h2>
+      
+      <div class="resource-grid">
+        <div class="resource-card priority-high">
+          <h4>CS224N: Natural Language Processing with Deep Learning</h4>
+          <p><strong>Institution:</strong> Stanford University</p>
+          <p>Comprehensive course on NLP and transformers</p>
+          <div class="tag">Stanford</div>
+          <div class="tag">NLP</div>
+          <a href="http://web.stanford.edu/class/cs224n/" target="_blank">🎓 Take Course</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>CS285: Deep Reinforcement Learning</h4>
+          <p><strong>Institution:</strong> UC Berkeley</p>
+          <p>Advanced course covering RLHF and alignment</p>
+          <div class="tag">Berkeley</div>
+          <div class="tag">RL</div>
+          <a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank">🎓 Take Course</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>MIT 6.S191: Introduction to Deep Learning</h4>
+          <p><strong>Institution:</strong> MIT</p>
+          <p>Fundamental deep learning concepts</p>
+          <div class="tag">MIT</div>
+          <div class="tag">Deep Learning</div>
+          <a href="http://introtodeeplearning.com/" target="_blank">🎓 Take Course</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Fast.ai Practical Deep Learning</h4>
+          <p><strong>Institution:</strong> Fast.ai</p>
+          <p>Practical approach to deep learning</p>
+          <div class="tag">Fast.ai</div>
+          <div class="tag">Practical</div>
+          <a href="https://course.fast.ai/" target="_blank">🎓 Take Course</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>AWS Machine Learning Specialty</h4>
+          <p><strong>Type:</strong> Certification</p>
+          <p>AWS certification for ML practitioners</p>
+          <div class="tag">AWS</div>
+          <div class="tag">Certification</div>
+          <a href="https://aws.amazon.com/certification/certified-machine-learning-specialty/" target="_blank">🏆 Get Certified</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>Deep Learning Specialization</h4>
+          <p><strong>Institution:</strong> Coursera (Andrew Ng)</p>
+          <p>Comprehensive deep learning course series</p>
+          <div class="tag">Coursera</div>
+          <div class="tag">Deep Learning</div>
+          <a href="https://www.coursera.org/specializations/deep-learning" target="_blank">🎓 Take Course</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Resources -->
+    <div class="resource-section">
+      <h2>🔧 Tools & Libraries</h2>
+      
+      <div class="resource-grid">
+        <div class="resource-card priority-high">
+          <h4>Transformers Library</h4>
+          <p><strong>Type:</strong> Python Library</p>
+          <p>Hugging Face transformers for state-of-the-art NLP</p>
+          <div class="tag">Python</div>
+          <div class="tag">NLP</div>
+          <a href="https://huggingface.co/docs/transformers/" target="_blank">🐍 Documentation</a>
+        </div>
+
+        <div class="resource-card priority-high">
+          <h4>PyTorch</h4>
+          <p><strong>Type:</strong> Deep Learning Framework</p>
+          <p>Popular deep learning framework with excellent documentation</p>
+          <div class="tag">PyTorch</div>
+          <div class="tag">Framework</div>
+          <a href="https://pytorch.org/docs/" target="_blank">🔥 Documentation</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>TensorFlow</h4>
+          <p><strong>Type:</strong> Deep Learning Framework</p>
+          <p>Google's deep learning framework</p>
+          <div class="tag">TensorFlow</div>
+          <div class="tag">Framework</div>
+          <a href="https://www.tensorflow.org/guide" target="_blank">📚 Documentation</a>
+        </div>
+
+        <div class="resource-card priority-medium">
+          <h4>Weights & Biases</h4>
+          <p><strong>Type:</strong> Experiment Tracking</p>
+          <p>ML experiment tracking and visualization</p>
+          <div class="tag">W&B</div>
+          <div class="tag">Tracking</div>
+          <a href="https://wandb.ai/" target="_blank">📊 Try W&B</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>MLflow</h4>
+          <p><strong>Type:</strong> ML Lifecycle</p>
+          <p>Open-source platform for ML lifecycle management</p>
+          <div class="tag">MLflow</div>
+          <div class="tag">Lifecycle</div>
+          <a href="https://mlflow.org/" target="_blank">🔄 Documentation</a>
+        </div>
+
+        <div class="resource-card priority-low">
+          <h4>Gradio</h4>
+          <p><strong>Type:</strong> UI Framework</p>
+          <p>Create web demos for ML models</p>
+          <div class="tag">Gradio</div>
+          <div class="tag">UI</div>
+          <a href="https://gradio.app/" target="_blank">🎨 Try Gradio</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <footer>
     &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
   </footer>
