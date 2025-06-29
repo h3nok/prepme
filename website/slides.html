@@ -3,390 +3,1032 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide Decks | PrepMe</title>
+  <title>Interactive Slide Decks | PrepMe</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
   <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      --card-bg: rgba(0,0,0,0.15);
+      --card-hover: rgba(0,0,0,0.25);
+      --accent-color: #4CAF50;
+      --text-primary: #fff;
+      --text-secondary: #e0e0e0;
+      --shadow: 0 4px 16px rgba(0,0,0,0.1);
+      --border-radius: 1rem;
+    }
+
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
-      color: #fff;
+      background: var(--primary-gradient);
+      color: var(--text-primary);
       margin: 0;
       min-height: 100vh;
+      line-height: 1.6;
     }
+
+    /* Header & Navigation */
     header {
       padding: 2rem 1rem 1rem 1rem;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
     }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, #fff, #4CAF50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     nav {
       margin: 2rem 0;
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
     }
+
     nav a {
       background: rgba(255,255,255,0.1);
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 1.5rem;
+      color: var(--text-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    nav a:hover {
+
+    nav a:hover, nav a.active {
       background: rgba(255,255,255,0.25);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
     }
+
+    /* Progress Bar */
+    .progress-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), #66dfea);
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 3px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Main Content */
     .slide-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
+
     .slide {
-      background: rgba(0,0,0,0.15);
+      background: var(--card-bg);
       margin: 2rem 0;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .slide:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .slide-header {
+      background: rgba(255,255,255,0.05);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .slide-header:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .slide-header h2 {
+      color: var(--text-primary);
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .slide-toggle {
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .slide-toggle.expanded {
+      transform: rotate(180deg);
+    }
+
+    .slide-content {
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      display: none;
     }
-    .slide h2 {
-      color: #fff;
-      border-bottom: 2px solid rgba(255,255,255,0.3);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
+
+    .slide-content.expanded {
+      display: block;
+      animation: slideDown 0.3s ease;
     }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .slide h3 {
-      color: #e0e0e0;
+      color: var(--text-primary);
       margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      border-left: 4px solid var(--accent-color);
+      padding-left: 1rem;
     }
+
+    .slide h4 {
+      color: var(--text-secondary);
+      margin-top: 1.2rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    /* Interactive Elements */
+    .interactive-element {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .interactive-element:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--accent-color);
+    }
+
     .math-example {
       background: rgba(0,0,0,0.2);
-      padding: 1rem;
+      padding: 1.5rem;
       border-radius: 0.5rem;
       margin: 1rem 0;
       text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
     }
+
     .code-example {
       background: #1e1e1e;
       border-radius: 0.5rem;
       margin: 1rem 0;
       overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.1);
     }
+
+    .code-example pre {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .code-example code {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
     .key-point {
       background: rgba(255,255,255,0.1);
-      border-left: 4px solid #4CAF50;
-      padding: 1rem;
-      margin: 1rem 0;
+      border-left: 4px solid var(--accent-color);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 0.5rem 0.5rem 0;
+      position: relative;
     }
+
+    .key-point::before {
+      content: '💡';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
     .comparison-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       background: rgba(0,0,0,0.2);
       border-radius: 0.5rem;
       overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
     }
+
     .comparison-table th, .comparison-table td {
-      padding: 0.75rem;
+      padding: 1rem;
       text-align: left;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
+
     .comparison-table th {
       background: rgba(255,255,255,0.1);
       font-weight: 600;
+      color: var(--text-primary);
     }
-    footer {
-      margin-top: 3rem;
+
+    .comparison-table tr:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Interactive Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: rgba(255,255,255,0.1);
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .action-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .action-btn.primary {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .action-btn.primary:hover {
+      background: #45a049;
+    }
+
+    /* Quiz Elements */
+    .quiz-question {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .quiz-option {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
       padding: 1rem;
-      font-size: 0.95rem;
-      color: #eee;
-      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
+
+    .quiz-option:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--accent-color);
+    }
+
+    .quiz-option.selected {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .quiz-option.correct {
+      background: #4CAF50;
+      border-color: #4CAF50;
+    }
+
+    .quiz-option.incorrect {
+      background: #f44336;
+      border-color: #f44336;
+    }
+
+    /* Tooltips */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: rgba(0,0,0,0.9);
+      color: var(--text-primary);
+      text-align: center;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
       .slide-container { padding: 1rem; }
-      nav a { padding: 0.7rem 1rem; font-size: 1rem; }
+      nav a { padding: 0.5rem 1rem; font-size: 0.9rem; }
+      .slide-header { padding: 1rem; }
+      .slide-content { padding: 1rem; }
+      .action-buttons { flex-direction: column; }
+      .comparison-table { font-size: 0.9rem; }
+      .comparison-table th, .comparison-table td { padding: 0.5rem; }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease-out;
     }
   </style>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <script>window.onload = () => { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); };</script>
 </head>
 <body>
   <header>
-    <h1>📊 Interactive Slide Decks</h1>
-    <nav>
-      <a href="index.html">🏠 Home</a>
-      <a href="#transformers">Transformers</a>
-      <a href="#llms">LLMs</a>
-      <a href="#diffusion">Diffusion</a>
-      <a href="#multimodal">Multimodal</a>
-    </nav>
+    <div class="header-content">
+      <h1>📊 Interactive Slide Decks</h1>
+      <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="#transformers" class="nav-link">Transformers</a>
+        <a href="#llms" class="nav-link">LLMs</a>
+        <a href="#diffusion" class="nav-link">Diffusion</a>
+        <a href="#multimodal" class="nav-link">Multimodal</a>
+      </nav>
+    </div>
   </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-fill" id="slideProgress"></div>
+    </div>
+    <div class="progress-text">
+      <span>Progress: <span id="progressPercent">0%</span></span>
+      <span>Section: <span id="currentSection">Transformers</span></span>
+    </div>
+  </div>
 
   <div class="slide-container">
     
     <!-- Transformer Architecture -->
-    <div id="transformers" class="slide">
-      <h2>🏗️ Transformer Architecture Deep Dive</h2>
-      
-      <div class="key-point">
-        <strong>Key Innovation:</strong> Self-attention mechanism allows parallel processing and captures long-range dependencies better than RNNs.
+    <div id="transformers" class="slide fade-in">
+      <div class="slide-header" onclick="toggleSlide(this)">
+        <h2>🏗️ Transformer Architecture Deep Dive</h2>
+        <button class="slide-toggle">▼</button>
       </div>
+      <div class="slide-content">
+        
+        <div class="key-point">
+          <strong>Key Innovation:</strong> Self-attention mechanism allows parallel processing and captures long-range dependencies better than RNNs.
+        </div>
 
-      <h3>🔍 Self-Attention Mechanism</h3>
-      <p>The core of the Transformer is the self-attention mechanism:</p>
-      
-      <div class="math-example">
-        $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+        <div class="action-buttons">
+          <button class="action-btn primary" onclick="markCompleted('transformers')">✅ Mark Complete</button>
+          <button class="action-btn" onclick="takeQuiz('transformers')">🧠 Take Quiz</button>
+          <button class="action-btn" onclick="showDetails('transformers')">📖 Show Details</button>
+        </div>
+
+        <h3>🔍 Self-Attention Mechanism</h3>
+        <p>The core of the Transformer is the self-attention mechanism:</p>
+        
+        <div class="math-example">
+          $$\text{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+        </div>
+
+        <div class="interactive-element">
+          <h4>🎯 Interactive Understanding</h4>
+          <p><strong>Think of attention as a soft database lookup:</strong></p>
+          <ul>
+            <li><strong>Query (Q):</strong> "What am I looking for?" - represents the current position/token</li>
+            <li><strong>Key (K):</strong> "What information is available?" - all positions in the sequence</li>
+            <li><strong>Value (V):</strong> "What is the actual information?" - the content to be retrieved</li>
+            <li><strong>√d_k scaling:</strong> Prevents softmax saturation in high dimensions</li>
+          </ul>
+          <div class="action-buttons">
+            <button class="action-btn" onclick="showVisualization('attention')">🎨 Show Visualization</button>
+            <button class="action-btn" onclick="playAnimation('attention')">▶️ Play Animation</button>
+          </div>
+        </div>
+
+        <h3>🎯 Multi-Head Attention</h3>
+        <p>Multiple heads capture different types of relationships:</p>
+        <ul>
+          <li><strong>Syntactic relationships:</strong> Subject-verb agreement</li>
+          <li><strong>Semantic relationships:</strong> Word meanings</li>
+          <li><strong>Positional relationships:</strong> Nearby vs distant words</li>
+          <li><strong>Different abstraction levels:</strong> Various linguistic patterns</li>
+        </ul>
+
+        <div class="math-example">
+          $$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \text{head}_2, ..., \text{head}_h)W^O$$
+          $$\text{where } \text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
+        </div>
+
+        <div class="quiz-question" id="transformer-quiz" style="display: none;">
+          <h4>🧠 Quick Quiz: Transformer Architecture</h4>
+          <p>What is the main advantage of the self-attention mechanism over RNNs?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="selectOption(this, 'parallel')">A. Parallel processing</div>
+            <div class="quiz-option" onclick="selectOption(this, 'memory')">B. Better memory usage</div>
+            <div class="quiz-option" onclick="selectOption(this, 'speed')">C. Faster computation</div>
+            <div class="quiz-option" onclick="selectOption(this, 'accuracy')">D. Higher accuracy</div>
+          </div>
+          <div class="action-buttons">
+            <button class="action-btn primary" onclick="checkAnswer('transformer-quiz', 'parallel')">Check Answer</button>
+            <button class="action-btn" onclick="showExplanation('transformer-quiz')">Show Explanation</button>
+          </div>
+        </div>
+
+        <h3>📍 Positional Encoding</h3>
+        <p><strong>The Problem:</strong> Transformers process all positions simultaneously → no inherent sequence understanding</p>
+        
+        <p><strong>Sinusoidal Encoding (Original Transformer):</strong></p>
+        <div class="math-example">
+          $$\text{PE}(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$$
+          $$\text{PE}(pos, 2i+1) = \cos(pos / 10000^{2i/d_{model}})$$
+        </div>
+
+        <div class="tooltip">
+          <span style="color: var(--accent-color); cursor: help;">💡 Why sinusoidal encoding?</span>
+          <span class="tooltiptext">Sinusoidal encoding allows the model to learn relative positions and generalize to longer sequences than seen during training.</span>
+        </div>
+
+        <h3>🏗️ Transformer Variants</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Architecture</th>
+              <th>Use Cases</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Encoder-Only</strong></td>
+              <td>Bidirectional attention</td>
+              <td>Classification, NER, QA</td>
+              <td>BERT, RoBERTa</td>
+            </tr>
+            <tr>
+              <td><strong>Decoder-Only</strong></td>
+              <td>Causal attention (triangular mask)</td>
+              <td>Text generation, completion</td>
+              <td>GPT-3, GPT-4, LLaMA</td>
+            </tr>
+            <tr>
+              <td><strong>Encoder-Decoder</strong></td>
+              <td>Separate encoding/decoding</td>
+              <td>Translation, summarization</td>
+              <td>T5, BART, mT5</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>📊 Scaling Laws & Model Sizes</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Parameters</th>
+              <th>Layers</th>
+              <th>Hidden Size</th>
+              <th>Attention Heads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BERT-base</td>
+              <td>110M</td>
+              <td>12</td>
+              <td>768</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>BERT-large</td>
+              <td>340M</td>
+              <td>24</td>
+              <td>1024</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <td>GPT-3</td>
+              <td>175B</td>
+              <td>96</td>
+              <td>12288</td>
+              <td>96</td>
+            </tr>
+            <tr>
+              <td>GPT-4</td>
+              <td>~1.7T</td>
+              <td>~120</td>
+              <td>~18432</td>
+              <td>~128</td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
-
-      <p><strong>Intuitive Understanding:</strong> Think of attention as a soft database lookup:</p>
-      <ul>
-        <li><strong>Query (Q):</strong> "What am I looking for?" - represents the current position/token</li>
-        <li><strong>Key (K):</strong> "What information is available?" - all positions in the sequence</li>
-        <li><strong>Value (V):</strong> "What is the actual information?" - the content to be retrieved</li>
-        <li><strong>√d_k scaling:</strong> Prevents softmax saturation in high dimensions</li>
-      </ul>
-
-      <h3>🎯 Multi-Head Attention</h3>
-      <p>Multiple heads capture different types of relationships:</p>
-      <ul>
-        <li><strong>Syntactic relationships:</strong> Subject-verb agreement</li>
-        <li><strong>Semantic relationships:</strong> Word meanings</li>
-        <li><strong>Positional relationships:</strong> Nearby vs distant words</li>
-        <li><strong>Different abstraction levels:</strong> Various linguistic patterns</li>
-      </ul>
-
-      <div class="math-example">
-        $$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \text{head}_2, ..., \text{head}_h)W^O$$
-        $$\text{where } \text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
-      </div>
-
-      <h3>📍 Positional Encoding</h3>
-      <p><strong>The Problem:</strong> Transformers process all positions simultaneously → no inherent sequence understanding</p>
-      
-      <p><strong>Sinusoidal Encoding (Original Transformer):</strong></p>
-      <div class="math-example">
-        $$\text{PE}(pos, 2i) = \sin(pos / 10000^{2i/d_{model}})$$
-        $$\text{PE}(pos, 2i+1) = \cos(pos / 10000^{2i/d_{model}})$$
-      </div>
-
-      <h3>🏗️ Transformer Variants</h3>
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Architecture</th>
-            <th>Use Cases</th>
-            <th>Examples</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Encoder-Only</strong></td>
-            <td>Bidirectional attention</td>
-            <td>Classification, NER, QA</td>
-            <td>BERT, RoBERTa</td>
-          </tr>
-          <tr>
-            <td><strong>Decoder-Only</strong></td>
-            <td>Causal attention (triangular mask)</td>
-            <td>Text generation, completion</td>
-            <td>GPT-3, GPT-4, LLaMA</td>
-          </tr>
-          <tr>
-            <td><strong>Encoder-Decoder</strong></td>
-            <td>Separate encoding/decoding</td>
-            <td>Translation, summarization</td>
-            <td>T5, BART, mT5</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>📊 Scaling Laws & Model Sizes</h3>
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>Parameters</th>
-            <th>Layers</th>
-            <th>Hidden Size</th>
-            <th>Attention Heads</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>BERT-base</td>
-            <td>110M</td>
-            <td>12</td>
-            <td>768</td>
-            <td>12</td>
-          </tr>
-          <tr>
-            <td>BERT-large</td>
-            <td>340M</td>
-            <td>24</td>
-            <td>1024</td>
-            <td>16</td>
-          </tr>
-          <tr>
-            <td>GPT-3</td>
-            <td>175B</td>
-            <td>96</td>
-            <td>12288</td>
-            <td>96</td>
-          </tr>
-          <tr>
-            <td>GPT-4</td>
-            <td>~1.7T</td>
-            <td>~120</td>
-            <td>~18432</td>
-            <td>~128</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
     <!-- Large Language Models -->
-    <div id="llms" class="slide">
-      <h2>🧠 Large Language Models (LLMs)</h2>
-      
-      <div class="key-point">
-        <strong>Definition:</strong> Neural networks trained on massive text corpora to understand and generate human language.
+    <div id="llms" class="slide fade-in">
+      <div class="slide-header" onclick="toggleSlide(this)">
+        <h2>🧠 Large Language Models (LLMs)</h2>
+        <button class="slide-toggle">▼</button>
       </div>
+      <div class="slide-content">
+        
+        <div class="key-point">
+          <strong>Definition:</strong> Neural networks trained on massive text corpora to understand and generate human language.
+        </div>
 
-      <h3>🎯 Training Objectives</h3>
-      <ul>
-        <li><strong>Language Modeling:</strong> Predict next token given previous tokens</li>
-        <li><strong>Masked Language Modeling:</strong> Predict masked tokens in context</li>
-        <li><strong>Span Corruption:</strong> Predict corrupted spans of text</li>
-      </ul>
+        <div class="action-buttons">
+          <button class="action-btn primary" onclick="markCompleted('llms')">✅ Mark Complete</button>
+          <button class="action-btn" onclick="takeQuiz('llms')">🧠 Take Quiz</button>
+          <button class="action-btn" onclick="showDetails('llms')">📖 Show Details</button>
+        </div>
 
-      <h3>🔧 Key Components</h3>
-      <ul>
-        <li><strong>Tokenization:</strong> Convert text to subword units (BPE, SentencePiece)</li>
-        <li><strong>Embeddings:</strong> Learn dense vector representations</li>
-        <li><strong>Attention Layers:</strong> Capture contextual relationships</li>
-        <li><strong>Feed-Forward Networks:</strong> Process information</li>
-        <li><strong>Layer Normalization:</strong> Stabilize training</li>
-      </ul>
+        <h3>🎯 Training Objectives</h3>
+        <ul>
+          <li><strong>Language Modeling:</strong> Predict next token given previous tokens</li>
+          <li><strong>Masked Language Modeling:</strong> Predict masked tokens in context</li>
+          <li><strong>Span Corruption:</strong> Predict corrupted spans of text</li>
+        </ul>
 
-      <h3>📈 Scaling Laws</h3>
-      <p><strong>Chinchilla Scaling Laws:</strong></p>
-      <div class="math-example">
-        $$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
-        <p>where N = number of parameters, D = dataset size</p>
+        <h3>🔧 Key Components</h3>
+        <ul>
+          <li><strong>Tokenization:</strong> Convert text to subword units (BPE, SentencePiece)</li>
+          <li><strong>Embeddings:</strong> Learn dense vector representations</li>
+          <li><strong>Attention Layers:</strong> Capture contextual relationships</li>
+          <li><strong>Feed-Forward Networks:</strong> Process information</li>
+          <li><strong>Layer Normalization:</strong> Stabilize training</li>
+        </ul>
+
+        <h3>📈 Scaling Laws</h3>
+        <p><strong>Chinchilla Scaling Laws:</strong></p>
+        <div class="math-example">
+          $$L(N, D) = E + \frac{A}{N^\alpha} + \frac{B}{D^\beta}$$
+          <p>where N = number of parameters, D = dataset size</p>
+        </div>
+
+        <h3>🎭 Emergent Abilities</h3>
+        <ul>
+          <li><strong>Few-shot learning:</strong> Learn from few examples</li>
+          <li><strong>Chain-of-thought reasoning:</strong> Step-by-step problem solving</li>
+          <li><strong>Code generation:</strong> Write and debug code</li>
+          <li><strong>Mathematical reasoning:</strong> Solve complex problems</li>
+          <li><strong>Multilingual capabilities:</strong> Cross-language understanding</li>
+        </ul>
+
+        <h3>⚡ Inference Optimization</h3>
+        <ul>
+          <li><strong>KV Caching:</strong> Store key-value pairs for efficiency</li>
+          <li><strong>Attention Optimization:</strong> Flash Attention, Sparse Attention</li>
+          <li><strong>Quantization:</strong> Reduce precision (INT8, INT4)</li>
+          <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs</li>
+          <li><strong>Speculative Decoding:</strong> Predict multiple tokens ahead</li>
+        </ul>
+
       </div>
-
-      <h3>🎭 Emergent Abilities</h3>
-      <ul>
-        <li><strong>Few-shot learning:</strong> Learn from few examples</li>
-        <li><strong>Chain-of-thought reasoning:</strong> Step-by-step problem solving</li>
-        <li><strong>Code generation:</strong> Write and debug code</li>
-        <li><strong>Mathematical reasoning:</strong> Solve complex problems</li>
-        <li><strong>Multilingual capabilities:</strong> Cross-language understanding</li>
-      </ul>
-
-      <h3>⚡ Inference Optimization</h3>
-      <ul>
-        <li><strong>KV Caching:</strong> Store key-value pairs for efficiency</li>
-        <li><strong>Attention Optimization:</strong> Flash Attention, Sparse Attention</li>
-        <li><strong>Quantization:</strong> Reduce precision (INT8, INT4)</li>
-        <li><strong>Model Parallelism:</strong> Distribute across multiple GPUs</li>
-        <li><strong>Speculative Decoding:</strong> Predict multiple tokens ahead</li>
-      </ul>
     </div>
 
     <!-- Diffusion Models -->
-    <div id="diffusion" class="slide">
-      <h2>🎨 Diffusion Models</h2>
-      
-      <div class="key-point">
-        <strong>Core Idea:</strong> Learn to reverse a gradual noising process to generate high-quality samples.
+    <div id="diffusion" class="slide fade-in">
+      <div class="slide-header" onclick="toggleSlide(this)">
+        <h2>🎨 Diffusion Models</h2>
+        <button class="slide-toggle">▼</button>
       </div>
+      <div class="slide-content">
+        
+        <div class="key-point">
+          <strong>Core Idea:</strong> Learn to reverse a gradual noising process to generate high-quality samples.
+        </div>
 
-      <h3>🔄 Forward Process (Noising)</h3>
-      <p>Gradually add noise to data over T timesteps:</p>
-      <div class="math-example">
-        $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)$$
+        <div class="action-buttons">
+          <button class="action-btn primary" onclick="markCompleted('diffusion')">✅ Mark Complete</button>
+          <button class="action-btn" onclick="takeQuiz('diffusion')">🧠 Take Quiz</button>
+          <button class="action-btn" onclick="showDetails('diffusion')">📖 Show Details</button>
+        </div>
+
+        <h3>🔄 Forward Process (Noising)</h3>
+        <p>Gradually add noise to data over T timesteps:</p>
+        <div class="math-example">
+          $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)$$
+        </div>
+
+        <h3>🔄 Reverse Process (Denoising)</h3>
+        <p>Learn to predict and remove noise:</p>
+        <div class="math-example">
+          $$p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))$$
+        </div>
+
+        <h3>🎯 Training Objective</h3>
+        <div class="math-example">
+          $$\mathcal{L} = \mathbb{E}_{t,x_0,\epsilon} \left[ \|\epsilon - \epsilon_\theta(x_t, t)\|^2 \right]$$
+        </div>
+
+        <h3>🚀 Advanced Techniques</h3>
+        <ul>
+          <li><strong>DDPM:</strong> Original diffusion paper</li>
+          <li><strong>DDIM:</strong> Deterministic sampling</li>
+          <li><strong>Classifier-Free Guidance:</strong> Control generation without classifier</li>
+          <li><strong>Latent Diffusion:</strong> Work in compressed latent space</li>
+          <li><strong>Stable Diffusion:</strong> Text-to-image generation</li>
+        </ul>
+
+        <h3>⚡ Sampling Strategies</h3>
+        <ul>
+          <li><strong>DDPM Sampling:</strong> Full T steps, stochastic</li>
+          <li><strong>DDIM Sampling:</strong> Fewer steps, deterministic</li>
+          <li><strong>DPM-Solver:</strong> Fast ODE-based sampling</li>
+          <li><strong>UniPC:</strong> Universal predictor-corrector</li>
+        </ul>
+
       </div>
-
-      <h3>🔄 Reverse Process (Denoising)</h3>
-      <p>Learn to predict and remove noise:</p>
-      <div class="math-example">
-        $$p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))$$
-      </div>
-
-      <h3>🎯 Training Objective</h3>
-      <div class="math-example">
-        $$\mathcal{L} = \mathbb{E}_{t,x_0,\epsilon} \left[ \|\epsilon - \epsilon_\theta(x_t, t)\|^2 \right]$$
-      </div>
-
-      <h3>🚀 Advanced Techniques</h3>
-      <ul>
-        <li><strong>DDPM:</strong> Original diffusion paper</li>
-        <li><strong>DDIM:</strong> Deterministic sampling</li>
-        <li><strong>Classifier-Free Guidance:</strong> Control generation without classifier</li>
-        <li><strong>Latent Diffusion:</strong> Work in compressed latent space</li>
-        <li><strong>Stable Diffusion:</strong> Text-to-image generation</li>
-      </ul>
-
-      <h3>⚡ Sampling Strategies</h3>
-      <ul>
-        <li><strong>DDPM Sampling:</strong> Full T steps, stochastic</li>
-        <li><strong>DDIM Sampling:</strong> Fewer steps, deterministic</li>
-        <li><strong>DPM-Solver:</strong> Fast ODE-based sampling</li>
-        <li><strong>UniPC:</strong> Universal predictor-corrector</li>
-      </ul>
     </div>
 
     <!-- Multimodal AI -->
-    <div id="multimodal" class="slide">
-      <h2>🖼️ Multimodal AI</h2>
-      
-      <div class="key-point">
-        <strong>Goal:</strong> Process and understand multiple modalities (text, image, audio, video) simultaneously.
+    <div id="multimodal" class="slide fade-in">
+      <div class="slide-header" onclick="toggleSlide(this)">
+        <h2>🖼️ Multimodal AI</h2>
+        <button class="slide-toggle">▼</button>
       </div>
+      <div class="slide-content">
+        
+        <div class="key-point">
+          <strong>Goal:</strong> Process and understand multiple modalities (text, image, audio, video) simultaneously.
+        </div>
 
-      <h3>🔗 Modality Fusion Strategies</h3>
-      <ul>
-        <li><strong>Early Fusion:</strong> Combine at input level</li>
-        <li><strong>Late Fusion:</strong> Combine at output level</li>
-        <li><strong>Cross-Attention:</strong> Attend across modalities</li>
-        <li><strong>Shared Representations:</strong> Common embedding space</li>
-      </ul>
+        <div class="action-buttons">
+          <button class="action-btn primary" onclick="markCompleted('multimodal')">✅ Mark Complete</button>
+          <button class="action-btn" onclick="takeQuiz('multimodal')">🧠 Take Quiz</button>
+          <button class="action-btn" onclick="showDetails('multimodal')">📖 Show Details</button>
+        </div>
 
-      <h3>🎯 Key Applications</h3>
-      <ul>
-        <li><strong>Vision-Language Models:</strong> CLIP, ALIGN, CoCa</li>
-        <li><strong>Text-to-Image:</strong> DALL-E, Midjourney, Stable Diffusion</li>
-        <li><strong>Image Captioning:</strong> Describe images in natural language</li>
-        <li><strong>Visual Question Answering:</strong> Answer questions about images</li>
-        <li><strong>Video Understanding:</strong> Action recognition, video captioning</li>
-      </ul>
+        <h3>🔗 Modality Fusion Strategies</h3>
+        <ul>
+          <li><strong>Early Fusion:</strong> Combine at input level</li>
+          <li><strong>Late Fusion:</strong> Combine at output level</li>
+          <li><strong>Cross-Attention:</strong> Attend across modalities</li>
+          <li><strong>Shared Representations:</strong> Common embedding space</li>
+        </ul>
 
-      <h3>🏗️ Architecture Patterns</h3>
-      <ul>
-        <li><strong>Dual-Encoder:</strong> Separate encoders + similarity learning</li>
-        <li><strong>Fusion-Encoder:</strong> Combined processing</li>
-        <li><strong>Encoder-Decoder:</strong> Generate one modality from another</li>
-        <li><strong>Transformer-Based:</strong> Cross-modal attention</li>
-      </ul>
+        <h3>🎯 Key Applications</h3>
+        <ul>
+          <li><strong>Vision-Language Models:</strong> CLIP, ALIGN, CoCa</li>
+          <li><strong>Text-to-Image:</strong> DALL-E, Midjourney, Stable Diffusion</li>
+          <li><strong>Image Captioning:</strong> Describe images in natural language</li>
+          <li><strong>Visual Question Answering:</strong> Answer questions about images</li>
+          <li><strong>Video Understanding:</strong> Action recognition, video captioning</li>
+        </ul>
 
-      <h3>📊 Evaluation Metrics</h3>
-      <ul>
-        <li><strong>Retrieval:</strong> R@K, mAP</li>
-        <li><strong>Generation:</strong> BLEU, ROUGE, CIDEr</li>
-        <li><strong>Understanding:</strong> Accuracy, F1-score</li>
-        <li><strong>Human Evaluation:</strong> Preference, quality scores</li>
-      </ul>
+        <h3>🏗️ Architecture Patterns</h3>
+        <ul>
+          <li><strong>Dual-Encoder:</strong> Separate encoders + similarity learning</li>
+          <li><strong>Fusion-Encoder:</strong> Combined processing</li>
+          <li><strong>Encoder-Decoder:</strong> Generate one modality from another</li>
+          <li><strong>Transformer-Based:</strong> Cross-modal attention</li>
+        </ul>
+
+        <h3>📊 Evaluation Metrics</h3>
+        <ul>
+          <li><strong>Retrieval:</strong> R@K, mAP</li>
+          <li><strong>Generation:</strong> BLEU, ROUGE, CIDEr</li>
+          <li><strong>Understanding:</strong> Accuracy, F1-score</li>
+          <li><strong>Human Evaluation:</strong> Preference, quality scores</li>
+        </ul>
+
+      </div>
     </div>
 
   </div>
 
   <footer>
-    &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div>
+          <h4 style="color: var(--accent-color); margin-bottom: 1rem;">📚 Continue Learning</h4>
+          <a href="code.html" style="color: var(--text-secondary); text-decoration: none; display: block; margin-bottom: 0.5rem;">💻 Code Examples</a>
+          <a href="resources.html" style="color: var(--text-secondary); text-decoration: none; display: block; margin-bottom: 0.5rem;">🌐 External Resources</a>
+          <a href="pdf.html" style="color: var(--text-secondary); text-decoration: none; display: block; margin-bottom: 0.5rem;">📄 Full PDF Guide</a>
+        </div>
+        <div>
+          <h4 style="color: var(--accent-color); margin-bottom: 1rem;">🎯 Study Tools</h4>
+          <button class="action-btn" onclick="exportProgress()" style="width: 100%; margin-bottom: 0.5rem;">📊 Export Progress</button>
+          <button class="action-btn" onclick="resetProgress()" style="width: 100%; margin-bottom: 0.5rem;">🔄 Reset Progress</button>
+          <button class="action-btn" onclick="showStats()" style="width: 100%; margin-bottom: 0.5rem;">📈 View Stats</button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+      &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    </div>
   </footer>
+
+  <script>
+    // Initialize
+    window.onload = function() {
+      // Highlight code
+      document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+      
+      // Initialize progress
+      updateProgress();
+      
+      // Set up navigation highlighting
+      setupNavigation();
+      
+      // Load saved state
+      loadSavedState();
+    };
+
+    // Toggle slide content
+    function toggleSlide(header) {
+      const content = header.nextElementSibling;
+      const toggle = header.querySelector('.slide-toggle');
+      
+      if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        toggle.classList.remove('expanded');
+      } else {
+        content.classList.add('expanded');
+        toggle.classList.add('expanded');
+      }
+      
+      // Update progress
+      updateProgress();
+    }
+
+    // Progress tracking
+    function updateProgress() {
+      const slides = document.querySelectorAll('.slide');
+      const completedSlides = document.querySelectorAll('.slide-content.expanded').length;
+      const totalSlides = slides.length;
+      const progress = Math.round((completedSlides / totalSlides) * 100);
+      
+      document.getElementById('slideProgress').style.width = progress + '%';
+      document.getElementById('progressPercent').textContent = progress + '%';
+      
+      // Save progress
+      localStorage.setItem('slideProgress', progress);
+    }
+
+    // Navigation setup
+    function setupNavigation() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSlide = document.getElementById(targetId);
+          
+          if (targetSlide) {
+            targetSlide.scrollIntoView({ behavior: 'smooth' });
+            // Expand the slide
+            const header = targetSlide.querySelector('.slide-header');
+            const content = targetSlide.querySelector('.slide-content');
+            if (!content.classList.contains('expanded')) {
+              toggleSlide(header);
+            }
+          }
+        });
+      });
+    }
+
+    // Action functions
+    function markCompleted(section) {
+      const completed = JSON.parse(localStorage.getItem('completedSections') || '[]');
+      if (!completed.includes(section)) {
+        completed.push(section);
+        localStorage.setItem('completedSections', JSON.stringify(completed));
+        alert(`✅ ${section.toUpperCase()} marked as completed!`);
+        updateProgress();
+      } else {
+        alert(`ℹ️ ${section.toUpperCase()} already completed!`);
+      }
+    }
+
+    function takeQuiz(section) {
+      const quizId = section + '-quiz';
+      const quiz = document.getElementById(quizId);
+      if (quiz) {
+        quiz.style.display = 'block';
+        quiz.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert(`Quiz for ${section} coming soon! 🧠`);
+      }
+    }
+
+    function showDetails(section) {
+      alert(`Detailed explanations for ${section} coming soon! 📖`);
+    }
+
+    function selectOption(option, value) {
+      // Remove previous selections
+      option.parentElement.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      
+      // Select current option
+      option.classList.add('selected');
+      option.dataset.value = value;
+    }
+
+    function checkAnswer(quizId, correctAnswer) {
+      const quiz = document.getElementById(quizId);
+      const selectedOption = quiz.querySelector('.quiz-option.selected');
+      
+      if (!selectedOption) {
+        alert('Please select an answer first!');
+        return;
+      }
+      
+      const selectedValue = selectedOption.dataset.value;
+      
+      if (selectedValue === correctAnswer) {
+        selectedOption.classList.add('correct');
+        alert('✅ Correct! Well done!');
+      } else {
+        selectedOption.classList.add('incorrect');
+        alert('❌ Incorrect. Try again!');
+      }
+    }
+
+    function showExplanation(quizId) {
+      alert('Detailed explanation coming soon! 📚');
+    }
+
+    function showVisualization(type) {
+      alert(`${type} visualization coming soon! 🎨`);
+    }
+
+    function playAnimation(type) {
+      alert(`${type} animation coming soon! ▶️`);
+    }
+
+    // Utility functions
+    function exportProgress() {
+      const progress = {
+        slideProgress: localStorage.getItem('slideProgress') || 0,
+        completedSections: JSON.parse(localStorage.getItem('completedSections') || '[]'),
+        timestamp: new Date().toISOString()
+      };
+      
+      const dataStr = JSON.stringify(progress, null, 2);
+      const dataBlob = new Blob([dataStr], {type: 'application/json'});
+      const url = URL.createObjectURL(dataBlob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'prepme-progress.json';
+      link.click();
+      
+      URL.revokeObjectURL(url);
+    }
+
+    function resetProgress() {
+      if (confirm('Are you sure you want to reset all progress?')) {
+        localStorage.removeItem('slideProgress');
+        localStorage.removeItem('completedSections');
+        location.reload();
+      }
+    }
+
+    function showStats() {
+      const progress = localStorage.getItem('slideProgress') || 0;
+      const completedSections = JSON.parse(localStorage.getItem('completedSections') || '[]');
+      
+      alert(`📊 Your Stats:\n\nProgress: ${progress}%\nCompleted Sections: ${completedSections.length}\nSections: ${completedSections.join(', ')}`);
+    }
+
+    function loadSavedState() {
+      // Expand previously expanded slides
+      const expandedSlides = JSON.parse(localStorage.getItem('expandedSlides') || '[]');
+      expandedSlides.forEach(slideId => {
+        const slide = document.getElementById(slideId);
+        if (slide) {
+          const header = slide.querySelector('.slide-header');
+          const content = slide.querySelector('.slide-content');
+          if (!content.classList.contains('expanded')) {
+            toggleSlide(header);
+          }
+        }
+      });
+    }
+
+    // Save expanded state
+    function saveExpandedState() {
+      const expandedSlides = [];
+      document.querySelectorAll('.slide-content.expanded').forEach(content => {
+        expandedSlides.push(content.parentElement.id);
+      });
+      localStorage.setItem('expandedSlides', JSON.stringify(expandedSlides));
+    }
+
+    // Auto-save on slide toggle
+    const originalToggleSlide = toggleSlide;
+    toggleSlide = function(header) {
+      originalToggleSlide(header);
+      saveExpandedState();
+    };
+  </script>
 </body>
 </html> 
