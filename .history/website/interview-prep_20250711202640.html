@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Preparation - PrepMe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #66dfea 0%, #c3c91d 100%);
+      --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card-bg: rgba(0,0,0,0.15);
+      --card-hover: rgba(0,0,0,0.25);
+      --accent-color: #4CAF50;
+      --text-primary: #fff;
+      --text-secondary: #e0e0e0;
+      --shadow: 0 4px 16px rgba(0,0,0,0.1);
+      --border-radius: 1rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-gradient);
+      color: var(--text-primary);
+      margin: 0;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, #fff, #4CAF50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.5)); }
+      to { filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.8)); }
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Navigation */
+    nav {
+      margin: 2rem 0;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-card {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      padding: 1.5rem 2rem;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .nav-card:hover {
+      background: var(--card-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      border-color: var(--accent-color);
+    }
+
+    /* Content */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section {
+      background: var(--card-bg);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    h2 {
+      color: var(--accent-color);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      color: #66dfea;
+      font-size: 1.5rem;
+      margin: 1.5rem 0 1rem 0;
+    }
+
+    h4 {
+      color: #c3c91d;
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    p {
+      margin: 1rem 0;
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+
+    li {
+      margin: 0.5rem 0;
+    }
+
+    strong {
+      color: var(--accent-color);
+    }
+
+    .code-block {
+      background: #1e1e1e;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .code-block pre {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .code-block code {
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: rgba(0,0,0,0.2);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    th {
+      background: rgba(76, 175, 80, 0.2);
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .interview-card {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .interview-card:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-5px);
+      border-color: var(--accent-color);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .interview-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .interview-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .interview-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .interview-topics {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .interview-topics li {
+      background: rgba(76, 175, 80, 0.1);
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      border-left: 3px solid var(--accent-color);
+      font-size: 0.9rem;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .timeline-item {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent-color);
+      position: relative;
+    }
+
+    .timeline-number {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background: var(--accent-color);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .study-plan {
+      background: rgba(0,0,0,0.2);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .study-day {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      background: rgba(255,255,255,0.05);
+      border-radius: 0.5rem;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .day-number {
+      background: var(--accent-color);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      text-align: left;
+    }
+
+    .footer-section h4 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .footer-section a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--text-primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .nav-card { min-width: 150px; padding: 1rem; }
+      .content { padding: 1rem; }
+      .section { padding: 1rem; }
+      .interview-grid { grid-template-columns: 1fr; }
+      .study-day { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Interview Preparation</h1>
+      <p class="subtitle">Master the art of technical interviews and behavioral questions</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-card">
+      <h3>🏠 Home</h3>
+      <p>Back to main page</p>
+    </a>
+    <a href="core-concepts.html" class="nav-card">
+      <h3>🎯 Core Concepts</h3>
+      <p>Fundamental AI concepts</p>
+    </a>
+    <a href="research.html" class="nav-card">
+      <h3>🔬 Research</h3>
+      <p>Research methodology</p>
+    </a>
+    <a href="code.html" class="nav-card">
+      <h3>💻 Code Examples</h3>
+      <p>Implementation examples</p>
+    </a>
+  </nav>
+
+  <div class="content">
+    <!-- Interview Overview -->
+    <div class="section">
+      <h2>🎯 Interview Preparation Overview</h2>
+      <p>This section provides comprehensive preparation materials for technical interviews, with a special focus on Amazon Applied Scientist positions and other top-tier AI/ML roles.</p>
+      
+      <div class="interview-grid">
+        <a href="#amazon-guide" class="interview-card">
+          <span class="interview-icon">🛒</span>
+          <div class="interview-title">Amazon Applied Scientist</div>
+          <div class="interview-description">Complete guide for Amazon's rigorous interview process</div>
+          <ul class="interview-topics">
+            <li>Leadership Principles (LPs)</li>
+            <li>ML System Design</li>
+            <li>Coding Challenges</li>
+            <li>Behavioral Questions</li>
+            <li>14-Day Study Plan</li>
+          </ul>
+        </a>
+
+        <a href="#technical-questions" class="interview-card">
+          <span class="interview-icon">🧠</span>
+          <div class="interview-title">Technical Questions</div>
+          <div class="interview-description">Deep dive into ML fundamentals and algorithms</div>
+          <ul class="interview-topics">
+            <li>ML Fundamentals</li>
+            <li>Deep Learning</li>
+            <li>System Design</li>
+            <li>Optimization</li>
+            <li>Evaluation Metrics</li>
+          </ul>
+        </a>
+
+        <a href="#coding-challenges" class="interview-card">
+          <span class="interview-icon">💻</span>
+          <div class="interview-title">Coding Challenges</div>
+          <div class="interview-description">Hands-on coding problems and solutions</div>
+          <ul class="interview-topics">
+            <li>Data Structures</li>
+            <li>Algorithms</li>
+            <li>ML Implementation</li>
+            <li>Optimization</li>
+            <li>Best Practices</li>
+          </ul>
+        </a>
+
+        <a href="#behavioral-questions" class="interview-card">
+          <span class="interview-icon">👥</span>
+          <div class="interview-title">Behavioral Questions</div>
+          <div class="interview-description">STAR method and leadership principles</div>
+          <ul class="interview-topics">
+            <li>STAR Method</li>
+            <li>Leadership Stories</li>
+            <li>Conflict Resolution</li>
+            <li>Project Management</li>
+            <li>Team Collaboration</li>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <!-- Amazon Applied Scientist Guide -->
+    <div id="amazon-guide" class="section">
+      <h2>🛒 Amazon Applied Scientist On-Site Interview Guide</h2>
+      
+      <h3>Executive Summary</h3>
+      <p>Amazon's Applied Scientist loop blends rigorous machine-learning system design, practical coding drills, and deep alignment with the company's 16 Leadership Principles (LPs). Expect five one-hour sessions—two coding, one or two ML system-design/technical depth, and one or two LP-heavy rounds that interleave behavioral and technical probes.</p>
+
+      <h3>Interview Loop Anatomy</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Typical Focus</th>
+            <th>Success Signals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Coding #1</strong></td>
+            <td>Classic DS&A plus clean Python</td>
+            <td>O(1) space, clear narration, edge-cases covered</td>
+          </tr>
+          <tr>
+            <td><strong>Coding #2 (ML coding)</strong></td>
+            <td>Implement an optimizer, loss, or small model from scratch</td>
+            <td>Correct math, unit-tested code, time-boxed < 25 min</td>
+          </tr>
+          <tr>
+            <td><strong>ML System Design / Depth</strong></td>
+            <td>End-to-end design for prod-scale model</td>
+            <td>Clear KPI framing, multiple candidate architectures, monitoring plan</td>
+          </tr>
+          <tr>
+            <td><strong>Research / ML Breadth</strong></td>
+            <td>Rapid-fire fundamentals + practical trade-offs</td>
+            <td>Concise derivations, knowing when to apply which model</td>
+          </tr>
+          <tr>
+            <td><strong>Bar-Raiser (LP focus)</strong></td>
+            <td>Aggressive LP probing woven into tech discussion</td>
+            <td>Quantified impact, reflection, learnings</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Leadership Principles Cheat-Sheet</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>LP</th>
+            <th>STAR Hook</th>
+            <th>Metric</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Customer Obsession</strong></td>
+            <td>Detected silent data-drift that inflated false positives; shipped hot-fix in 4h</td>
+            <td>−20% FP, +$1.2M revenue protect</td>
+          </tr>
+          <tr>
+            <td><strong>Invent & Simplify</strong></td>
+            <td>Re-engineered rules engine into single GNN micro-service</td>
+            <td>10× latency cut</td>
+          </tr>
+          <tr>
+            <td><strong>Dive Deep</strong></td>
+            <td>Latency spike traced to cold start in SageMaker; implemented warm pool</td>
+            <td>55ms → 22ms p95</td>
+          </tr>
+          <tr>
+            <td><strong>Are Right, A Lot</strong></td>
+            <td>Predicted recall drop due to holiday skew; A/B confirmed</td>
+            <td>+8pp recall</td>
+          </tr>
+          <tr>
+            <td><strong>Insist on High Standards</strong></td>
+            <td>Re-wrote feature pipeline tests; 0 failed deploys in Q4</td>
+            <td>15 → 0 regression bugs</td>
+          </tr>
+          <tr>
+            <td><strong>Earn Trust</strong></td>
+            <td>Published explanation dashboard for Risk team</td>
+            <td>NPS ↑ +28</td>
+          </tr>
+          <tr>
+            <td><strong>Learn & Be Curious</strong></td>
+            <td>Completed AWS Certified MLOps in 6 weeks</td>
+            <td>new infra PoC</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ML Coding Solutions -->
+    <div class="section">
+      <h2>💻 ML Coding Solutions</h2>
+      
+      <h3>Linear Regression (Batch GD, PyTorch autograd allowed)</h3>
+      <div class="code-block">
+        <pre><code class="language-python"># ===== Batch Gradient Descent Linear Regression =====
+# Goal: learn weight vector w that minimises MSE ‖Xw − y‖²
+# Key interview checks:
+#   • Can you derive the gradient?  ∇ = 2 Xᵀ(Xw − y) / N
+#   • Why not use closed-form?  (XᵀX)⁻¹ is numerically unstable for ill-conditioned X.
+#   • How do you pick learning-rate?  Try lr=1e-2 → diverges if features un-standardised.
+
+import torch
+import torch.optim as optim
+
+torch.manual_seed(0)            # reproducibility – interviewers love this!
+N, d = 1_000, 5                 # N samples, d features
+X = torch.randn(N, d)           # design matrix 𝑿
+true_w = torch.randn(d, 1)      # ground-truth weights
+
+# Generate labels:  y = X·w*  + Gaussian noise ε~𝒩(0,0.1)
+y = X @ true_w + 0.1 * torch.randn(N, 1)
+
+# Initialise learnable weights with gradient tracking
+a = torch.zeros(d, 1, requires_grad=True)
+
+opt = optim.SGD([a], lr=1e-2)   # SGD is fine for small data; Adam more robust on noisy grads
+
+for epoch in range(200):        # fixed epoch budget gives deterministic runtime
+    opt.zero_grad()             # 1. clear old gradients ← *easy to forget!*
+    y_hat = X @ a               # 2. forward pass
+    loss = torch.mean((y_hat - y)**2)  # 3. compute MSE
+    loss.backward()             # 4. populate a.grad via autograd DAG
+    opt.step()                  # 5. gradient descent update
+
+# At convergence ‖a − true_w‖∞ ≈ 0.05 → sanity check.</code></pre>
+      </div>
+
+      <h3>Logistic Regression (+ L2)</h3>
+      <div class="code-block">
+        <pre><code class="language-python"># ===== Logistic Regression with L2 Regularisation =====
+# Binary classification:  p(y=1|x) = σ(x·w + b)
+# Gotchas:
+#   • For severe class-imbalance, switch to focal-loss or weight positive class.
+#   • torch.sigmoid overflows for |x|>88 → safe for float32 magnitude.
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+class Logistic(nn.Module):
+    def __init__(self, d: int):
+        super().__init__()
+        # initialise near-zero weights; random init would break symmetry irrelevantly here
+        self.w = nn.Parameter(torch.zeros(d, 1))
+        self.b = nn.Parameter(torch.zeros(1))
+
+    def forward(self, X: torch.Tensor) -> torch.Tensor:
+        logits = X @ self.w + self.b
+        return torch.sigmoid(logits)
+
+def train_lr(X: torch.Tensor, y: torch.Tensor, lam: float = 1e-2,
+             lr: float = 1e-2, epochs: int = 300) -> Logistic:
+    """lam – L2 penalty; lr – learning rate. y must be float 0/1 of shape (N,1)."""
+    model = Logistic(X.size(1))
+    opt   = optim.Adam(model.parameters(), lr=lr)  # Adam tackles poorly scaled features
+    for epoch in range(epochs):
+        opt.zero_grad()
+        probs = model(X)
+        ce_loss = nn.functional.binary_cross_entropy(probs, y)
+        l2_pen  = lam * (model.w ** 2).sum()
+        loss = ce_loss + l2_pen
+        loss.backward()
+        opt.step()
+    return model</code></pre>
+      </div>
+
+      <h3>k-Nearest Neighbors</h3>
+      <div class="code-block">
+        <pre><code class="language-python"># ===== Brute-force k-Nearest Neighbour (classification) =====
+# Complexity:
+#   Train  – O(1) (store dataset)
+#   Query  – O(N·d) per point → poor scalability.  Use FAISS/HNSW for ANN.
+# Edge cases:
+#   • Tie-breaking: choose smallest distance or lower label id.
+#   • Missing values: impute or distance masking.
+
+import torch
+
+def knn_predict(X_train: torch.Tensor,           # shape (N, d)
+                y_train: torch.Tensor,           # shape (N,)
+                x_query: torch.Tensor,           # shape (d,)
+                k: int = 5) -> int:
+    """Return majority label among k nearest Euclidean neighbours."""
+    # 1. Squared distance (no sqrt) – monotonic for ranking
+    dists2 = ((X_train - x_query) ** 2).sum(dim=1)
+
+    # 2. Indices of k smallest distances; topk with largest=False is efficient
+    knn_idx = torch.topk(dists2, k, largest=False).indices
+
+    # 3. Mode of labels (classification). For regression: y_train[knn_idx].mean()
+    return torch.mode(y_train[knn_idx]).values.item()</code></pre>
+      </div>
+    </div>
+
+    <!-- System Design Templates -->
+    <div class="section">
+      <h2>🏗️ System Design Templates</h2>
+      
+      <h3>Fraud Detection (Real-Time)</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-number">1</div>
+          <h4>Problem & KPI</h4>
+          <p>Optimise <em>cost = FP × $OPEX + FN × chargebacks</em>.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">2</div>
+          <h4>Data Ingestion</h4>
+          <p>Kinesis stream → AWS Feature Store (online) + S3 (offline).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">3</div>
+          <h4>Feature Groups</h4>
+          <p>Transaction, user behaviour, device/IP risk, merchant profile.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">4</div>
+          <h4>Model Options</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Pros</th>
+                <th>Cons</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>XGBoost</td>
+                <td>tabular, low-latency</td>
+                <td>limited temporal context</td>
+              </tr>
+              <tr>
+                <td>Deep Sets</td>
+                <td>order-invariant cart features</td>
+                <td>heavier infra</td>
+              </tr>
+              <tr>
+                <td>GNN (user-txn graph)</td>
+                <td>collusion rings</td>
+                <td>cold-start</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">5</div>
+          <h4>Serving</h4>
+          <p>SageMaker real-time endpoint p95 < 50 ms, proven by Rad AI and Cisco case studies.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">6</div>
+          <h4>Monitoring</h4>
+          <p>KS-stat data drift, population stability index, Shadow mode.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">7</div>
+          <h4>Retraining</h4>
+          <p>Nightly incremental; champion/challenger gating.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-number">8</div>
+          <h4>Privacy</h4>
+          <p>Optional federated learning via Flower on SageMaker.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14-Day Study Plan -->
+    <div class="section">
+      <h2>📅 14-Day Power Study Plan</h2>
+      <div class="study-plan">
+        <div class="study-day">
+          <div class="day-number">1</div>
+          <div>
+            <strong>AM:</strong> Mock system design (fraud)
+            <br><strong>PM:</strong> Review LP STARs
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">2</div>
+          <div>
+            <strong>AM:</strong> Code: linear + logistic timed
+            <br><strong>PM:</strong> ML breadth quiz
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">3</div>
+          <div>
+            <strong>AM:</strong> Second system design (CV)
+            <br><strong>PM:</strong> Implement KNN + benchmark
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">4</div>
+          <div>
+            <strong>AM:</strong> Review decision trees, kernels
+            <br><strong>PM:</strong> Build NN with dropout
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">5</div>
+          <div>
+            <strong>AM:</strong> End-to-end SageMaker lab
+            <br><strong>PM:</strong> Watch Rad AI latency talk
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">6</div>
+          <div>
+            <strong>AM:</strong> Mock full loop (record)
+            <br><strong>PM:</strong> Retrospective improvements
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">7</div>
+          <div>
+            <strong>REST</strong> — light flash cards
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">8</div>
+          <div>
+            <strong>AM:</strong> Bar-raiser style peer interview
+            <br><strong>PM:</strong> Precision-Recall threshold tuning
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">9</div>
+          <div>
+            <strong>AM:</strong> Live-coding drills (leetcode-style)
+            <br><strong>PM:</strong> Re-write bug-free quickly
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">10</div>
+          <div>
+            <strong>AM:</strong> CV or NLP domain deep-dive
+            <br><strong>PM:</strong> Update STAR metrics
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">11</div>
+          <div>
+            <strong>AM:</strong> Dry-run presentation of research
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">12</div>
+          <div>
+            <strong>AM:</strong> Second mock loop
+            <br><strong>PM:</strong> Sleep hygiene
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">13</div>
+          <div>
+            <strong>AM:</strong> Travel/logistics
+            <br><strong>PM:</strong> Skim notes
+          </div>
+        </div>
+        <div class="study-day">
+          <div class="day-number">14</div>
+          <div>
+            <strong>On-site — execute</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ML Breadth Flash Cards -->
+    <div class="section">
+      <h2>🧠 ML Breadth Flash Cards</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>20-second Whiteboard Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Parameters of a depth-1 decision tree on two features (x₁,x₂)</strong></td>
+            <td>Internal node stores (feature, threshold); two leaves store predictions. Total learnable params = 1 threshold + 2 leaf values</td>
+          </tr>
+          <tr>
+            <td><strong>Parameter vector for logistic regression (2-D)</strong></td>
+            <td>θ ∈ ℝ³: [bias, w₁, w₂]. Decision boundary w₁x₁ + w₂x₂ + bias = 0.</td>
+          </tr>
+          <tr>
+            <td><strong>Adapting logistic regression to quadratic separation</strong></td>
+            <td>Expand features: [1, x₁, x₂, x₁², x₂², x₁x₂] or apply polynomial kernel; train standard LR on mapped space</td>
+          </tr>
+          <tr>
+            <td><strong>Precision vs Recall</strong></td>
+            <td>Precision = TP/(TP+FP) prioritises false-positive cost; Recall = TP/(TP+FN) prioritises false-negatives</td>
+          </tr>
+          <tr>
+            <td><strong>F1-score rationale</strong></td>
+            <td>Harmonic mean balances precision/recall; useful when uneven class distribution</td>
+          </tr>
+          <tr>
+            <td><strong>Why ReLU over tanh?</strong></td>
+            <td>Non-saturating for positive z, sparse activations, mitigates vanishing gradient</td>
+          </tr>
+          <tr>
+            <td><strong>k-NN Pros/Cons</strong></td>
+            <td>+ No training, interpretable; – slow at inference, curse of dimensionality</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Final Reminders -->
+    <div class="section">
+      <h2>🎯 Final Reminders</h2>
+      <ol>
+        <li><strong>Tie every technical decision to a customer metric.</strong></li>
+        <li><strong>Narrate trade-offs out loud.</strong></li>
+        <li><strong>Lead with Amazon LP language.</strong></li>
+      </ol>
+      <p>You now have both theory and code at your fingertips—time to practise until every section flows in under 15 minutes.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>📚 Core Concepts</h4>
+        <a href="core-concepts.html">Core Concepts Overview</a>
+        <a href="transformer-architecture.html">Transformer Architecture</a>
+        <a href="large-language-models.html">Large Language Models</a>
+        <a href="diffusion-models.html">Diffusion Models</a>
+      </div>
+      <div class="footer-section">
+        <h4>🔬 Research & Implementation</h4>
+        <a href="research.html">Research Methodology</a>
+        <a href="code.html">Code Examples</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div class="footer-section">
+        <h4>☁️ AWS Production</h4>
+        <a href="slides.html">AWS Services</a>
+        <a href="resources.html">Production ML</a>
+      </div>
+      <div class="footer-section">
+        <h4>📞 Support</h4>
+        <a href="index.html">Home</a>
+        <a href="resources.html">Resources</a>
+      </div>
+    </div>
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+      &copy; 2024 PrepMe | Generative AI & Applied Science Interview Prep
+    </div>
+  </footer>
+
+  <script>
+    // Initialize
+    window.onload = function() {
+      // Highlight code
+      document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+    };
+  </script>
+</body>
+</html> 
